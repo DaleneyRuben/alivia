@@ -1,0 +1,3 @@
+# Concierge account creation, self-serve setup
+
+There's no public "sign up as a doctor" form in v1 — the founder creates a bare account (just the Doctor's name) for each personal contact and gives them access, so who gets listed stays gatekept. From there, the Doctor themselves completes an in-app Onboarding flow to fill in everything else: profile, Locations, Schedule blocks, Slot duration and capacity. The founder isn't transcribing each doctor's schedule by hand — they're just handing out access. A fully public self-serve signup flow (anyone can request an account) is deferred until the platform is recruiting doctors outside the founder's personal network.

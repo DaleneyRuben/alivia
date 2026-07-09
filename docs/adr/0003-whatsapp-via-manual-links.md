@@ -1,0 +1,3 @@
+# WhatsApp notifications via manual wa.me links, not the Business API
+
+Confirmations and reminders go to patients over WhatsApp, since that's the dominant channel in Bolivia and more reliable than in-app notifications patients may never see. Rather than integrating the WhatsApp Business API (per-message cost, Meta business verification, a BSP like Twilio), the app generates a pre-filled `wa.me` link that the Doctor/Secretary taps to send manually. This trades full automation for zero cost and zero setup overhead, appropriate while message volume is low. Revisit the paid API once volume justifies the cost.

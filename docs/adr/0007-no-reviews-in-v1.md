@@ -1,0 +1,3 @@
+# No patient reviews or ratings in v1
+
+Competitors (Doctorpolis, DoctorPlace) lead with reviews as a trust signal, but the Doctor — not the patient — is the paying customer here (monthly Subscription). A negative public review could directly cost a subscribing doctor, which is a risk not worth taking while the platform depends on keeping its first, personally-recruited cohort of doctors happy. Reviews aren't required for the core loop (find doctor, book appointment) and add moderation overhead. Revisit once there are enough doctors per specialty that patients need a way to differentiate between similar options.

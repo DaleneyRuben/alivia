@@ -1,0 +1,3 @@
+# Search ranks by availability, not location
+
+Patients search by specialty only; results are ordered by soonest open Appointment slot, with no zone/location filter. Every competing directory (Doctoralia, Doctorpolis, DoctorPlace) leads with location, and La Paz's geography/traffic makes proximity a real practical concern — so this is a deliberate bet, not an oversight: for a scarce, in-demand resource like a doctor, getting an appointment fast matters more than convenience of location. A Doctor's Location is still recorded and shown on their profile for logistics (where to actually go), it just isn't a search filter.
