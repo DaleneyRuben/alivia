@@ -1,5 +1,13 @@
 # Alivia
 
-## Commits
+@CONTEXT.md
 
-Every commit in this project must be made using the `/commit` skill — never run `git commit` directly. No project-specific overrides `/commit` skill
+---
+
+## Design
+
+Check `./design` before implementing any UI — it is the source of truth for colors, sizes, and font sizes. If there's a discrepancy between the design and the domain docs, ask before proceeding.
+
+---
+
+@.claude/skills/project-standards/SKILL.md
