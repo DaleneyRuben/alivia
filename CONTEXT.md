@@ -45,6 +45,10 @@ A record of a single visit's diagnóstico and treatment, added to a Patient's Me
 
 **Secretary**:
 A role, distinct from the Doctor, that can manage the Doctor's Schedule, Vacation, and Appointments on their behalf — including entering Appointments for patients who called or walked in outside the platform, and confirming tomorrow's Appointments with patients. Linked to exactly one Doctor — not shared across multiple Doctors, even at a shared office. Can manage day-to-day operations (Schedule within existing Locations, Vacation, Appointments, Confirmations) but not sensitive/structural changes — adding or removing Locations, editing the Doctor's profile, anything account/Subscription-level, or a Patient's Medical History stays Doctor-only.
+Created by the founder via the Admin view, the same concierge pattern as the Doctor account itself (see [0005](docs/adr/0005-concierge-doctor-onboarding.md)) — not self-serve invited by the Doctor. The founder typically provisions both accounts together when onboarding a practice (e.g. "Consultorio Zabala" gets a Doctor login and a Secretary login at the same time).
+
+**Admin**:
+The founder's own view of the platform, distinct from the Doctor/Secretary panel — a roster of every onboarded practice (Doctor + optional Secretary account) used to provision new accounts and see who's on the platform. Not a role a Doctor or Secretary ever has access to. Beyond provisioning, the founder can deactivate a practice's accounts, reset a Doctor/Secretary's password, and impersonate a Doctor or Secretary (log in as them, e.g. to help with a support request). Also surfaces platform health: business metrics (practices onboarded, Appointments booked) and technical status (database, deployment).
 
 **Confirmation**:
 The day-before check where the Doctor or Secretary contacts a Patient (via WhatsApp) to verify an Appointment will be attended. Tracked per Appointment; not automated in v1 — a human sends the message. If the patient can't make it, the Secretary cancels the Appointment during this call, freeing the slot for other patients.
