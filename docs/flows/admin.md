@@ -13,7 +13,7 @@ flowchart TD
     R["Roster — every onboarded practice"] --> Search["Search by doctor / practice name"]
     Search --> Cards["Practice cards: practice, doctor + specialty, Con/Sin secretaria, Activa/Inactiva"]
     Cards -->|"click a practice"| Detail["Practice detail"]
-    R -->|"+ Crear consulta"| Create["Create practice"]
+    R -->|"+ Crear consultorio"| Create["Create practice"]
 ```
 
 Each row shows a status dot (green = active / terracotta = inactive) and whether a
@@ -26,7 +26,7 @@ afterwards ([ADR-0005](../adr/0005-concierge-doctor-onboarding.md)).
 
 ```mermaid
 flowchart TD
-    C["Create practice (Crear consulta)"] --> Doc["Doctor account: name, specialty, email"]
+    C["Create practice (Crear consultorio)"] --> Doc["Doctor account: name, specialty, email"]
     Doc --> SecQ{"Add a Secretary account? (optional toggle)"}
     SecQ -->|"yes"| SF["Secretary account: name, email"]
     SecQ -->|"no"| Skip[" "]
