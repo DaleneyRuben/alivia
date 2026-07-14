@@ -1,11 +1,11 @@
-# Doctor/Secretary panel — flows
+# Doctor/Assistant panel — flows
 
-The login-gated surface shared by Doctors and their Secretaries. Both roles use the
-same shell, but a **Secretary has a structurally shorter navigation** and cannot reach
+The login-gated surface shared by Doctors and their Assistants. Both roles use the
+same shell, but a **Assistant has a structurally shorter navigation** and cannot reach
 Locations, the Doctor's Account/Subscription, or Medical History
-(`CONTEXT.md`: Secretary). Accounts are founder-provisioned
+(`CONTEXT.md`: Assistant). Accounts are founder-provisioned
 ([ADR-0005](../adr/0005-concierge-doctor-onboarding.md),
-[ADR-0013](../adr/0013-secretary-accounts-founder-provisioned.md)).
+[ADR-0013](../adr/0013-assistant-accounts-founder-provisioned.md)).
 
 ## 1. Login & role-based routing
 
@@ -20,7 +20,7 @@ flowchart TD
     Sub -->|"valid"| Who{"Which account?"}
     Who -->|"Doctor, first login"| Onb["Onboarding wizard"]
     Who -->|"Doctor, returning"| Appt["Appointments (Citas)"]
-    Who -->|"Secretary"| Appt
+    Who -->|"Assistant"| Appt
     Login -.->|"¿Olvidaste tu contraseña?"| Note["No self-serve reset — contacta a tu administrador"]
 ```
 
@@ -29,7 +29,7 @@ flowchart TD
 
 ## 2. Onboarding wizard (Doctor only, first login)
 
-A Secretary never sees this. The Doctor fills in everything themselves — the concierge
+An Assistant never sees this. The Doctor fills in everything themselves — the concierge
 step only created a bare, name-only account
 ([ADR-0005](../adr/0005-concierge-doctor-onboarding.md)).
 
@@ -51,9 +51,9 @@ flowchart LR
   [ADR-0009](../adr/0009-slots-have-capacity.md)).
 - **Back** is hidden on step 1. Everything is editable later from the panel.
 
-## 3. Navigation shell — Doctor vs Secretary
+## 3. Navigation shell — Doctor vs Assistant
 
-The doctor-only items are **absent from the DOM** for a Secretary (with matching route
+The doctor-only items are **absent from the DOM** for an Assistant (with matching route
 guards), not merely disabled.
 
 ```mermaid
@@ -67,7 +67,7 @@ flowchart TD
         D6["Historial"]
         D7["Cuenta"]
     end
-    subgraph secretary["Secretary nav — Ubicaciones / Historial / Cuenta absent"]
+    subgraph assistant["Assistant nav — Ubicaciones / Historial / Cuenta absent"]
         E1["Citas"]
         E2["Confirmaciones (badge = pending count)"]
         E3["Horarios"]
@@ -75,7 +75,7 @@ flowchart TD
     end
 ```
 
-> Guard: if the session becomes a Secretary while on a doctor-only screen, it redirects
+> Guard: if the session becomes an Assistant while on a doctor-only screen, it redirects
 > to Appointments.
 
 ## 4. Appointments / queue (Citas)
@@ -83,7 +83,7 @@ flowchart TD
 Filterable by Day and Location. Staff can enter Appointments for patients who booked
 off-platform, including **over a Slot's patient-facing capacity** as a deliberate
 override ([ADR-0009](../adr/0009-slots-have-capacity.md)). Available to Doctor **and**
-Secretary — a Secretary may mark attendance (`CONTEXT.md`: Secretary).
+Assistant — an Assistant may mark attendance (`CONTEXT.md`: Assistant).
 
 ```mermaid
 flowchart TD
@@ -188,7 +188,7 @@ flowchart TD
 
 > The Medical Profile + first Diagnosis Entry are captured together the first time a
 > Patient's Appointment is marked **Attended** (`CONTEXT.md`: Medical Profile). A
-> Secretary can mark Attended but can never view or edit this screen.
+> Assistant can mark Attended but can never view or edit this screen.
 
 ## 10. Account settings (Doctor only)
 
@@ -196,16 +196,16 @@ flowchart TD
 flowchart TD
     Ac["Account (Cuenta / Ajustes) — Doctor only"] --> P["Profile (editable) → Guardar cambios"]
     Ac --> Sub["Subscription (view-only): Activa + renewal date; payment handled outside the app"]
-    Ac --> Sec["Secretaries (view-only list) — founder-provisioned, no invite here"]
+    Ac --> Sec["Assistants (view-only list) — founder-provisioned, no invite here"]
 ```
 
 Subscription is record-keeping only, no in-app billing
-([ADR-0002](../adr/0002-no-in-app-payments.md)); Secretaries are created by the founder,
-not invited here ([ADR-0013](../adr/0013-secretary-accounts-founder-provisioned.md)).
+([ADR-0002](../adr/0002-no-in-app-payments.md)); Assistants are created by the founder,
+not invited here ([ADR-0013](../adr/0013-assistant-accounts-founder-provisioned.md)).
 
 ---
 
-**Sources**: `CONTEXT.md` (Doctor, Secretary, Onboarding, Schedule, Slot, Vacation,
+**Sources**: `CONTEXT.md` (Doctor, Assistant, Onboarding, Schedule, Slot, Vacation,
 Appointment, Confirmation, Medical History, Subscription); ADRs
 [0002](../adr/0002-no-in-app-payments.md),
 [0003](../adr/0003-whatsapp-via-manual-links.md),
@@ -214,5 +214,5 @@ Appointment, Confirmation, Medical History, Subscription); ADRs
 [0009](../adr/0009-slots-have-capacity.md),
 [0010](../adr/0010-medical-history-optional-in-v1.md),
 [0011](../adr/0011-medical-history-siloed-per-doctor.md),
-[0013](../adr/0013-secretary-accounts-founder-provisioned.md); prototype
+[0013](../adr/0013-assistant-accounts-founder-provisioned.md); prototype
 `design/Alivia Panel Prototype.dc.html`.

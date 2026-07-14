@@ -36,7 +36,7 @@ stateDiagram-v2
         If the Doctor has opted into Medical History,
         marking Attended records a Diagnosis Entry
         (the first Attended visit also creates the Medical Profile).
-        A Secretary may mark Attended but never sees or records history.
+        An Assistant may mark Attended but never sees or records history.
     end note
 ```
 
@@ -77,17 +77,17 @@ stateDiagram-v2
 
 Concierge account creation, then self-serve setup
 ([ADR-0005](../adr/0005-concierge-doctor-onboarding.md),
-[ADR-0013](../adr/0013-secretary-accounts-founder-provisioned.md)). There is no public
+[ADR-0013](../adr/0013-assistant-accounts-founder-provisioned.md)). There is no public
 doctor signup in v1.
 
 ```mermaid
 flowchart TD
     F["Founder creates bare accounts in Admin"] --> DAcc["Doctor account (name only)"]
-    F --> SAcc["Secretary account (optional)"]
+    F --> SAcc["Assistant account (optional)"]
     DAcc --> DLogin["Doctor first login"]
     DLogin --> Onb["Onboarding wizard: Profile, Locations, Schedule blocks"]
     Onb --> Active["Active practice — Doctor appears in patient search"]
-    SAcc --> SLogin["Secretary login → Panel (no onboarding)"]
+    SAcc --> SLogin["Assistant login → Panel (no onboarding)"]
     Active -.->|"Admin, any time later"| Ops["Deactivate · reset password · impersonate"]
 ```
 
@@ -109,19 +109,19 @@ stateDiagram-v2
 
     note right of HasHistory
         Siloed per Doctor–Patient pair: invisible to other Doctors and to
-        Secretaries. The only exception is founder Admin impersonation (ADR-0014).
+        Assistants. The only exception is founder Admin impersonation (ADR-0014).
     end note
 ```
 
 ---
 
 **Sources**: `CONTEXT.md` (Slot, Appointment, Confirmation, Vacation, Onboarding,
-Medical History, Medical Profile, Diagnosis Entry, Secretary, Admin); ADRs
+Medical History, Medical Profile, Diagnosis Entry, Assistant, Admin); ADRs
 [0003](../adr/0003-whatsapp-via-manual-links.md),
 [0004](../adr/0004-schedule-per-location.md),
 [0005](../adr/0005-concierge-doctor-onboarding.md),
 [0009](../adr/0009-slots-have-capacity.md),
 [0010](../adr/0010-medical-history-optional-in-v1.md),
 [0011](../adr/0011-medical-history-siloed-per-doctor.md),
-[0013](../adr/0013-secretary-accounts-founder-provisioned.md),
+[0013](../adr/0013-assistant-accounts-founder-provisioned.md),
 [0014](../adr/0014-admin-impersonation-full-access.md).

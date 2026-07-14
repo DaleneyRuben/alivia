@@ -9,7 +9,7 @@ language), the ADRs under `docs/adr/`, and the two design prototypes under `desi
 | Doc | Covers |
 |---|---|
 | [`patient-site.md`](patient-site.md) | Public patient site (no login): search → profile → booking → confirmation → cancel, plus availability ranking and Slot states. |
-| [`doctor-secretary-panel.md`](doctor-secretary-panel.md) | Login, onboarding, and every panel screen. Doctor vs Secretary navigation. |
+| [`doctor-assistant-panel.md`](doctor-assistant-panel.md) | Login, onboarding, and every panel screen. Doctor vs Assistant navigation. |
 | [`admin.md`](admin.md) | Founder-only Admin: roster, create practice, practice detail + impersonation, analytics, system status. |
 | [`domain-lifecycles.md`](domain-lifecycles.md) | Domain state machines that cut across screens: Appointment, Slot/availability, account provisioning → onboarding, Medical History. |
 

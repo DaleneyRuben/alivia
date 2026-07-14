@@ -1,9 +1,9 @@
 # Admin — flows
 
 The founder's own internal surface, visually distinct from the patient site and the
-panel. Never a role a Doctor or Secretary has (`CONTEXT.md`: Admin). It provisions
+panel. Never a role a Doctor or Assistant has (`CONTEXT.md`: Admin). It provisions
 accounts (the concierge model, [ADR-0005](../adr/0005-concierge-doctor-onboarding.md),
-[ADR-0013](../adr/0013-secretary-accounts-founder-provisioned.md)) and provides support
+[ADR-0013](../adr/0013-assistant-accounts-founder-provisioned.md)) and provides support
 tooling. Nav: **Roster · Analytics · Estado del sistema**.
 
 ## 1. Roster → detail
@@ -11,13 +11,13 @@ tooling. Nav: **Roster · Analytics · Estado del sistema**.
 ```mermaid
 flowchart TD
     R["Roster — every onboarded practice"] --> Search["Search by doctor / practice name"]
-    Search --> Cards["Practice cards: practice, doctor + specialty, Con/Sin secretaria, Activa/Inactiva"]
+    Search --> Cards["Practice cards: practice, doctor + specialty, Con/Sin asistente, Activa/Inactiva"]
     Cards -->|"click a practice"| Detail["Practice detail"]
     R -->|"+ Crear consultorio"| Create["Create practice"]
 ```
 
 Each row shows a status dot (green = active / terracotta = inactive) and whether a
-Secretary account exists. On mobile the row wraps into a stacked card.
+Assistant account exists. On mobile the row wraps into a stacked card.
 
 ## 2. Create practice
 
@@ -27,16 +27,16 @@ afterwards ([ADR-0005](../adr/0005-concierge-doctor-onboarding.md)).
 ```mermaid
 flowchart TD
     C["Create practice (Crear consultorio)"] --> Doc["Doctor account: name, specialty, email"]
-    Doc --> SecQ{"Add a Secretary account? (optional toggle)"}
-    SecQ -->|"yes"| SF["Secretary account: name, email"]
+    Doc --> SecQ{"Add an Assistant account? (optional toggle)"}
+    SecQ -->|"yes"| SF["Assistant account: name, email"]
     SecQ -->|"no"| Skip[" "]
     SF --> Save["Crear cuentas"]
     Skip --> Save
     Save --> R["Back to Roster"]
 ```
 
-A practice typically gets its Doctor and Secretary logins provisioned together
-([ADR-0013](../adr/0013-secretary-accounts-founder-provisioned.md)).
+A practice typically gets its Doctor and Assistant logins provisioned together
+([ADR-0013](../adr/0013-assistant-accounts-founder-provisioned.md)).
 
 ## 3. Practice detail — deactivate, reset, impersonate
 
@@ -48,7 +48,7 @@ surfaces: confirming drops the founder **into that account's panel**.
 
 ```mermaid
 flowchart TD
-    D["Practice detail"] --> Per["Per account (Doctor, + Secretary if present)"]
+    D["Practice detail"] --> Per["Per account (Doctor, + Assistant if present)"]
     Per -->|"Desactivar / Reactivar"| Tog["Toggle account active / inactive (live)"]
     Per -->|"Restablecer contraseña"| Rst["Reset password"]
     Per -->|"Iniciar sesión como…"| Modal["Confirmation modal: warns full access incl. Medical History; action is logged"]
@@ -65,7 +65,7 @@ Business metrics on the dashboard stat-grid pattern, scaled up.
 
 ```mermaid
 flowchart TD
-    An["Analytics"] --> Stats["Stat tiles: active practices, appointments booked, attendance rate, secretaries (each with a delta)"]
+    An["Analytics"] --> Stats["Stat tiles: active practices, appointments booked, attendance rate, assistants (each with a delta)"]
     An --> Chart["Bar chart: practices onboarded per month (current month highlighted)"]
 ```
 
@@ -84,9 +84,9 @@ flowchart TD
 
 ---
 
-**Sources**: `CONTEXT.md` (Admin, Secretary, Subscription); ADRs
+**Sources**: `CONTEXT.md` (Admin, Assistant, Subscription); ADRs
 [0005](../adr/0005-concierge-doctor-onboarding.md),
 [0011](../adr/0011-medical-history-siloed-per-doctor.md),
-[0013](../adr/0013-secretary-accounts-founder-provisioned.md),
+[0013](../adr/0013-assistant-accounts-founder-provisioned.md),
 [0014](../adr/0014-admin-impersonation-full-access.md); prototype
 `design/Alivia Panel Prototype.dc.html` (Admin surface).
