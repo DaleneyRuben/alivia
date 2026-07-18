@@ -34,6 +34,16 @@ Always use the `/commit` skill when committing changes — never run `git commit
 
 ---
 
+## Component naming & folder structure
+
+- **Component files** → PascalCase, named after the component they export: `LoginForm.tsx` exports `LoginForm`. One component per file.
+- **Next.js route files** keep their framework-mandated lowercase names (`page.tsx`, `layout.tsx`, `route.ts`) — these live in `src/app` and contain routing/layout concerns only, importing components from `src/components`.
+- **All components live in `src/components/<feature>/`**, grouped by feature (e.g. `src/components/auth/LoginForm.tsx`), never colocated inside `src/app`. Shared primitives (buttons, inputs) go in `src/components/ui/`.
+- **Non-component modules** → camelCase filenames matching their main export (Airbnb style): `src/lib/auth/verifyCredentials.ts`, `src/hooks/useSlotAvailability.ts`.
+- **Tests** are colocated next to the file they test: `LoginForm.test.tsx` beside `LoginForm.tsx`.
+
+---
+
 ## File size
 
 Keep files under 400 lines. If a file grows beyond that, split it — extract subcomponents, separate hooks, or break out helper modules. A React component that's getting long is almost always doing too much.
