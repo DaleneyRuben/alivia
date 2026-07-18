@@ -27,11 +27,12 @@ single place to see what's done, in progress, or missing.
 Schema and rules per [`flows/domain-lifecycles.md`](flows/domain-lifecycles.md);
 stack per [ADR-0012](adr/0012-mvp-tech-stack.md).
 
-- [ ] Prisma schema: Doctor, Assistant, Location, Schedule block, Appointment, Patient ([lifecycles §1–3](flows/domain-lifecycles.md))
-- [ ] Prisma schema: Medical History — Medical Profile + Diagnosis Entry, scoped per Doctor–Patient pair ([lifecycles §4](flows/domain-lifecycles.md), [ADR-0011](adr/0011-medical-history-siloed-per-doctor.md))
-- [ ] Prisma schema: Vacation periods (per Doctor or per Location) (`CONTEXT.md`: Vacation)
-- [ ] Prisma schema: Subscription record (view-only data, no billing) ([ADR-0002](adr/0002-no-in-app-payments.md))
+- [x] Prisma schema: Doctor, Assistant, Location, Schedule block, Appointment, Patient ([lifecycles §1–3](flows/domain-lifecycles.md))
+- [x] Prisma schema: Medical History — Medical Profile + Diagnosis Entry, scoped per Doctor–Patient pair ([lifecycles §4](flows/domain-lifecycles.md), [ADR-0011](adr/0011-medical-history-siloed-per-doctor.md))
+- [x] Prisma schema: Vacation periods (per Doctor or per Location) (`CONTEXT.md`: Vacation)
+- [x] Prisma schema: Subscription record (view-only data, no billing) ([ADR-0002](adr/0002-no-in-app-payments.md))
 - [ ] Auth: email + password sessions for Doctor / Assistant / Admin roles ([panel §1](flows/doctor-assistant-panel.md))
+- [ ] Email infrastructure: transactional email for account setup links and password resets ([ADR-0015](adr/0015-credentials-via-email-setup-link.md))
 - [ ] Route guards: panel requires login; doctor-only routes reject an Assistant (redirect to Citas); admin routes founder-only ([panel §3](flows/doctor-assistant-panel.md), [admin](flows/admin.md))
 - [ ] Slot generation: Schedule block × Slot duration × capacity → bookable Slots ([lifecycles §2](flows/domain-lifecycles.md))
 - [ ] Seed script: sample practice(s) for local dev
