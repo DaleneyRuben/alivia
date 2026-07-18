@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -10,4 +5,218 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+enum UserRole {
+  ADMIN
+  DOCTOR
+  ASSISTANT
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  ATTENDED
+  NO_SHOW
+  CANCELLED
+}
+
+enum ConfirmationStatus {
+  PENDING
+  CONFIRMED
+}
+
+enum AppointmentSource {
+  PATIENT
+  STAFF
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model User {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  // null until the account holder sets a password via the emailed setup link (ADR-0015)
+  passwordHash      String?
+  // single active token, reused for both first-time setup and admin-driven resets
+  resetToken        String?   @unique
+  resetTokenExpires DateTime?
+  role              UserRole
+  // Admin deactivation blocks login without deleting anything (docs/flows/admin.md §3)
+  active            Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  doctor                  Doctor?
+  assistant               Assistant?
+  impersonationsPerformed ImpersonationLog[] @relation("ImpersonationAdmin")
+  impersonationsReceived  ImpersonationLog[] @relation("ImpersonationTarget")
+}
+
+model Doctor {
+  id                    String    @id @default(cuid())
+  userId                String    @unique
+  user                  User      @relation(fields: [userId], references: [id])
+  name                  String
+  specialty             String
+  practiceName          String?
+  yearsExperience       Int?
+  bio                   String?
+  university            String?
+  // null until the onboarding wizard is completed — the gate for appearing in patient search
+  onboardedAt           DateTime?
+  // Medical History is opt-in per Doctor (ADR-0010)
+  medicalHistoryEnabled Boolean   @default(false)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  assistants   Assistant[]
+  locations    Location[]
+  vacations    Vacation[]
+  patients     Patient[]
+  appointments Appointment[]
+  subscription Subscription?
+}
+
+model Assistant {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  doctorId  String
+  doctor    Doctor   @relation(fields: [doctorId], references: [id])
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Location {
+  id        String    @id @default(cuid())
+  doctorId  String
+  doctor    Doctor    @relation(fields: [doctorId], references: [id])
+  name      String
+  address   String
+  // soft delete: removal must stop future availability yet keep past Appointments intact
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  scheduleBlocks ScheduleBlock[]
+  vacations      Vacation[]
+  appointments   Appointment[]
+}
+
+model ScheduleBlock {
+  id                  String   @id @default(cuid())
+  locationId          String
+  location            Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  // 0 = Sunday … 6 = Saturday, matching date-fns getDay()
+  weekdays            Int[]
+  // times are minutes from midnight (480 = 08:00) — La Paz has a single fixed UTC-4 offset (ADR-0001)
+  startMinutes        Int
+  endMinutes          Int
+  slotDurationMinutes Int
+  // soft cap: blocks patient self-booking only, staff may exceed it (ADR-0009)
+  slotCapacity        Int
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model Vacation {
+  id         String    @id @default(cuid())
+  doctorId   String
+  doctor     Doctor    @relation(fields: [doctorId], references: [id])
+  // null = the whole practice is away, not just one Location
+  locationId String?
+  location   Location? @relation(fields: [locationId], references: [id])
+  startDate  DateTime  @db.Date
+  endDate    DateTime  @db.Date
+  createdAt  DateTime  @default(now())
+}
+
+model Patient {
+  id        String   @id @default(cuid())
+  // scoped per Doctor so Medical History siloing (ADR-0011) is structural, not filtered
+  doctorId  String
+  doctor    Doctor   @relation(fields: [doctorId], references: [id])
+  name      String
+  phone     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  appointments     Appointment[]
+  medicalProfile   MedicalProfile?
+  diagnosisEntries DiagnosisEntry[]
+
+  @@unique([doctorId, phone])
+}
+
+model Appointment {
+  id           String             @id @default(cuid())
+  doctorId     String
+  doctor       Doctor             @relation(fields: [doctorId], references: [id])
+  locationId   String
+  location     Location           @relation(fields: [locationId], references: [id])
+  patientId    String
+  patient      Patient            @relation(fields: [patientId], references: [id])
+  // the Slot has no table — (locationId, date, startMinutes) is its identity (virtual slots)
+  date         DateTime           @db.Date
+  startMinutes Int
+  endMinutes   Int
+  status       AppointmentStatus  @default(SCHEDULED)
+  // day-before check, only meaningful while status is SCHEDULED — never a terminal state
+  confirmation ConfirmationStatus @default(PENDING)
+  source       AppointmentSource
+  // lets the guest Patient cancel from their WhatsApp link without an account (ADR-0006)
+  cancelToken  String             @unique @default(cuid())
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  diagnosisEntry DiagnosisEntry?
+
+  @@index([doctorId, date])
+  @@index([locationId, date, startMinutes])
+}
+
+model MedicalProfile {
+  id                  String    @id @default(cuid())
+  patientId           String    @unique
+  patient             Patient   @relation(fields: [patientId], references: [id])
+  dateOfBirth         DateTime? @db.Date
+  bloodType           String?
+  allergiesAndHistory String?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+}
+
+model DiagnosisEntry {
+  id            String       @id @default(cuid())
+  patientId     String
+  patient       Patient      @relation(fields: [patientId], references: [id])
+  appointmentId String?      @unique
+  appointment   Appointment? @relation(fields: [appointmentId], references: [id])
+  diagnosis     String
+  treatment     String
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Subscription {
+  id        String             @id @default(cuid())
+  doctorId  String             @unique
+  doctor    Doctor             @relation(fields: [doctorId], references: [id])
+  status    SubscriptionStatus @default(ACTIVE)
+  renewsAt  DateTime?
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+}
+
+model ImpersonationLog {
+  id           String   @id @default(cuid())
+  adminUserId  String
+  admin        User     @relation("ImpersonationAdmin", fields: [adminUserId], references: [id])
+  targetUserId String
+  target       User     @relation("ImpersonationTarget", fields: [targetUserId], references: [id])
+  createdAt    DateTime @default(now())
 }
