@@ -4,7 +4,7 @@ Paste everything below into a Claude.ai conversation to generate the visual desi
 
 ---
 
-I'm building **Alivia**, a web app that lets patients in La Paz, Bolivia find a doctor and book an appointment, and lets doctors (and their secretaries) manage their schedule and patients. Design the UI for it.
+I'm building **Alivia**, a web app that lets patients in La Paz, Bolivia find a doctor and book an appointment, and lets doctors (and their assistants) manage their schedule and patients. Design the UI for it.
 
 ## Tone
 
@@ -26,10 +26,10 @@ Every screen across all three surfaces below must look great on **desktop, table
 - **Slot** — a bookable chunk of time generated from a Schedule block (e.g. 1:00-1:30) that can hold *multiple* patients at once (a "queue" model, common in La Paz) — patients don't see this capacity detail, they just see a time is open or not.
 - **Appointment** — a Patient's booking into a Slot.
 - **Patient** — no account, no login; identified by name + phone number (guest booking).
-- **Secretary** — manages a Doctor's day-to-day (Schedule, Vacation, Appointments, Confirmations) on their behalf, but can't touch Locations, the Doctor's profile, or Medical History.
-- **Confirmation** — the day before an Appointment, the Doctor/Secretary sends the Patient a WhatsApp message (via a pre-filled `wa.me` link they tap and send manually) to confirm attendance.
-- **Medical History** — an optional, Doctor-only clinical record per Patient (baseline profile + a growing list of visit entries), never shared with Secretaries or other Doctors.
-- **Admin** — the founder's own view for onboarding practices; not something a Doctor or Secretary ever sees.
+- **Assistant** — manages a Doctor's day-to-day (Schedule, Vacation, Appointments, Confirmations) on their behalf, but can't touch Locations, the Doctor's profile, or Medical History.
+- **Confirmation** — the day before an Appointment, the Doctor/Assistant sends the Patient a WhatsApp message (via a pre-filled `wa.me` link they tap and send manually) to confirm attendance.
+- **Medical History** — an optional, Doctor-only clinical record per Patient (baseline profile + a growing list of visit entries), never shared with Assistants or other Doctors.
+- **Admin** — the founder's own view for onboarding practices; not something a Doctor or Assistant ever sees.
 
 A deliberate differentiator versus competitors (Doctoralia, Doctorpolis, DoctorPlace): search ranks by **soonest available slot**, not by location/proximity — getting seen fast matters more than convenience of location here. Make "next available" a prominent, confident visual element wherever a Doctor is listed.
 
@@ -41,7 +41,7 @@ A deliberate differentiator versus competitors (Doctoralia, Doctorpolis, DoctorP
 4. **Booking confirmation** — Appointment summary (doctor, location, date/time) plus a clear call-to-action to send yourself the confirmation over WhatsApp, and a cancel link.
 5. **Cancel-via-link page** — reached from the confirmation message, shows the Appointment and a one-tap cancel.
 
-## Surface 2 — Doctor/Secretary panel (login required)
+## Surface 2 — Doctor/Assistant panel (login required)
 
 1. **Login**
 2. **Onboarding wizard** (Doctor only, first login) — profile, add Locations, set up Schedule blocks (duration + capacity per block).
@@ -52,16 +52,16 @@ A deliberate differentiator versus competitors (Doctoralia, Doctorpolis, DoctorP
 7. **Vacation editor** — mark a date range unavailable.
 8. **Locations management** (Doctor only).
 9. **Medical History** (Doctor only, opt-in feature) — per-Patient baseline profile plus a timeline of visit entries; can add a new entry, can edit but never delete past ones.
-10. **Account settings** (Doctor only) — profile, Subscription status (view-only, no in-app payment), list of Secretaries.
+10. **Account settings** (Doctor only) — profile, Subscription status (view-only, no in-app payment), list of Assistants.
 
 ## Surface 3 — Admin (founder only)
 
-1. **Practice roster** — every onboarded practice (Doctor + optional Secretary), with status.
-2. **Create practice** — provision a new Doctor account and, optionally, its Secretary account together.
-3. **Practice detail** — deactivate the practice's accounts, reset a password, impersonate the Doctor or Secretary (log in as them for support — full access, including their Medical History).
+1. **Practice roster** — every onboarded practice (Doctor + optional Assistant), with status.
+2. **Create practice** — provision a new Doctor account and, optionally, its Assistant account together.
+3. **Practice detail** — deactivate the practice's accounts, reset a password, impersonate the Doctor or Assistant (log in as them for support — full access, including their Medical History).
 4. **Analytics** — business metrics: practices onboarded over time, Appointments booked, etc.
 5. **System status** — database and deployment health.
 
 ## What I want from you
 
-Generate the visual design for these three surfaces — start with the public patient site since it's the core loop (search → profile → booking → confirmation), then the Doctor/Secretary panel, then Admin. Propose a color palette and type system that fits the warm/approachable tone, then apply it consistently across all three.
+Generate the visual design for these three surfaces — start with the public patient site since it's the core loop (search → profile → booking → confirmation), then the Doctor/Assistant panel, then Admin. Propose a color palette and type system that fits the warm/approachable tone, then apply it consistently across all three.
