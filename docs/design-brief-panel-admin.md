@@ -11,27 +11,28 @@ You already designed **Alivia**'s public patient site and a first-pass doctor da
 ### Design tokens already established (reuse exactly)
 
 **Colors**
-| Token | Hex | Usage |
-|---|---|---|
-| Cream (background) | `#FBF6EF` | App/page background |
-| Surface white | `#FFFFFF` | Cards, result rows, inputs |
-| Terracotta (primary) | `#E8785A` | Primary buttons, logo mark, active accents |
-| Terracotta text | `#C15A3E` | Links, specialty label, primary-outline text |
-| Terracotta hover | `#B04A30` | Link hover |
-| Terracotta disabled | `#EAD9CF` | Disabled primary button fill |
-| Green (secondary) | `#3E6B5C` | "Attended" action button, avatar tint |
-| Green deep text | `#2F5C4C` | Positive stat / pill text |
-| Green dot | `#4F9C82` | Availability / "today" dot |
-| Green pill bg | `#E7F0EA` | Success pill / badge backgrounds |
-| WhatsApp green | `#25A566` | WhatsApp send button only |
-| Sand | `#D8CBB4` | Neutral accent |
-| Sand dot | `#C9BCA5` | Non-today accent |
-| Ink (text) | `#2A2521` | Primary text, dark surfaces (toolbar/nav) |
-| Muted text | `#8A8175` | Secondary text, captions |
-| Body text soft | `#5C554C` | Paragraph body, chip labels |
-| Border | `#EEE6DA` / `#E7DFD3` | Card borders / input+chip borders |
-| Hairline | `#F0E9DE` / `#F7F2EA` | Inner dividers, subtle bg tints |
-| Highlight row bg | `#FCF8F2` | Active/current row highlight |
+
+| Token                | Hex                   | Usage                                        |
+| -------------------- | --------------------- | -------------------------------------------- |
+| Cream (background)   | `#FBF6EF`             | App/page background                          |
+| Surface white        | `#FFFFFF`             | Cards, result rows, inputs                   |
+| Terracotta (primary) | `#E8785A`             | Primary buttons, logo mark, active accents   |
+| Terracotta text      | `#C15A3E`             | Links, specialty label, primary-outline text |
+| Terracotta hover     | `#B04A30`             | Link hover                                   |
+| Terracotta disabled  | `#EAD9CF`             | Disabled primary button fill                 |
+| Green (secondary)    | `#3E6B5C`             | "Attended" action button, avatar tint        |
+| Green deep text      | `#2F5C4C`             | Positive stat / pill text                    |
+| Green dot            | `#4F9C82`             | Availability / "today" dot                   |
+| Green pill bg        | `#E7F0EA`             | Success pill / badge backgrounds             |
+| WhatsApp green       | `#25A566`             | WhatsApp send button only                    |
+| Sand                 | `#D8CBB4`             | Neutral accent                               |
+| Sand dot             | `#C9BCA5`             | Non-today accent                             |
+| Ink (text)           | `#2A2521`             | Primary text, dark surfaces (toolbar/nav)    |
+| Muted text           | `#8A8175`             | Secondary text, captions                     |
+| Body text soft       | `#5C554C`             | Paragraph body, chip labels                  |
+| Border               | `#EEE6DA` / `#E7DFD3` | Card borders / input+chip borders            |
+| Hairline             | `#F0E9DE` / `#F7F2EA` | Inner dividers, subtle bg tints              |
+| Highlight row bg     | `#FCF8F2`             | Active/current row highlight                 |
 
 Avatar tints (cycle by person): Green (bg `#E1EBE4` / text `#3E6B5C`), Terracotta (bg `#F5E0D8` / text `#C15A3E`), Sand (bg `#EFE7D6` / text `#9A7B3E`).
 
@@ -57,7 +58,7 @@ Doctor panel: Dashboard/Today (dark top nav with pills: Hoy, Citas, Confirmacion
 - **A Slot holds multiple Appointments (queue capacity).** Any "add appointment manually" UI must let staff add a walk-in/phone patient into a slot that's already at its patient-facing capacity — make clear this is a staff override, not a bug.
 - **Confirmations are a manual WhatsApp send, not automated.** The day-before Confirmations screen's action button opens a pre-filled `wa.me` link (same treatment as the patient Confirmation screen's WhatsApp button, `#25A566`) — staff still taps "send" themselves. After sending, the row should get a way to mark the outcome (confirmed / patient cancelled), it doesn't auto-detect delivery.
 - **Onboarding wizard is Doctor-only, first-login only.** A Secretary never sees it. It's multi-step: profile → Locations → Schedule blocks (each block needs its own duration + capacity fields, and a Location can have several blocks across the week).
-- **Admin is a founder-only internal tool** — a different audience than Doctor/Secretary, but must still use the same warm design system, not a generic admin-template look. Impersonation is a sensitive, hard-to-undo-looking action (logs in *as* the Doctor/Secretary) — design a confirmation step for it, don't make it a single click.
+- **Admin is a founder-only internal tool** — a different audience than Doctor/Secretary, but must still use the same warm design system, not a generic admin-template look. Impersonation is a sensitive, hard-to-undo-looking action (logs in _as_ the Doctor/Secretary) — design a confirmation step for it, don't make it a single click.
 
 ---
 

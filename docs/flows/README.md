@@ -6,12 +6,12 @@ language), the ADRs under `docs/adr/`, and the two design prototypes under `desi
 
 ## What's here
 
-| Doc | Covers |
-|---|---|
-| [`patient-site.md`](patient-site.md) | Public patient site (no login): search → profile → booking → confirmation → cancel, plus availability ranking and Slot states. |
-| [`doctor-assistant-panel.md`](doctor-assistant-panel.md) | Login, onboarding, and every panel screen. Doctor vs Assistant navigation. |
-| [`admin.md`](admin.md) | Founder-only Admin: roster, create practice, practice detail + impersonation, analytics, system status. |
-| [`domain-lifecycles.md`](domain-lifecycles.md) | Domain state machines that cut across screens: Appointment, Slot/availability, account provisioning → onboarding, Medical History. |
+| Doc                                                      | Covers                                                                                                                             |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| [`patient-site.md`](patient-site.md)                     | Public patient site (no login): search → profile → booking → confirmation → cancel, plus availability ranking and Slot states.     |
+| [`doctor-assistant-panel.md`](doctor-assistant-panel.md) | Login, onboarding, and every panel screen. Doctor vs Assistant navigation.                                                         |
+| [`admin.md`](admin.md)                                   | Founder-only Admin: roster, create practice, practice detail + impersonation, analytics, system status.                            |
+| [`domain-lifecycles.md`](domain-lifecycles.md)           | Domain state machines that cut across screens: Appointment, Slot/availability, account provisioning → onboarding, Medical History. |
 
 The first three are **UI navigation flows** (screen to screen). The last is the
 **domain lifecycles** (state machines for the underlying entities).
@@ -23,7 +23,7 @@ The first three are **UI navigation flows** (screen to screen). The last is the
 - **Labels**: English domain terms are the backbone (matching `CONTEXT.md` and the
   code identifiers), with the real Spanish screen/label in parentheses when a node
   names an actual screen or control — e.g. `Appointments (Citas)`. Domain terms kept
-  in Spanish by `CONTEXT.md` (e.g. *diagnóstico*) stay Spanish.
+  in Spanish by `CONTEXT.md` (e.g. _diagnóstico_) stay Spanish.
 - **Edges**: solid arrows are forward actions; **dotted** arrows are back/secondary
   navigation.
 - **Terminal states** in state diagrams end at `[*]`.
