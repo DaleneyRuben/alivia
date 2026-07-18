@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { LoginForm } from "./login-form";
+import { LoginForm } from "./LoginForm";
 
 const { signIn, getSession, push, refresh } = vi.hoisted(() => ({
   signIn: vi.fn(),
@@ -17,8 +17,9 @@ vi.mock("next/navigation", () => ({
 
 async function submitLogin(email: string, password: string) {
   const user = userEvent.setup();
-  await user.type(screen.getByLabelText("Correo electrónico"), email);
-  await user.type(screen.getByLabelText("Contraseña"), password);
+  if (email)
+    await user.type(screen.getByLabelText("Correo electrónico"), email);
+  if (password) await user.type(screen.getByLabelText("Contraseña"), password);
   await user.click(screen.getByRole("button", { name: "Ingresar" }));
 }
 
