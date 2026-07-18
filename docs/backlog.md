@@ -31,11 +31,11 @@ stack per [ADR-0012](adr/0012-mvp-tech-stack.md).
 - [x] Prisma schema: Medical History — Medical Profile + Diagnosis Entry, scoped per Doctor–Patient pair ([lifecycles §4](flows/domain-lifecycles.md), [ADR-0011](adr/0011-medical-history-siloed-per-doctor.md))
 - [x] Prisma schema: Vacation periods (per Doctor or per Location) (`CONTEXT.md`: Vacation)
 - [x] Prisma schema: Subscription record (view-only data, no billing) ([ADR-0002](adr/0002-no-in-app-payments.md))
-- [ ] Auth: email + password sessions for Doctor / Assistant / Admin roles ([panel §1](flows/doctor-assistant-panel.md))
+- [x] Auth: email + password sessions for Doctor / Assistant / Admin roles ([panel §1](flows/doctor-assistant-panel.md))
 - [ ] Email infrastructure: transactional email for account setup links and password resets ([ADR-0015](adr/0015-credentials-via-email-setup-link.md))
-- [ ] Route guards: panel requires login; doctor-only routes reject an Assistant (redirect to Citas); admin routes founder-only ([panel §3](flows/doctor-assistant-panel.md), [admin](flows/admin.md))
+- [x] Route guards: panel requires login; doctor-only routes reject an Assistant (redirect to Citas); admin routes founder-only ([panel §3](flows/doctor-assistant-panel.md), [admin](flows/admin.md))
 - [ ] Slot generation: Schedule block × Slot duration × capacity → bookable Slots ([lifecycles §2](flows/domain-lifecycles.md))
-- [ ] Seed script: sample practice(s) for local dev
+- [x] Seed script: sample practice(s) for local dev
 
 ## 2. Patient site (public, no login)
 
@@ -61,9 +61,9 @@ Source: [`flows/doctor-assistant-panel.md`](flows/doctor-assistant-panel.md).
 
 ### Login & shell
 
-- [ ] Login screen with error banner "Correo o contraseña incorrectos" ([§1](flows/doctor-assistant-panel.md))
-- [ ] Role routing: Doctor first login → onboarding; Doctor returning → Citas; Assistant → Citas ([§1](flows/doctor-assistant-panel.md))
-- [ ] "¿Olvidaste tu contraseña?" → no self-serve reset notice ([§1](flows/doctor-assistant-panel.md))
+- [x] Login screen with error banner "Correo o contraseña incorrectos" ([§1](flows/doctor-assistant-panel.md))
+- [x] Role routing: Doctor first login → onboarding; Doctor returning → Citas; Assistant → Citas ([§1](flows/doctor-assistant-panel.md))
+- [x] "¿Olvidaste tu contraseña?" → no self-serve reset notice ([§1](flows/doctor-assistant-panel.md))
 - [ ] Nav shell: doctor-only items (Ubicaciones, Historial, Cuenta) absent from DOM for an Assistant ([§3](flows/doctor-assistant-panel.md))
 
 ### Appointments (Citas)
