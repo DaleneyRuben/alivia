@@ -8,7 +8,7 @@ I'm building **Alivia**, a web app that lets patients in La Paz, Bolivia find a 
 
 ## Tone
 
-Warm and approachable — not clinical. This is a low-friction, reassuring experience, closer to a friendly neighborhood service than a hospital system. Soft colors, rounded shapes, human warmth over sterile precision. The name "Alivia" comes from *aliviar* (to relieve) — the feeling should match that.
+Warm and approachable — not clinical. This is a low-friction, reassuring experience, closer to a friendly neighborhood service than a hospital system. Soft colors, rounded shapes, human warmth over sterile precision. The name "Alivia" comes from _aliviar_ (to relieve) — the feeling should match that.
 
 ## Language
 
@@ -23,7 +23,7 @@ Every screen across all three surfaces below must look great on **desktop, table
 - **Doctor** — the paying customer, offers appointments through the platform.
 - **Location** — a physical place a Doctor sees patients (a doctor can have several, each with its own weekly schedule).
 - **Schedule** — a Doctor's recurring weekly availability at one Location, made of blocks (e.g. "Mon-Fri 8:00-12:00").
-- **Slot** — a bookable chunk of time generated from a Schedule block (e.g. 1:00-1:30) that can hold *multiple* patients at once (a "queue" model, common in La Paz) — patients don't see this capacity detail, they just see a time is open or not.
+- **Slot** — a bookable chunk of time generated from a Schedule block (e.g. 1:00-1:30) that can hold _multiple_ patients at once (a "queue" model, common in La Paz) — patients don't see this capacity detail, they just see a time is open or not.
 - **Appointment** — a Patient's booking into a Slot.
 - **Patient** — no account, no login; identified by name + phone number (guest booking).
 - **Assistant** — manages a Doctor's day-to-day (Schedule, Vacation, Appointments, Confirmations) on their behalf, but can't touch Locations, the Doctor's profile, or Medical History.

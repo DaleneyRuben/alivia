@@ -6,6 +6,12 @@ description: >
   Always active — no need to invoke manually.
 ---
 
+## Package manager
+
+This project uses **yarn** — never npm or npx. Install with `yarn add` / `yarn add -D`, run scripts with `yarn <script>`, and run package binaries with `yarn <binary>` (e.g. `yarn prisma migrate dev`).
+
+---
+
 ## Git workflow
 
 This project uses **GitHub Flow**:

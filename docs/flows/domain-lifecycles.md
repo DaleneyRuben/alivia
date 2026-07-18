@@ -9,7 +9,7 @@ of driving these transitions.
 An Appointment is created either by a Patient self-booking (guest) or entered by
 staff for an off-platform patient — the latter may exceed a Slot's patient-facing
 capacity ([ADR-0009](../adr/0009-slots-have-capacity.md)). The day-before **Confirmation**
-checks *intent to attend* and is distinct from the final **Attended / No-show** outcome
+checks _intent to attend_ and is distinct from the final **Attended / No-show** outcome
 recorded after the appointment time (`CONTEXT.md`: Appointment, Confirmation).
 
 ```mermaid
