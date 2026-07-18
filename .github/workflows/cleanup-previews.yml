@@ -1,0 +1,28 @@
+name: Cleanup preview deployments
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete Vercel preview deployments for the merged branch
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          ids=$(curl -sf "https://api.vercel.com/v6/deployments?projectId=$VERCEL_PROJECT_ID&teamId=$VERCEL_TEAM_ID&target=preview&meta-githubCommitRef=$BRANCH&limit=100" \
+            -H "Authorization: Bearer $VERCEL_TOKEN" | jq -r '.deployments[].uid')
+          if [ -z "$ids" ]; then
+            echo "no preview deployments found for $BRANCH"
+            exit 0
+          fi
+          for id in $ids; do
+            curl -sf -X DELETE "https://api.vercel.com/v13/deployments/$id?teamId=$VERCEL_TEAM_ID" \
+              -H "Authorization: Bearer $VERCEL_TOKEN" > /dev/null && echo "deleted $id"
+          done
