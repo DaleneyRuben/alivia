@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import bcrypt from "bcryptjs";
-import { verifyCredentials } from "./verify-credentials";
+import { verifyCredentials } from "./verifyCredentials";
 
 const passwordHash = bcrypt.hashSync("correct-password", 10);
 

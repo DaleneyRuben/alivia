@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { routeGuard } from "./route-guard";
+import { routeGuard } from "./routeGuard";
 
 const doctor = { role: "DOCTOR" as const, doctorOnboarded: true };
 const newDoctor = { role: "DOCTOR" as const, doctorOnboarded: false };

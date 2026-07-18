@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { postLoginPath } from "./post-login-path";
+import { postLoginPath } from "./postLoginPath";
 
 describe("postLoginPath", () => {
   it("sends an admin to the admin roster", () => {

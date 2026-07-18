@@ -1,4 +1,4 @@
-import { postLoginPath } from "./post-login-path";
+import { postLoginPath } from "./postLoginPath";
 
 type GuardSession = {
   role: "ADMIN" | "DOCTOR" | "ASSISTANT";

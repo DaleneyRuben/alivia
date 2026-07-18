@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { auth, type SessionRole } from "@/lib/auth";
-import { routeGuard } from "@/lib/auth/route-guard";
+import { routeGuard } from "@/lib/auth/routeGuard";
 
 export default async function proxy(request: NextRequest) {
   const session = await auth();

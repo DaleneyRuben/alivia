@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
-import { verifyCredentials } from "./verify-credentials";
+import { verifyCredentials } from "./verifyCredentials";
 
 export type SessionRole = "ADMIN" | "DOCTOR" | "ASSISTANT";
 
