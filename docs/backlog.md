@@ -83,8 +83,8 @@ Source: [`flows/doctor-assistant-panel.md`](flows/doctor-assistant-panel.md).
 
 ### Schedule (Horarios)
 
-- [ ] Per-Location block list with Location switcher ([§6](flows/doctor-assistant-panel.md), [ADR-0004](adr/0004-schedule-per-location.md))
-- [ ] Add / edit / remove a block (days, time range, Slot duration, capacity) ([§6](flows/doctor-assistant-panel.md))
+- [x] Per-Location block list with Location switcher ([§6](flows/doctor-assistant-panel.md), [ADR-0004](adr/0004-schedule-per-location.md))
+- [x] Add / edit / remove a block (days, time range, Slot duration, capacity) ([§6](flows/doctor-assistant-panel.md))
 
 ### Vacation (Vacaciones)
 
