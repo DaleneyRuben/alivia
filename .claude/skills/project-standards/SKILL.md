@@ -20,7 +20,7 @@ This project uses **GitHub Flow**:
 2. Work on the branch with atomic commits (use `/commit`)
 3. Verify the change end-to-end via Playwright (see "Verify end-to-end before calling it done" below) — this is a hard stop before step 4, not an optional follow-up
 4. Open a PR — CI runs lint, typecheck, frontend tests, and backend tests
-5. Merge to `main` only after CI passes
+5. Merge to `main` only after CI passes, using a regular merge commit (`gh pr merge --merge`) — **never squash**, so the branch's atomic commits stay intact on `main`
 
 `main` is always production. Never commit directly to `main`.
 
