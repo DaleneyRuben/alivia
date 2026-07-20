@@ -64,7 +64,7 @@ Source: [`flows/doctor-assistant-panel.md`](flows/doctor-assistant-panel.md).
 - [x] Login screen with error banner "Correo o contraseña incorrectos" ([§1](flows/doctor-assistant-panel.md))
 - [x] Role routing: Doctor first login → onboarding; Doctor returning → Citas; Assistant → Citas ([§1](flows/doctor-assistant-panel.md))
 - [x] "¿Olvidaste tu contraseña?" → no self-serve reset notice ([§1](flows/doctor-assistant-panel.md))
-- [ ] Nav shell: doctor-only items (Ubicaciones, Historial, Cuenta) absent from DOM for an Assistant ([§3](flows/doctor-assistant-panel.md))
+- [x] Nav shell: doctor-only items (Ubicaciones, Historial, Cuenta) absent from DOM for an Assistant ([§3](flows/doctor-assistant-panel.md))
 
 ### Appointments (Citas)
 
