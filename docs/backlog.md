@@ -34,7 +34,7 @@ stack per [ADR-0012](adr/0012-mvp-tech-stack.md).
 - [x] Auth: email + password sessions for Doctor / Assistant / Admin roles ([panel §1](flows/doctor-assistant-panel.md))
 - [ ] Email infrastructure: transactional email for account setup links and password resets ([ADR-0015](adr/0015-credentials-via-email-setup-link.md))
 - [x] Route guards: panel requires login; doctor-only routes reject an Assistant (redirect to Citas); admin routes founder-only ([panel §3](flows/doctor-assistant-panel.md), [admin](flows/admin.md))
-- [ ] Slot generation: Schedule block × Slot duration × capacity → bookable Slots ([lifecycles §2](flows/domain-lifecycles.md))
+- [x] Slot generation: Schedule block × Slot duration × capacity → bookable Slots ([lifecycles §2](flows/domain-lifecycles.md))
 - [x] Seed script: sample practice(s) for local dev
 
 ## 2. Patient site (public, no login)
@@ -138,5 +138,5 @@ each needs enforcement and tests regardless of which screen drives it.
 
 ## 7. Ship
 
-- [ ] CI: lint, typecheck, frontend tests, backend tests ([project-standards](../.claude/skills/project-standards/SKILL.md))
+- [x] CI: lint, typecheck, frontend tests, backend tests ([project-standards](../.claude/skills/project-standards/SKILL.md))
 - [ ] Production deployment + environment config ([ADR-0012](adr/0012-mvp-tech-stack.md))
