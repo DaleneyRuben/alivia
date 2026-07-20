@@ -32,7 +32,7 @@ stack per [ADR-0012](adr/0012-mvp-tech-stack.md).
 - [x] Prisma schema: Vacation periods (per Doctor or per Location) (`CONTEXT.md`: Vacation)
 - [x] Prisma schema: Subscription record (view-only data, no billing) ([ADR-0002](adr/0002-no-in-app-payments.md))
 - [x] Auth: email + password sessions for Doctor / Assistant / Admin roles ([panel §1](flows/doctor-assistant-panel.md))
-- [ ] Credential setup/reset links: token generation + pre-filled wa.me link builder, reused for first-time setup and admin-driven resets ([ADR-0016](adr/0016-credential-delivery-via-whatsapp.md))
+- [x] Credential setup/reset links: token generation + pre-filled wa.me link builder, reused for first-time setup and admin-driven resets ([ADR-0016](adr/0016-credential-delivery-via-whatsapp.md))
 - [x] Route guards: panel requires login; doctor-only routes reject an Assistant (redirect to Citas); admin routes founder-only ([panel §3](flows/doctor-assistant-panel.md), [admin](flows/admin.md))
 - [x] Slot generation: Schedule block × Slot duration × capacity → bookable Slots ([lifecycles §2](flows/domain-lifecycles.md))
 - [x] Seed script: sample practice(s) for local dev
