@@ -28,7 +28,7 @@ describe("ScheduleBlockList", () => {
       <ScheduleBlockList blocks={blocks} onEdit={vi.fn()} onRemove={vi.fn()} />,
     );
 
-    expect(screen.getByText("Lun-Vie")).toBeInTheDocument();
+    expect(screen.getAllByText("Lun-Vie")).toHaveLength(2);
     expect(screen.getByText("09:00-12:00")).toBeInTheDocument();
     expect(screen.getByText("30 min")).toBeInTheDocument();
     expect(screen.getByText("Hasta 3 pacientes")).toBeInTheDocument();
