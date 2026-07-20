@@ -32,7 +32,7 @@ stack per [ADR-0012](adr/0012-mvp-tech-stack.md).
 - [x] Prisma schema: Vacation periods (per Doctor or per Location) (`CONTEXT.md`: Vacation)
 - [x] Prisma schema: Subscription record (view-only data, no billing) ([ADR-0002](adr/0002-no-in-app-payments.md))
 - [x] Auth: email + password sessions for Doctor / Assistant / Admin roles ([panel §1](flows/doctor-assistant-panel.md))
-- [ ] Email infrastructure: transactional email for account setup links and password resets ([ADR-0015](adr/0015-credentials-via-email-setup-link.md))
+- [ ] Credential setup/reset links: token generation + pre-filled wa.me link builder, reused for first-time setup and admin-driven resets ([ADR-0016](adr/0016-credential-delivery-via-whatsapp.md))
 - [x] Route guards: panel requires login; doctor-only routes reject an Assistant (redirect to Citas); admin routes founder-only ([panel §3](flows/doctor-assistant-panel.md), [admin](flows/admin.md))
 - [x] Slot generation: Schedule block × Slot duration × capacity → bookable Slots ([lifecycles §2](flows/domain-lifecycles.md))
 - [x] Seed script: sample practice(s) for local dev
@@ -114,9 +114,9 @@ Source: [`flows/doctor-assistant-panel.md`](flows/doctor-assistant-panel.md).
 Source: [`flows/admin.md`](flows/admin.md).
 
 - [ ] Roster: practice cards (practice, doctor + specialty, Con/Sin asistente, Activa/Inactiva dot), search by doctor/practice name ([§1](flows/admin.md))
-- [ ] Create practice (Crear consultorio): Doctor account (name, specialty, email) + optional Assistant account (name, email) ([§2](flows/admin.md), [ADR-0005](adr/0005-concierge-doctor-onboarding.md), [ADR-0013](adr/0013-assistant-accounts-founder-provisioned.md))
+- [ ] Create practice (Crear consultorio): Doctor account (name, specialty, email, phone) + optional Assistant account (name, email, phone) → sends setup link via WhatsApp ([§2](flows/admin.md), [ADR-0005](adr/0005-concierge-doctor-onboarding.md), [ADR-0013](adr/0013-assistant-accounts-founder-provisioned.md), [ADR-0016](adr/0016-credential-delivery-via-whatsapp.md))
 - [ ] Practice detail: Desactivar / Reactivar per account (blocks panel login) ([§3](flows/admin.md))
-- [ ] Practice detail: reset password per account ([§3](flows/admin.md))
+- [ ] Practice detail: reset password per account → generates a new WhatsApp setup link ([§3](flows/admin.md), [ADR-0016](adr/0016-credential-delivery-via-whatsapp.md))
 - [ ] Impersonation: confirmation modal (full access incl. Medical History) → enter that account's panel; action is logged ([§3](flows/admin.md), [ADR-0014](adr/0014-admin-impersonation-full-access.md))
 - [ ] Analytics: stat tiles (active practices, appointments booked, attendance rate, assistants, with deltas) + practices-per-month bar chart, wired to real data ([§4](flows/admin.md))
 - [ ] System status: overall banner + ok/degraded/down rows (Database, Deployment, WhatsApp link generation, Scheduled jobs) ([§5](flows/admin.md))
