@@ -26,17 +26,20 @@ afterwards ([ADR-0005](../adr/0005-concierge-doctor-onboarding.md)).
 
 ```mermaid
 flowchart TD
-    C["Create practice (Crear consultorio)"] --> Doc["Doctor account: name, specialty, email"]
+    C["Create practice (Crear consultorio)"] --> Doc["Doctor account: name, specialty, email, phone"]
     Doc --> SecQ{"Add an Assistant account? (optional toggle)"}
-    SecQ -->|"yes"| SF["Assistant account: name, email"]
+    SecQ -->|"yes"| SF["Assistant account: name, email, phone"]
     SecQ -->|"no"| Skip[" "]
     SF --> Save["Crear cuentas"]
     Skip --> Save
-    Save --> R["Back to Roster"]
+    Save --> Wa["Pre-filled wa.me setup link per account, sent manually"]
+    Wa --> R["Back to Roster"]
 ```
 
 A practice typically gets its Doctor and Assistant logins provisioned together
-([ADR-0013](../adr/0013-assistant-accounts-founder-provisioned.md)).
+([ADR-0013](../adr/0013-assistant-accounts-founder-provisioned.md)). Email stays the
+login identifier; the phone number is where the founder sends the setup link, over
+WhatsApp rather than email ([ADR-0016](../adr/0016-credential-delivery-via-whatsapp.md)).
 
 ## 3. Practice detail — deactivate, reset, impersonate
 
@@ -50,7 +53,7 @@ surfaces: confirming drops the founder **into that account's panel**.
 flowchart TD
     D["Practice detail"] --> Per["Per account (Doctor, + Assistant if present)"]
     Per -->|"Desactivar / Reactivar"| Tog["Toggle account active / inactive (live)"]
-    Per -->|"Restablecer contraseña"| Rst["Reset password"]
+    Per -->|"Restablecer contraseña"| Rst["Reset password: generates a new pre-filled wa.me link to send"]
     Per -->|"Iniciar sesión como…"| Modal["Confirmation modal: warns full access incl. Medical History; action is logged"]
     Modal -->|"Cancelar"| D
     Modal -->|"Sí, continuar"| Imp["Enter that account's Panel as their role → Appointments"]
@@ -85,8 +88,10 @@ flowchart TD
 ---
 
 **Sources**: `CONTEXT.md` (Admin, Assistant, Subscription); ADRs
+[0003](../adr/0003-whatsapp-via-manual-links.md),
 [0005](../adr/0005-concierge-doctor-onboarding.md),
 [0011](../adr/0011-medical-history-siloed-per-doctor.md),
 [0013](../adr/0013-assistant-accounts-founder-provisioned.md),
-[0014](../adr/0014-admin-impersonation-full-access.md); prototype
+[0014](../adr/0014-admin-impersonation-full-access.md),
+[0016](../adr/0016-credential-delivery-via-whatsapp.md); prototype
 `design/Alivia Panel Prototype.dc.html` (Admin surface).

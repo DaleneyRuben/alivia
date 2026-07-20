@@ -38,6 +38,7 @@ async function main() {
     create: {
       userId: doctorUser.id,
       name: "Dra. Valeria Rojas",
+      phone: "+59171234567",
       specialty: "Pediatría",
       practiceName: "Consultorio Zabala",
       yearsExperience: 12,
@@ -91,6 +92,7 @@ async function main() {
       userId: assistantUser.id,
       doctorId: doctor.id,
       name: "María Fernanda Quispe",
+      phone: "+59176543210",
     },
   });
 
@@ -111,6 +113,7 @@ async function main() {
     create: {
       userId: newDoctorUser.id,
       name: "Dr. Marco Antonio Salazar",
+      phone: "+59169876543",
       specialty: "Medicina General",
     },
   });
