@@ -28,6 +28,16 @@ Branch naming: `feat/`, `fix/`, `refactor/`, `docs/`, `chore/` prefix followed b
 
 ---
 
+## Verify end-to-end before calling it done
+
+For any UI or frontend change, drive the actual feature with Playwright before opening a PR — type checks and unit tests confirm correctness, not that the feature works.
+
+- Launch **headed**, not headless (`chromium.launch({ headless: false })`), so the browser is visible while it runs — add a small `slowMo` (e.g. 200–300ms) so actions are watchable, not instant.
+- Cover the golden path and the edge cases relevant to the change (e.g. both roles when behavior is role-conditional).
+- Screenshots are a fine supplement for the record, but the headed run itself is the verification — a passing test suite alone does not satisfy this step.
+
+---
+
 ## Committing
 
 Always use the `/commit` skill when committing changes — never run `git commit` manually. The skill enforces atomic commits, correct message format, and runs related tests before committing.

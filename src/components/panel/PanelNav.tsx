@@ -1,0 +1,64 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+export interface PanelNavProps {
+  role: "DOCTOR" | "ASSISTANT";
+  email: string;
+}
+
+const SHARED_ITEMS = [
+  { href: "/panel/appointments", label: "Citas" },
+  { href: "/panel/confirmations", label: "Confirmaciones" },
+  { href: "/panel/schedule", label: "Horarios" },
+  { href: "/panel/vacation", label: "Vacaciones" },
+];
+
+const DOCTOR_ONLY_ITEMS = [
+  { href: "/panel/locations", label: "Ubicaciones" },
+  { href: "/panel/history", label: "Historial" },
+  { href: "/panel/account", label: "Cuenta" },
+];
+
+export function PanelNav({ role, email }: PanelNavProps) {
+  const pathname = usePathname();
+  const items =
+    role === "DOCTOR" ? [...SHARED_ITEMS, ...DOCTOR_ONLY_ITEMS] : SHARED_ITEMS;
+
+  return (
+    <nav className="flex flex-wrap items-center justify-between gap-3 bg-ink px-6 py-3">
+      <div className="flex shrink-0 items-center gap-2">
+        <div className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-terracotta text-sm font-extrabold text-white">
+          A
+        </div>
+        <span className="text-sm font-extrabold text-white">Alivia</span>
+      </div>
+      <div className="flex flex-wrap items-center gap-1">
+        {items.map((item) => {
+          const active = pathname.startsWith(item.href);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={active ? "page" : undefined}
+              className={`rounded-full px-3.5 py-2 text-[13px] font-semibold ${
+                active ? "bg-white/14 text-white" : "text-sand-dot"
+              }`}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
+      </div>
+      <div className="flex shrink-0 items-center gap-2">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-xs font-bold uppercase text-white">
+          {email.charAt(0)}
+        </div>
+        <span className="text-xs text-sand-dot">
+          {role === "DOCTOR" ? "Doctor" : "Asistente"}
+        </span>
+      </div>
+    </nav>
+  );
+}
