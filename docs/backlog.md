@@ -41,7 +41,7 @@ stack per [ADR-0012](adr/0012-mvp-tech-stack.md).
 
 Source: [`flows/patient-site.md`](flows/patient-site.md).
 
-- [ ] Home: search input + specialty chips ([§1](flows/patient-site.md))
+- [x] Home: search input + specialty chips ([§1](flows/patient-site.md))
 - [ ] Home: top-3 doctors by availability, card → profile directly ([§1](flows/patient-site.md))
 - [ ] Home: "Ingresar" link to panel login ([§1](flows/patient-site.md))
 - [ ] Search: case-insensitive substring match on specialty or doctor name ([§2](flows/patient-site.md))
