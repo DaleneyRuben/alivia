@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { requireDoctorOnlyId } from "@/lib/locations/requireDoctorOnlyId";
+import { requireDoctorOnlyId } from "@/lib/auth/requireDoctorOnlyId";
 import {
   isValidDoctorProfileInput,
   type DoctorProfileInput,

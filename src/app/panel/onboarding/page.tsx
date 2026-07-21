@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { requireDoctorOnlyId } from "@/lib/locations/requireDoctorOnlyId";
+import { requireDoctorOnlyId } from "@/lib/auth/requireDoctorOnlyId";
 import { getDoctorProfile } from "@/lib/doctor/getDoctorProfile";
 import { getLocationsWithSchedule } from "@/lib/schedule/getLocationsWithSchedule";
 import { OnboardingWizard } from "@/components/panel/onboarding/OnboardingWizard";
