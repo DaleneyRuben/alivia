@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { requireDoctorOnlyId } from "./requireDoctorOnlyId";
+import { requireDoctorOnlyId } from "@/lib/auth/requireDoctorOnlyId";
 
 // Removing a Location stops it generating availability: its Schedule blocks are
 // deleted outright, while the Location itself is only soft-deleted so past
