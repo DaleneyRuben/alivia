@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { formatMinutes } from "@/lib/schedule/formatTimeRange";
+import { initials } from "@/lib/text/initials";
 
 export interface Appointment {
   id: string;
@@ -16,16 +17,6 @@ export interface AppointmentListProps {
   onNoShow: (id: string) => void;
   onCancel: (id: string) => void;
   header?: ReactNode;
-}
-
-function initials(name: string): string {
-  return name
-    .trim()
-    .split(/\s+/)
-    .map((word) => word[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
 }
 
 function statusPill(status: Appointment["status"]) {

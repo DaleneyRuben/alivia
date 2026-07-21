@@ -4,14 +4,9 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireDoctorId } from "@/lib/schedule/requireDoctorId";
 
-type TerminalStatus = "ATTENDED" | "NO_SHOW" | "CANCELLED";
-
-// Atendió / No asistió / Cancelar — only valid while the Appointment is still
-// SCHEDULED (docs/flows/domain-lifecycles.md §1: these are final states).
-export async function updateAppointmentStatus(
-  appointmentId: string,
-  status: TerminalStatus,
-) {
+// day-before check, only meaningful while the Appointment is still SCHEDULED
+// (docs/flows/domain-lifecycles.md §1: Confirmation is a sub-state of Scheduled)
+export async function confirmAppointment(appointmentId: string) {
   const doctorId = await requireDoctorId();
 
   const appointment = await prisma.appointment.findUnique({
@@ -26,9 +21,8 @@ export async function updateAppointmentStatus(
 
   await prisma.appointment.update({
     where: { id: appointmentId },
-    data: { status },
+    data: { confirmation: "CONFIRMED" },
   });
 
-  revalidatePath("/panel/appointments");
   revalidatePath("/panel/confirmations");
 }
