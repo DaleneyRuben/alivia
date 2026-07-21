@@ -113,8 +113,8 @@ Source: [`flows/doctor-assistant-panel.md`](flows/doctor-assistant-panel.md).
 
 Source: [`flows/admin.md`](flows/admin.md).
 
-- [ ] Roster: practice cards (practice, doctor + specialty, Con/Sin asistente, Activa/Inactiva dot), search by doctor/practice name ([§1](flows/admin.md))
-- [ ] Create practice (Crear consultorio): Doctor account (name, specialty, email, phone) + optional Assistant account (name, email, phone) → sends setup link via WhatsApp ([§2](flows/admin.md), [ADR-0005](adr/0005-concierge-doctor-onboarding.md), [ADR-0013](adr/0013-assistant-accounts-founder-provisioned.md), [ADR-0016](adr/0016-credential-delivery-via-whatsapp.md))
+- [x] Roster: practice cards (practice, doctor + specialty, Con/Sin asistente, Activa/Inactiva dot), search by doctor/practice name ([§1](flows/admin.md))
+- [x] Create practice (Crear consultorio): Doctor account (name, specialty, email, phone) + optional Assistant account (name, email, phone) → sends setup link via WhatsApp ([§2](flows/admin.md), [ADR-0005](adr/0005-concierge-doctor-onboarding.md), [ADR-0013](adr/0013-assistant-accounts-founder-provisioned.md), [ADR-0016](adr/0016-credential-delivery-via-whatsapp.md))
 - [ ] Practice detail: Desactivar / Reactivar per account (blocks panel login) ([§3](flows/admin.md))
 - [ ] Practice detail: reset password per account → generates a new WhatsApp setup link ([§3](flows/admin.md), [ADR-0016](adr/0016-credential-delivery-via-whatsapp.md))
 - [ ] Impersonation: confirmation modal (full access incl. Medical History) → enter that account's panel; action is logged ([§3](flows/admin.md), [ADR-0014](adr/0014-admin-impersonation-full-access.md))
