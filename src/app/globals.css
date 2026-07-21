@@ -13,6 +13,11 @@
   --color-input-border: #e7dfd3;
   --color-error-bg: #f9e4dc;
   --color-error-border: #ebc3b6;
+  --color-success: #2f5c4c;
+  --color-success-bg: #e7f0ea;
+  --color-warning: #9a7b3e;
+  --color-warning-bg: #fcf3e8;
+  --color-warning-border: #ead8bc;
   --color-placeholder: #b7ada0;
   --color-body-soft: #5c554c;
   --color-sand-dot: #c9bca5;

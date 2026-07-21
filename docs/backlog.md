@@ -68,11 +68,11 @@ Source: [`flows/doctor-assistant-panel.md`](flows/doctor-assistant-panel.md).
 
 ### Appointments (Citas)
 
-- [ ] Queue list filtered by Day (Hoy / Mañana) + Location switcher ([§4](flows/doctor-assistant-panel.md))
-- [ ] Manual add: patient name, phone, Slot pick — "Walk-in" tag ([§4](flows/doctor-assistant-panel.md))
-- [ ] Over-capacity staff override with amber notice ([§4](flows/doctor-assistant-panel.md), [ADR-0009](adr/0009-slots-have-capacity.md))
-- [ ] Per-row actions while pending: Atendió / No asistió / Cancelar (cancel frees the Slot) ([§4](flows/doctor-assistant-panel.md))
-- [ ] "Siguiente" marker advances to next pending row after Attended/No-show ([§4](flows/doctor-assistant-panel.md))
+- [x] Queue list filtered by Day (Hoy / Mañana) + Location switcher ([§4](flows/doctor-assistant-panel.md))
+- [x] Manual add: patient name, phone, Slot pick — "Walk-in" tag ([§4](flows/doctor-assistant-panel.md))
+- [x] Over-capacity staff override with amber notice ([§4](flows/doctor-assistant-panel.md), [ADR-0009](adr/0009-slots-have-capacity.md))
+- [x] Per-row actions while pending: Atendió / No asistió / Cancelar (cancel frees the Slot) ([§4](flows/doctor-assistant-panel.md))
+- [x] "Siguiente" marker advances to next pending row after Attended/No-show ([§4](flows/doctor-assistant-panel.md))
 
 ### Confirmations (Confirmaciones)
 
