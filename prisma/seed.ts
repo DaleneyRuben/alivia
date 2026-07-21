@@ -45,7 +45,9 @@ async function main() {
       university: "Universidad Mayor de San Andrés",
       bio: "Pediatra con más de una década de experiencia en atención integral de niños y adolescentes.",
       onboardedAt: new Date(),
-      subscription: { create: { status: "ACTIVE" } },
+      subscription: {
+        create: { status: "ACTIVE", renewsAt: new Date("2026-08-01") },
+      },
       locations: {
         create: {
           name: "Consultorio Zabala",

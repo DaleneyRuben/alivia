@@ -23,4 +23,5 @@ export async function updateDoctorProfile(input: DoctorProfileInput) {
   });
 
   revalidatePath("/panel/onboarding");
+  revalidatePath("/panel/account");
 }
