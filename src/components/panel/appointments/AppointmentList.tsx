@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { formatMinutes } from "@/lib/schedule/formatTimeRange";
 
 export interface Appointment {
@@ -14,6 +15,7 @@ export interface AppointmentListProps {
   onAttend: (id: string) => void;
   onNoShow: (id: string) => void;
   onCancel: (id: string) => void;
+  header?: ReactNode;
 }
 
 function initials(name: string): string {
@@ -47,19 +49,18 @@ export function AppointmentList({
   onAttend,
   onNoShow,
   onCancel,
+  header,
 }: AppointmentListProps) {
-  if (appointments.length === 0) {
-    return (
-      <p className="text-sm text-muted">
-        No hay citas para este día y ubicación.
-      </p>
-    );
-  }
-
   const nextId = appointments.find((a) => a.status === "SCHEDULED")?.id;
 
   return (
     <div className="overflow-hidden rounded-[18px] border border-card-border bg-white">
+      {header}
+      {appointments.length === 0 && (
+        <p className="p-4.5 text-sm text-muted">
+          No hay citas para este día y ubicación.
+        </p>
+      )}
       {appointments.map((appointment) => {
         const pending = appointment.status === "SCHEDULED";
         const isNext = appointment.id === nextId;
