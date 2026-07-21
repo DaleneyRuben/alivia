@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { RosterList } from "@/components/admin/RosterList";
+import { getPracticeRoster } from "@/lib/admin/getPracticeRoster";
+import { requireAdminId } from "@/lib/auth/requireAdminId";
 
-export const metadata: Metadata = { title: "Admin · Alivia" };
+export const metadata: Metadata = { title: "Roster · Alivia" };
 
-export default function AdminPage() {
-  return (
-    <main className="flex-1 p-8">
-      <h1 className="text-xl font-extrabold">Consultorios</h1>
-      <p className="text-sm text-muted">Próximamente.</p>
-    </main>
-  );
+export default async function AdminPage() {
+  await requireAdminId();
+  const practices = await getPracticeRoster();
+
+  return <RosterList practices={practices} />;
 }
