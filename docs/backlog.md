@@ -105,9 +105,9 @@ Source: [`flows/doctor-assistant-panel.md`](flows/doctor-assistant-panel.md).
 - [x] Medical History: patient list with Con historia / Nueva tags ([§9](flows/doctor-assistant-panel.md))
 - [x] Medical History: first-visit combined form — Medical Profile + first Diagnosis Entry ([§9](flows/doctor-assistant-panel.md))
 - [x] Medical History: patient detail — Perfil base + reverse-chron timeline; append entry; edit entry; no delete anywhere ([§9](flows/doctor-assistant-panel.md))
-- [ ] Account (Cuenta): editable profile → "Guardar cambios" ([§10](flows/doctor-assistant-panel.md))
-- [ ] Account: Subscription view-only (Activa + renewal date) ([§10](flows/doctor-assistant-panel.md), [ADR-0002](adr/0002-no-in-app-payments.md))
-- [ ] Account: Assistants view-only list ([§10](flows/doctor-assistant-panel.md), [ADR-0013](adr/0013-assistant-accounts-founder-provisioned.md))
+- [x] Account (Cuenta): editable profile → "Guardar cambios" ([§10](flows/doctor-assistant-panel.md))
+- [x] Account: Subscription view-only (Activa + renewal date) ([§10](flows/doctor-assistant-panel.md), [ADR-0002](adr/0002-no-in-app-payments.md))
+- [x] Account: Assistants view-only list ([§10](flows/doctor-assistant-panel.md), [ADR-0013](adr/0013-assistant-accounts-founder-provisioned.md))
 
 ## 5. Admin (founder only)
 
