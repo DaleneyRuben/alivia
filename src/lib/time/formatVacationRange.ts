@@ -1,37 +1,18 @@
-const SHORT_MONTHS = [
-  "ene",
-  "feb",
-  "mar",
-  "abr",
-  "may",
-  "jun",
-  "jul",
-  "ago",
-  "sep",
-  "oct",
-  "nov",
-  "dic",
-];
-
-function parts(date: string) {
-  const d = new Date(`${date}T00:00:00Z`);
-  return {
-    day: d.getUTCDate(),
-    month: SHORT_MONTHS[d.getUTCMonth()],
-    year: d.getUTCFullYear(),
-  };
-}
+import {
+  formatShortSpanishDate,
+  shortSpanishDateParts,
+} from "./formatShortSpanishDate";
 
 // "15–22 jul 2026" style range for the Vacaciones list (design/Alivia Panel Prototype.dc.html)
 export function formatVacationRange(
   startDate: string,
   endDate: string,
 ): string {
-  const start = parts(startDate);
-  const end = parts(endDate);
+  const start = shortSpanishDateParts(startDate);
+  const end = shortSpanishDateParts(endDate);
 
   if (startDate === endDate) {
-    return `${start.day} ${start.month} ${start.year}`;
+    return formatShortSpanishDate(startDate);
   }
 
   if (start.year !== end.year) {
