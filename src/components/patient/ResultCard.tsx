@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { initials } from "@/lib/text/initials";
 import { avatarTint } from "@/lib/text/avatarTint";
-import { formatMinutes } from "@/lib/schedule/formatTimeRange";
-import { formatSpanishDate } from "@/lib/time/formatSpanishDate";
+import { formatNextAvailableLabel } from "@/lib/patients/formatNextAvailableLabel";
 
 export interface ResultCardDoctor {
   id: string;
@@ -17,22 +16,6 @@ export interface ResultCardProps {
   doctor: ResultCardDoctor;
   today: string;
   tomorrow: string;
-}
-
-function nextAvailableLabel(
-  doctor: ResultCardDoctor,
-  today: string,
-  tomorrow: string,
-): string {
-  if (!doctor.soonestSlot) return "Sin cupos por ahora";
-  const { date, startMinutes } = doctor.soonestSlot;
-  const day =
-    date === today
-      ? "Hoy"
-      : date === tomorrow
-        ? "Mañana"
-        : formatSpanishDate(date).split(" ")[0];
-  return `${day} ${formatMinutes(startMinutes)}`;
 }
 
 export function ResultCard({ doctor, today, tomorrow }: ResultCardProps) {
@@ -78,7 +61,7 @@ export function ResultCard({ doctor, today, tomorrow }: ResultCardProps) {
               className={`h-2 w-2 rounded-full ${isToday ? "bg-[#4F9C82]" : "bg-sand-dot"}`}
             />
           )}
-          {nextAvailableLabel(doctor, today, tomorrow)}
+          {formatNextAvailableLabel(doctor.soonestSlot, today, tomorrow)}
         </span>
         <span className="rounded-full bg-terracotta px-6 py-2.5 text-sm font-bold text-white">
           Reservar
