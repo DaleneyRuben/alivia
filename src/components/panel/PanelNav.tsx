@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 export interface PanelNavProps {
   role: "DOCTOR" | "ASSISTANT";
   email: string;
+  pendingConfirmations?: number;
 }
 
 const SHARED_ITEMS = [
@@ -21,7 +22,7 @@ const DOCTOR_ONLY_ITEMS = [
   { href: "/panel/account", label: "Cuenta" },
 ];
 
-export function PanelNav({ role, email }: PanelNavProps) {
+export function PanelNav({ role, email, pendingConfirmations }: PanelNavProps) {
   const pathname = usePathname();
   const items =
     role === "DOCTOR" ? [...SHARED_ITEMS, ...DOCTOR_ONLY_ITEMS] : SHARED_ITEMS;
@@ -37,16 +38,28 @@ export function PanelNav({ role, email }: PanelNavProps) {
       <div className="flex flex-wrap items-center gap-1">
         {items.map((item) => {
           const active = pathname.startsWith(item.href);
+          const badge =
+            item.href === "/panel/confirmations" && pendingConfirmations
+              ? pendingConfirmations
+              : null;
           return (
             <Link
               key={item.href}
               href={item.href}
               aria-current={active ? "page" : undefined}
-              className={`rounded-full px-3.5 py-2 text-[13px] font-semibold ${
+              className={`flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-semibold ${
                 active ? "bg-white/14 text-white" : "text-sand-dot"
               }`}
             >
               {item.label}
+              {badge !== null && (
+                <>
+                  {" "}
+                  <span className="rounded-full bg-terracotta px-1.5 py-0.5 text-[11px] font-bold text-white">
+                    {badge}
+                  </span>
+                </>
+              )}
             </Link>
           );
         })}
