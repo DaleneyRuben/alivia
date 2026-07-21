@@ -45,6 +45,34 @@ describe("PanelNav", () => {
     ).not.toBeInTheDocument();
   });
 
+  it("shows a pending confirmations badge when there are pending items", () => {
+    render(
+      <PanelNav
+        role="DOCTOR"
+        email="doctor@consulta.bo"
+        pendingConfirmations={3}
+      />,
+    );
+
+    expect(
+      screen.getByRole("link", { name: "Confirmaciones 3" }),
+    ).toBeInTheDocument();
+  });
+
+  it("omits the badge when there are no pending confirmations", () => {
+    render(
+      <PanelNav
+        role="DOCTOR"
+        email="doctor@consulta.bo"
+        pendingConfirmations={0}
+      />,
+    );
+
+    expect(
+      screen.getByRole("link", { name: "Confirmaciones" }),
+    ).toBeInTheDocument();
+  });
+
   it("marks the item matching the current route as active", () => {
     render(<PanelNav role="DOCTOR" email="doctor@consulta.bo" />);
 
