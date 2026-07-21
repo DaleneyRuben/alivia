@@ -37,5 +37,13 @@ export function routeGuard(
     return "/panel/appointments";
   }
 
+  if (
+    session.role === "DOCTOR" &&
+    session.doctorOnboarded &&
+    pathname.startsWith("/panel/onboarding")
+  ) {
+    return "/panel/appointments";
+  }
+
   return null;
 }

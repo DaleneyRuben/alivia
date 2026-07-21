@@ -60,6 +60,16 @@ describe("routeGuard", () => {
       expect(routeGuard("/panel/account", doctor)).toBeNull();
     });
 
+    it("allows a not-yet-onboarded doctor to stay on onboarding", () => {
+      expect(routeGuard("/panel/onboarding", newDoctor)).toBeNull();
+    });
+
+    it("redirects an already-onboarded doctor away from onboarding", () => {
+      expect(routeGuard("/panel/onboarding", doctor)).toBe(
+        "/panel/appointments",
+      );
+    });
+
     it("redirects admin routes to their panel home", () => {
       expect(routeGuard("/admin", doctor)).toBe("/panel/appointments");
       expect(routeGuard("/admin", newDoctor)).toBe("/panel/onboarding");

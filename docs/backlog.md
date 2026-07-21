@@ -94,11 +94,11 @@ Source: [`flows/doctor-assistant-panel.md`](flows/doctor-assistant-panel.md).
 
 ## 4. Panel — Doctor only
 
-- [ ] Onboarding wizard step 1: Profile ([§2](flows/doctor-assistant-panel.md), [ADR-0005](adr/0005-concierge-doctor-onboarding.md))
-- [ ] Onboarding wizard step 2: add one or more Locations (name + address) ([§2](flows/doctor-assistant-panel.md))
-- [ ] Onboarding wizard step 3: Schedule blocks per Location tab, with duration + capacity ([§2](flows/doctor-assistant-panel.md))
-- [ ] Onboarding wizard step 4: review → "Entrar al panel"; back navigation between steps ([§2](flows/doctor-assistant-panel.md))
-- [ ] Onboarding shown on first login only; completing it makes the Doctor appear in patient search ([lifecycles §3](flows/domain-lifecycles.md))
+- [x] Onboarding wizard step 1: Profile ([§2](flows/doctor-assistant-panel.md), [ADR-0005](adr/0005-concierge-doctor-onboarding.md))
+- [x] Onboarding wizard step 2: add one or more Locations (name + address) ([§2](flows/doctor-assistant-panel.md))
+- [x] Onboarding wizard step 3: Schedule blocks per Location tab, with duration + capacity ([§2](flows/doctor-assistant-panel.md))
+- [x] Onboarding wizard step 4: review → "Entrar al panel"; back navigation between steps ([§2](flows/doctor-assistant-panel.md))
+- [x] Onboarding shown on first login only; completing it makes the Doctor appear in patient search ([lifecycles §3](flows/domain-lifecycles.md))
 - [x] Locations (Ubicaciones): list, add, edit ([§8](flows/doctor-assistant-panel.md))
 - [x] Locations: remove with warning when Schedule blocks exist (blocks deleted, availability stops) ([§8](flows/doctor-assistant-panel.md))
 - [ ] Medical History: opt-in empty state → "Activar historia clínica" ([§9](flows/doctor-assistant-panel.md), [ADR-0010](adr/0010-medical-history-optional-in-v1.md))
