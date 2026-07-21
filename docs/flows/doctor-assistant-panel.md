@@ -140,11 +140,13 @@ flowchart TD
 ## 7. Vacation editor (Vacaciones)
 
 Marks a date range unavailable so no Slots are shown for it (`CONTEXT.md`: Vacation).
+Scoped to one Location, or the whole practice at once (`locationId` nullable — null
+means every Location).
 
 ```mermaid
 flowchart TD
-    V["Vacation (Vacaciones)"] --> F["Desde / Hasta → Agregar"]
-    F --> L["Upcoming vacation periods list"]
+    V["Vacation (Vacaciones)"] --> F["Ubicación (Todas las ubicaciones / one Location) + Desde / Hasta → Agregar"]
+    F --> L["Upcoming vacation periods list — each row shows its Location scope"]
     L -->|"Quitar (before it starts)"| R["Remove period"]
 ```
 

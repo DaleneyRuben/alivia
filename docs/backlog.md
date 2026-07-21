@@ -88,9 +88,9 @@ Source: [`flows/doctor-assistant-panel.md`](flows/doctor-assistant-panel.md).
 
 ### Vacation (Vacaciones)
 
-- [ ] Add a Desde/Hasta period; list upcoming periods ([§7](flows/doctor-assistant-panel.md))
-- [ ] Remove a period before it starts ([§7](flows/doctor-assistant-panel.md))
-- [ ] Vacation hides the affected Slots from patients ([lifecycles §2](flows/domain-lifecycles.md))
+- [x] Add a Desde/Hasta period; list upcoming periods ([§7](flows/doctor-assistant-panel.md))
+- [x] Remove a period before it starts ([§7](flows/doctor-assistant-panel.md))
+- [x] Vacation hides the affected Slots from patients ([lifecycles §2](flows/domain-lifecycles.md))
 
 ## 4. Panel — Doctor only
 
