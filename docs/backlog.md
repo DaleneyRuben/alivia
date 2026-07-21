@@ -76,10 +76,10 @@ Source: [`flows/doctor-assistant-panel.md`](flows/doctor-assistant-panel.md).
 
 ### Confirmations (Confirmaciones)
 
-- [ ] List of tomorrow's Appointments with pending/confirmed state ([§5](flows/doctor-assistant-panel.md))
-- [ ] Pre-filled wa.me link per row (manual send, no automation) ([§5](flows/doctor-assistant-panel.md), [ADR-0003](adr/0003-whatsapp-via-manual-links.md))
-- [ ] Mark Confirmó / Canceló per row; cancel frees the Slot ([§5](flows/doctor-assistant-panel.md))
-- [ ] Pending count feeds the nav badge ([§5](flows/doctor-assistant-panel.md))
+- [x] List of tomorrow's Appointments with pending/confirmed state ([§5](flows/doctor-assistant-panel.md))
+- [x] Pre-filled wa.me link per row (manual send, no automation) ([§5](flows/doctor-assistant-panel.md), [ADR-0003](adr/0003-whatsapp-via-manual-links.md))
+- [x] Mark Confirmó / Canceló per row; cancel frees the Slot ([§5](flows/doctor-assistant-panel.md))
+- [x] Pending count feeds the nav badge ([§5](flows/doctor-assistant-panel.md))
 
 ### Schedule (Horarios)
 
