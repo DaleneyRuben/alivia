@@ -30,4 +30,5 @@ export async function updateAppointmentStatus(
   });
 
   revalidatePath("/panel/appointments");
+  revalidatePath("/panel/confirmations");
 }
