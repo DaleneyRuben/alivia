@@ -4,6 +4,8 @@ import { getLaPazDateString } from "@/lib/time/getLaPazDateString";
 import { addDaysToIsoDate } from "@/lib/time/addDaysToIsoDate";
 
 const SEARCH_WINDOW_DAYS = 14;
+// patient self-booking only — staff's ManualAppointmentForm stays unaffected (finding #4)
+const PATIENT_MIN_LEAD_MINUTES = 120;
 
 export interface ProfileLocation {
   id: string;
@@ -18,6 +20,7 @@ export interface ProfileSlot {
   startMinutes: number;
   endMinutes: number;
   availableToPatients: boolean;
+  tooSoon: boolean;
 }
 
 export interface PublicDoctorProfile {
@@ -28,8 +31,11 @@ export interface PublicDoctorProfile {
   yearsExperience: number | null;
   university: string | null;
   locations: ProfileLocation[];
-  // the earliest date (today or later) that has any generated Slot
-  slotsDate: string | null;
+  // bounds of the bookable window, for the date-picker's enabled range
+  windowStart: string;
+  windowEnd: string;
+  // the date currently shown in the slot grid — requested date, clamped to the window
+  selectedDate: string;
   slots: ProfileSlot[];
   soonestSlot: { date: string; startMinutes: number } | null;
 }
@@ -40,6 +46,7 @@ function toIsoDate(date: Date): string {
 
 export async function getPublicDoctorProfile(
   doctorId: string,
+  requestedDate?: string,
 ): Promise<PublicDoctorProfile | null> {
   const doctor = await prisma.doctor.findUnique({
     where: { id: doctorId },
@@ -55,6 +62,10 @@ export async function getPublicDoctorProfile(
 
   const today = getLaPazDateString();
   const to = addDaysToIsoDate(today, SEARCH_WINDOW_DAYS);
+  const selectedDate =
+    requestedDate && requestedDate >= today && requestedDate <= to
+      ? requestedDate
+      : today;
   const locationIds = doctor.locations.map((location) => location.id);
 
   const [appointmentRows, vacationRows] = await Promise.all([
@@ -100,13 +111,11 @@ export async function getPublicDoctorProfile(
     appointments,
     from: today,
     to,
+    minLeadMinutes: PATIENT_MIN_LEAD_MINUTES,
   });
   const soonestAvailable =
     allSlots.find((slot) => slot.availableToPatients) ?? null;
-  const slotsDate = allSlots[0]?.date ?? null;
-  const slotsForDate = slotsDate
-    ? allSlots.filter((slot) => slot.date === slotsDate)
-    : [];
+  const slotsForDate = allSlots.filter((slot) => slot.date === selectedDate);
   const locationNameById = new Map(
     doctor.locations.map((location) => [location.id, location.name]),
   );
@@ -123,7 +132,9 @@ export async function getPublicDoctorProfile(
       name: location.name,
       address: location.address,
     })),
-    slotsDate,
+    windowStart: today,
+    windowEnd: to,
+    selectedDate,
     slots: slotsForDate.map((slot) => ({
       locationId: slot.locationId,
       locationName: locationNameById.get(slot.locationId) ?? "",
@@ -131,6 +142,7 @@ export async function getPublicDoctorProfile(
       startMinutes: slot.startMinutes,
       endMinutes: slot.endMinutes,
       availableToPatients: slot.availableToPatients,
+      tooSoon: slot.tooSoon,
     })),
     soonestSlot: soonestAvailable
       ? {

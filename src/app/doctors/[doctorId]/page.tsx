@@ -9,13 +9,16 @@ export const metadata: Metadata = { title: "Perfil del doctor · Alivia" };
 
 interface DoctorProfilePageProps {
   params: Promise<{ doctorId: string }>;
+  searchParams: Promise<{ date?: string }>;
 }
 
 export default async function DoctorProfilePage({
   params,
+  searchParams,
 }: DoctorProfilePageProps) {
   const { doctorId } = await params;
-  const doctor = await getPublicDoctorProfile(doctorId);
+  const { date } = await searchParams;
+  const doctor = await getPublicDoctorProfile(doctorId, date);
   if (!doctor) notFound();
 
   const today = getLaPazDateString();
