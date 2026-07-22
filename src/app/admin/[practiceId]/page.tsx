@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { requireAdminId } from "@/lib/auth/requireAdminId";
+import { getPracticeDetail } from "@/lib/admin/getPracticeDetail";
+import { PracticeDetail } from "@/components/admin/PracticeDetail";
 
 export const metadata: Metadata = { title: "Consulta · Alivia" };
 
-export default async function PracticeDetailPage() {
+export default async function PracticeDetailPage({
+  params,
+}: {
+  params: Promise<{ practiceId: string }>;
+}) {
   await requireAdminId();
+  const { practiceId } = await params;
 
-  return (
-    <main className="mx-auto max-w-[680px] p-8">
-      <h1 className="text-xl font-extrabold">Detalle de la consulta</h1>
-      <p className="text-sm text-muted">Próximamente.</p>
-    </main>
-  );
+  const practice = await getPracticeDetail(practiceId);
+  if (!practice) notFound();
+
+  return <PracticeDetail practice={practice} />;
 }

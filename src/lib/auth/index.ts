@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { getToken } from "next-auth/jwt";
 import { prisma } from "@/lib/prisma";
 import { verifyCredentials } from "./verifyCredentials";
 
@@ -50,6 +51,42 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           role: user!.role,
           doctorOnboarded: user!.doctor
             ? user!.doctor.onboardedAt !== null
+            : undefined,
+        };
+      },
+    }),
+    // admin-only impersonation (docs/flows/admin.md §3, ADR-0014) — the calling admin's
+    // identity is read from their existing session token, never trusted from the client
+    Credentials({
+      id: "impersonation",
+      name: "impersonation",
+      credentials: { targetUserId: {} },
+      async authorize(credentials, request) {
+        const targetUserId = credentials?.targetUserId;
+        if (typeof targetUserId !== "string") return null;
+
+        const adminToken = await getToken({
+          req: request,
+          secret: process.env.AUTH_SECRET,
+        });
+        if (!adminToken || adminToken.role !== "ADMIN") return null;
+
+        const target = await prisma.user.findUnique({
+          where: { id: targetUserId },
+          include: { doctor: { select: { onboardedAt: true } } },
+        });
+        if (!target || !target.active) return null;
+
+        await prisma.impersonationLog.create({
+          data: { adminUserId: adminToken.sub as string, targetUserId },
+        });
+
+        return {
+          id: target.id,
+          email: target.email,
+          role: target.role,
+          doctorOnboarded: target.doctor
+            ? target.doctor.onboardedAt !== null
             : undefined,
         };
       },
