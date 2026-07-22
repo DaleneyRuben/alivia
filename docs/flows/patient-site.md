@@ -18,11 +18,9 @@ flowchart TD
     Cancelled(["Cancelled (Cita cancelada)"])
     WA{{"WhatsApp self-send — wa.me, external"}}
     Empty["Empty state: no especialistas"]
-    Panel["Panel login (Ingresar)"]
 
     Home -->|"submit search / specialty chip"| Results
     Home -->|"click a featured doctor card / Reservar"| Profile
-    Home -.->|"Ingresar (top bar)"| Panel
     Results -->|"click card / Reservar"| Profile
     Results -.->|"no matches"| Empty
     Profile -->|"pick an available Slot"| Booking
