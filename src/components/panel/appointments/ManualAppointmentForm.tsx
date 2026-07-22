@@ -6,6 +6,7 @@ import {
   isValidManualAppointmentInput,
   type ManualAppointmentInput,
 } from "@/lib/appointments/isValidManualAppointmentInput";
+import { PhoneInput } from "@/components/ui/PhoneInput";
 
 export interface AvailableSlotOption {
   startMinutes: number;
@@ -65,12 +66,13 @@ export function ManualAppointmentForm({
             placeholder="Nombre del paciente"
             className="min-w-[150px] flex-1 rounded-[12px] border border-input-border px-3.5 py-2.5 text-sm outline-none focus:border-terracotta"
           />
-          <input
-            value={patientPhone}
-            onChange={(event) => setPatientPhone(event.target.value)}
-            placeholder="+591 7XX XXX XX"
-            className="min-w-[150px] flex-1 rounded-[12px] border border-input-border px-3.5 py-2.5 text-sm outline-none focus:border-terracotta"
-          />
+          <div className="min-w-[150px] flex-1">
+            <PhoneInput
+              id="manual-patient-phone"
+              onChange={setPatientPhone}
+              placeholder="7XX XXX XX"
+            />
+          </div>
         </div>
         <div className="mb-2 text-xs font-semibold text-muted">
           Elige el cupo
