@@ -146,6 +146,7 @@ export function CreatePracticeForm() {
               id="doctor-phone"
               onChange={(phone) => setDoctor({ ...doctor, phone })}
               placeholder="7XX XXX XX"
+              variant="compact"
             />
           </div>
         </div>
@@ -205,6 +206,7 @@ export function CreatePracticeForm() {
                 id="assistant-phone"
                 onChange={(phone) => setAssistant({ ...assistant, phone })}
                 placeholder="7XX XXX XX"
+                variant="compact"
               />
             </div>
           </div>

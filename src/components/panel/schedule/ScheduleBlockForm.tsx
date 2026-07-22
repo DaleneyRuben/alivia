@@ -123,7 +123,7 @@ export function ScheduleBlockForm({
             type="time"
             value={startTime}
             onChange={(event) => setStartTime(event.target.value)}
-            className="rounded-[14px] border border-input-border px-3 py-2 text-sm outline-none focus:border-terracotta"
+            className="rounded-[12px] border border-input-border bg-white px-[13px] py-[10px] text-[13.5px] outline-none focus:border-terracotta"
           />
         </div>
         <div>
@@ -138,7 +138,7 @@ export function ScheduleBlockForm({
             type="time"
             value={endTime}
             onChange={(event) => setEndTime(event.target.value)}
-            className="rounded-[14px] border border-input-border px-3 py-2 text-sm outline-none focus:border-terracotta"
+            className="rounded-[12px] border border-input-border bg-white px-[13px] py-[10px] text-[13.5px] outline-none focus:border-terracotta"
           />
         </div>
         <div>
@@ -154,7 +154,7 @@ export function ScheduleBlockForm({
             min={1}
             value={duration}
             onChange={(event) => setDuration(event.target.value)}
-            className="w-[110px] rounded-[14px] border border-input-border px-3 py-2 text-sm outline-none focus:border-terracotta"
+            className="w-[110px] rounded-[12px] border border-input-border bg-white px-[13px] py-[10px] text-[13.5px] outline-none focus:border-terracotta"
           />
         </div>
         <div>
@@ -170,7 +170,7 @@ export function ScheduleBlockForm({
             min={1}
             value={capacity}
             onChange={(event) => setCapacity(event.target.value)}
-            className="w-[90px] rounded-[14px] border border-input-border px-3 py-2 text-sm outline-none focus:border-terracotta"
+            className="w-[90px] rounded-[12px] border border-input-border bg-white px-[13px] py-[10px] text-[13.5px] outline-none focus:border-terracotta"
           />
         </div>
       </div>

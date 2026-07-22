@@ -57,7 +57,7 @@ export function VacationForm({ locations, onSubmit }: VacationFormProps) {
             id={locationFieldId}
             value={locationId}
             onChange={(event) => setLocationId(event.target.value)}
-            className="w-full rounded-[12px] border border-input-border bg-white px-3.5 py-2.5 text-sm outline-none focus:border-terracotta"
+            className="w-full rounded-[12px] border border-input-border bg-white px-3.5 py-[11px] text-sm outline-none focus:border-terracotta"
           >
             <option value={ALL_LOCATIONS}>Todas las ubicaciones</option>
             {locations.map((location) => (
@@ -79,7 +79,7 @@ export function VacationForm({ locations, onSubmit }: VacationFormProps) {
             type="date"
             value={startDate}
             onChange={(event) => setStartDate(event.target.value)}
-            className="w-full rounded-[12px] border border-input-border px-3.5 py-2.5 text-sm outline-none focus:border-terracotta"
+            className="w-full rounded-[12px] border border-input-border bg-white px-3.5 py-[11px] text-sm outline-none focus:border-terracotta"
           />
         </div>
         <div className="min-w-[130px] flex-1">
@@ -94,7 +94,7 @@ export function VacationForm({ locations, onSubmit }: VacationFormProps) {
             type="date"
             value={endDate}
             onChange={(event) => setEndDate(event.target.value)}
-            className="w-full rounded-[12px] border border-input-border px-3.5 py-2.5 text-sm outline-none focus:border-terracotta"
+            className="w-full rounded-[12px] border border-input-border bg-white px-3.5 py-[11px] text-sm outline-none focus:border-terracotta"
           />
         </div>
         <button
