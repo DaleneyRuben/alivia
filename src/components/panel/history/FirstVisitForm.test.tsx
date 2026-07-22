@@ -61,4 +61,23 @@ describe("FirstVisitForm", () => {
     });
     expect(refreshMock).toHaveBeenCalled();
   });
+
+  it("shows an error and does not refresh when the patient has no Attended appointment yet", async () => {
+    saveFirstVisitMock.mockRejectedValue(
+      new Error("Patient has no Attended appointment yet"),
+    );
+    const user = userEvent.setup();
+    render(<FirstVisitForm patientId="p1" />);
+
+    await user.type(screen.getByLabelText("Diagnóstico"), "Migraña");
+    await user.type(screen.getByLabelText("Tratamiento"), "Reposo");
+    await user.click(
+      screen.getByRole("button", { name: "Guardar historia clínica" }),
+    );
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "todavía no tiene una cita atendida",
+    );
+    expect(refreshMock).not.toHaveBeenCalled();
+  });
 });

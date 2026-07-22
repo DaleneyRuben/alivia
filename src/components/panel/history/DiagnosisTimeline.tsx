@@ -31,34 +31,42 @@ export function DiagnosisTimeline({
   const [diagnosis, setDiagnosis] = useState("");
   const [treatment, setTreatment] = useState("");
   const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState(false);
 
   const canSubmit = isValidDiagnosisEntryInput({ diagnosis, treatment });
 
   function openAdd() {
     setDiagnosis("");
     setTreatment("");
+    setError(false);
     setFormState({ mode: "add" });
   }
 
   function openEdit(entry: DiagnosisTimelineEntry) {
     setDiagnosis(entry.diagnosis);
     setTreatment(entry.treatment);
+    setError(false);
     setFormState({ mode: "edit", entryId: entry.id });
   }
 
   function handleSubmit() {
+    setError(false);
     startTransition(async () => {
-      if (formState.mode === "edit") {
-        await updateDiagnosisEntry({
-          entryId: formState.entryId,
-          diagnosis,
-          treatment,
-        });
-      } else if (formState.mode === "add") {
-        await addDiagnosisEntry({ patientId, diagnosis, treatment });
+      try {
+        if (formState.mode === "edit") {
+          await updateDiagnosisEntry({
+            entryId: formState.entryId,
+            diagnosis,
+            treatment,
+          });
+        } else if (formState.mode === "add") {
+          await addDiagnosisEntry({ patientId, diagnosis, treatment });
+        }
+        setFormState({ mode: "closed" });
+        router.refresh();
+      } catch {
+        setError(true);
       }
-      setFormState({ mode: "closed" });
-      router.refresh();
     });
   }
 
@@ -77,6 +85,15 @@ export function DiagnosisTimeline({
 
       {formState.mode !== "closed" && (
         <div className="mb-3 flex flex-col gap-3 rounded-[16px] border border-card-border bg-white p-4">
+          {error && (
+            <div
+              role="alert"
+              className="flex items-center gap-2 rounded-[13px] border border-error-border bg-error-bg px-3.5 py-[11px] text-[13px] font-semibold text-terracotta-dark"
+            >
+              ⚠ No se pudo guardar la nota. Esta paciente todavía no tiene una
+              cita atendida.
+            </div>
+          )}
           <div>
             <label
               htmlFor="entry-diagnosis"

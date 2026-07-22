@@ -84,4 +84,22 @@ describe("DiagnosisTimeline", () => {
     });
     expect(refreshMock).toHaveBeenCalled();
   });
+
+  it("shows an error and keeps the form open when the patient has no Attended appointment yet", async () => {
+    addDiagnosisEntryMock.mockRejectedValue(
+      new Error("Patient has no Attended appointment yet"),
+    );
+    const user = userEvent.setup();
+    render(<DiagnosisTimeline patientId="p1" entries={entries} />);
+
+    await user.click(screen.getByRole("button", { name: "+ Nueva nota" }));
+    await user.type(screen.getByLabelText("Diagnóstico"), "Seguimiento");
+    await user.type(screen.getByLabelText("Tratamiento"), "Continuar plan");
+    await user.click(screen.getByRole("button", { name: "Guardar nota" }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "todavía no tiene una cita atendida",
+    );
+    expect(refreshMock).not.toHaveBeenCalled();
+  });
 });
