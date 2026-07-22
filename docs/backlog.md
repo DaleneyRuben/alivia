@@ -118,8 +118,8 @@ Source: [`flows/admin.md`](flows/admin.md).
 - [x] Practice detail: Desactivar / Reactivar per account (blocks panel login) ([§3](flows/admin.md))
 - [x] Practice detail: reset password per account → generates a new WhatsApp setup link ([§3](flows/admin.md), [ADR-0016](adr/0016-credential-delivery-via-whatsapp.md))
 - [x] Impersonation: confirmation modal (full access incl. Medical History) → enter that account's panel; action is logged ([§3](flows/admin.md), [ADR-0014](adr/0014-admin-impersonation-full-access.md))
-- [ ] Analytics: stat tiles (active practices, appointments booked, attendance rate, assistants, with deltas) + practices-per-month bar chart, wired to real data ([§4](flows/admin.md))
-- [ ] System status: overall banner + ok/degraded/down rows (Database, Deployment, WhatsApp link generation, Scheduled jobs) ([§5](flows/admin.md))
+- [x] Analytics: stat tiles (active practices, appointments booked, attendance rate, assistants, with deltas) + practices-per-month bar chart, wired to real data ([§4](flows/admin.md))
+- [x] System status: overall banner + ok/degraded/down rows (Database, Deployment, WhatsApp link generation, Scheduled jobs) ([§5](flows/admin.md))
 
 ## 6. Cross-cutting domain rules
 
