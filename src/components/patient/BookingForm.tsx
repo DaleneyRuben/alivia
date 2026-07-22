@@ -37,7 +37,7 @@ export function BookingForm({ summary }: BookingFormProps) {
   }
 
   return (
-    <div className="mx-auto max-w-[560px] px-6 py-5 pb-11">
+    <div className="mx-auto w-full max-w-[560px] px-6 py-5 pb-11">
       <Link
         href={`/doctors/${summary.doctorId}`}
         className="mb-4 inline-block text-sm font-semibold text-muted no-underline"

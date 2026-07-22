@@ -64,7 +64,7 @@ export function OnboardingWizard({
   }
 
   return (
-    <div className="mx-auto max-w-[640px]">
+    <div className="mx-auto w-full max-w-[640px]">
       <OnboardingStepper currentStep={step} />
       <div className="rounded-[22px] border border-card-border bg-white p-6 shadow-[0_18px_50px_rgba(42,37,33,.08)]">
         {step === 1 && <ProfileForm value={profile} onChange={setProfile} />}

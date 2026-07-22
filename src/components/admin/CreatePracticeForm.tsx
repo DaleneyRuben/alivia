@@ -38,7 +38,7 @@ export function CreatePracticeForm() {
 
   if (setupLinks) {
     return (
-      <div className="mx-auto max-w-[600px] px-6 py-6 pb-12">
+      <div className="mx-auto w-full max-w-[600px] px-6 py-6 pb-12">
         <h1 className="mb-1 text-[26px] font-extrabold tracking-tight">
           Cuentas creadas
         </h1>
@@ -76,7 +76,7 @@ export function CreatePracticeForm() {
   }
 
   return (
-    <div className="mx-auto max-w-[600px] px-6 py-6 pb-12">
+    <div className="mx-auto w-full max-w-[600px] px-6 py-6 pb-12">
       <Link
         href="/admin"
         className="mb-3.5 inline-block text-sm font-semibold text-muted no-underline"

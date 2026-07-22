@@ -28,7 +28,7 @@ export function CancelCard({ appointment }: CancelCardProps) {
 
   if (cancelled) {
     return (
-      <div className="mx-auto max-w-[440px] px-6 py-9 pb-11 text-center">
+      <div className="mx-auto w-full max-w-[440px] px-6 py-9 pb-11 text-center">
         <div className="mx-auto mb-4 flex h-15 w-15 items-center justify-center rounded-full bg-[#F5E0D8] text-2xl text-terracotta-deep">
           ✕
         </div>
@@ -49,7 +49,7 @@ export function CancelCard({ appointment }: CancelCardProps) {
   }
 
   return (
-    <div className="mx-auto max-w-[440px] px-6 py-9 pb-11 text-center">
+    <div className="mx-auto w-full max-w-[440px] px-6 py-9 pb-11 text-center">
       <h1 className="m-0 mb-1.5 text-[22px] font-extrabold tracking-[-0.4px]">
         ¿Cancelar tu cita?
       </h1>

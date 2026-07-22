@@ -28,7 +28,7 @@ export function DoctorProfile({ doctor, today, tomorrow }: DoctorProfileProps) {
   const isToday = doctor.soonestSlot?.date === today;
 
   return (
-    <div className="mx-auto max-w-[840px] px-6 py-5 pb-11">
+    <div className="mx-auto w-full max-w-[840px] px-6 py-5 pb-11">
       <Link
         href={`/results?specialty=${encodeURIComponent(doctor.specialty)}`}
         className="mb-4 inline-block text-sm font-semibold text-muted no-underline"
