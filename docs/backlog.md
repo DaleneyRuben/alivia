@@ -43,7 +43,7 @@ Source: [`flows/patient-site.md`](flows/patient-site.md).
 
 - [x] Home: search input + specialty chips ([§1](flows/patient-site.md))
 - [x] Home: top-3 doctors by availability, card → profile directly ([§1](flows/patient-site.md))
-- [x] Home: "Ingresar" link to panel login ([§1](flows/patient-site.md))
+- [x] Home: no "Ingresar" link — panel login reached via a separately shared direct link ([§1](flows/patient-site.md))
 - [x] Search: case-insensitive substring match on specialty or doctor name ([§2](flows/patient-site.md))
 - [x] Results: ranked ascending by soonest available Slot, "próxima cita" pill (green = today, sand = later) ([§2](flows/patient-site.md), [ADR-0008](adr/0008-availability-first-search-no-location-filter.md))
 - [x] Results: empty state "no encontramos especialistas" ([§2](flows/patient-site.md))
@@ -142,7 +142,7 @@ Design already updated in `design/`; not yet implemented. Source: decisions reco
 [`exploration-findings.md`](exploration-findings.md).
 
 - [x] Panel & Admin nav: logout via avatar-click dropdown ("Salir"), wired to `signOut()` ([finding #1](exploration-findings.md#1-no-logout-control-in-the-paneladmin-nav))
-- [ ] Patient home: remove "Ingresar" button (`/login` stays live, just unlinked) ([finding #2](exploration-findings.md#2-remove-ingresar-from-the-patient-site--staff-will-get-a-separate-direct-link))
+- [x] Patient home: remove "Ingresar" button (`/login` stays live, just unlinked) ([finding #2](exploration-findings.md#2-remove-ingresar-from-the-patient-site--staff-will-get-a-separate-direct-link))
 - [ ] Shared phone-input component (country-flag dropdown, full country list, Bolivia preselected, E.164 storage) reused across Booking, the staff walk-in form, and Crear consultorio's doctor/assistant fields; remove Booking's reassurance line + placeholders ([finding #3](exploration-findings.md#3-booking-form-copyplaceholders-plus-a-country-code-dropdown-for-phone-numbers))
 - [ ] Doctor profile page: remove the Ubicaciones list, add a per-slot location label, add a calendar date-picker over the existing 14-day availability window ([finding #4](exploration-findings.md#4-doctor-profile-page-patient-site--ubicaciones-date-range-and-a-lead-time-rule))
 - [ ] Doctor profile / booking: enforce a 2-hour minimum lead time on bookable slots, patient self-booking only — staff's "+ Agregar cita" stays unaffected ([finding #4](exploration-findings.md#4-doctor-profile-page-patient-site--ubicaciones-date-range-and-a-lead-time-rule))

@@ -8,11 +8,10 @@ describe("PatientHeader", () => {
     expect(screen.getByText("Alivia")).toBeInTheDocument();
   });
 
-  it("links Ingresar to the panel login", () => {
+  it("does not show an Ingresar link", () => {
     render(<PatientHeader />);
-    expect(screen.getByRole("link", { name: "Ingresar" })).toHaveAttribute(
-      "href",
-      "/login",
-    );
+    expect(
+      screen.queryByRole("link", { name: "Ingresar" }),
+    ).not.toBeInTheDocument();
   });
 });
