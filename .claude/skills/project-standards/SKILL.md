@@ -38,6 +38,19 @@ For any UI or frontend change, drive the actual feature with Playwright before o
 
 ---
 
+## Match design values property-by-property, not by eyeballing
+
+CLAUDE.md already says to check `./design` before implementing UI — this is about _how_ to check it. A visual screenshot comparison misses small drifts: an off-white input on a cream page background, or a 1px padding difference, don't stand out at a glance, especially at reduced screenshot size. They're still wrong, and they're the kind of thing a user notices immediately in the real app even when a side-by-side screenshot looked fine.
+
+For every new or changed element:
+
+- Open the relevant block in `design/*.dc.html` and read **every** inline style property — `background`, `border`, `color`, `padding`, `border-radius`, `font-size`, `font-weight`, `gap` — not just the ones that look load-bearing.
+- Map each property to an explicit Tailwind class or arbitrary value (`bg-white`, `py-[13px]`), even when it seems like it should be inherited or "probably fine." A dropped property silently falls back to something that can look close enough while still being measurably wrong.
+- Don't pattern-match a new element's classes off a neighboring _already-built_ component — that component may itself have skipped a property (this codebase has several inputs missing `bg-white` for exactly this reason).
+- Verify programmatically, not just visually: read back computed styles in a quick Playwright `page.evaluate` (`getComputedStyle(el).backgroundColor`, `.paddingTop`, etc.) and diff against the design's literal hex/px values. Treat a screenshot as a first pass for layout, not proof that colors and spacing match.
+
+---
+
 ## Committing
 
 Always use the `/commit` skill when committing changes — never run `git commit` manually. The skill enforces atomic commits, correct message format, and runs related tests before committing.
