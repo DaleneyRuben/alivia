@@ -22,7 +22,7 @@ export function ProfileForm({ value, onChange }: ProfileFormProps) {
           type="text"
           value={value.name}
           onChange={(event) => onChange({ ...value, name: event.target.value })}
-          className="w-full rounded-[14px] border border-input-border px-3 py-2 text-sm outline-none focus:border-terracotta"
+          className="w-full rounded-[14px] border border-input-border bg-white px-[15px] py-3 text-sm outline-none focus:border-terracotta"
         />
       </div>
       <div className="flex flex-wrap gap-3">
@@ -40,7 +40,7 @@ export function ProfileForm({ value, onChange }: ProfileFormProps) {
             onChange={(event) =>
               onChange({ ...value, specialty: event.target.value })
             }
-            className="w-full rounded-[14px] border border-input-border px-3 py-2 text-sm outline-none focus:border-terracotta"
+            className="w-full rounded-[14px] border border-input-border bg-white px-[15px] py-3 text-sm outline-none focus:border-terracotta"
           />
         </div>
         <div className="min-w-[150px] flex-1">
@@ -62,7 +62,7 @@ export function ProfileForm({ value, onChange }: ProfileFormProps) {
                   event.target.value === "" ? null : Number(event.target.value),
               })
             }
-            className="w-full rounded-[14px] border border-input-border px-3 py-2 text-sm outline-none focus:border-terracotta"
+            className="w-full rounded-[14px] border border-input-border bg-white px-[15px] py-3 text-sm outline-none focus:border-terracotta"
           />
         </div>
       </div>
@@ -78,7 +78,7 @@ export function ProfileForm({ value, onChange }: ProfileFormProps) {
           rows={3}
           value={value.bio}
           onChange={(event) => onChange({ ...value, bio: event.target.value })}
-          className="w-full resize-none rounded-[14px] border border-input-border px-3 py-2 text-sm outline-none focus:border-terracotta"
+          className="w-full resize-none rounded-[14px] border border-input-border bg-white px-[15px] py-3 text-sm outline-none focus:border-terracotta"
         />
       </div>
     </div>
