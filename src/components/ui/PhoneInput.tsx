@@ -8,14 +8,28 @@ export interface PhoneInputProps {
   id: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  variant?: "default" | "compact";
 }
 
-const selectClass =
-  "flex-none max-w-[132px] rounded-[14px] border border-input-border bg-white px-3 py-[13px] text-sm outline-none focus:border-terracotta";
-const inputClass =
-  "min-w-0 flex-1 rounded-[14px] border border-input-border bg-white px-4 py-[13px] text-sm outline-none focus:border-terracotta";
+const selectClassByVariant = {
+  default:
+    "flex-none max-w-[132px] rounded-[14px] border border-input-border bg-white px-3 py-[13px] text-sm outline-none focus:border-terracotta",
+  compact:
+    "flex-none max-w-[128px] rounded-[12px] border border-input-border bg-white px-3 py-[11px] text-sm outline-none focus:border-terracotta",
+};
+const inputClassByVariant = {
+  default:
+    "min-w-0 flex-1 rounded-[14px] border border-input-border bg-white px-4 py-[13px] text-sm outline-none focus:border-terracotta",
+  compact:
+    "min-w-0 flex-1 rounded-[12px] border border-input-border bg-white px-3.5 py-[11px] text-sm outline-none focus:border-terracotta",
+};
 
-export function PhoneInput({ id, onChange, placeholder }: PhoneInputProps) {
+export function PhoneInput({
+  id,
+  onChange,
+  placeholder,
+  variant = "default",
+}: PhoneInputProps) {
   const [countryIndex, setCountryIndex] = useState(0);
   const [national, setNational] = useState("");
   const dial = COUNTRY_DIAL_CODES[countryIndex].dial;
@@ -36,7 +50,7 @@ export function PhoneInput({ id, onChange, placeholder }: PhoneInputProps) {
         aria-label="Código de país"
         value={countryIndex}
         onChange={(event) => handleCountryChange(Number(event.target.value))}
-        className={selectClass}
+        className={selectClassByVariant[variant]}
       >
         {COUNTRY_DIAL_CODES.map((country, index) => (
           <option key={country.flag} value={index}>
@@ -50,7 +64,7 @@ export function PhoneInput({ id, onChange, placeholder }: PhoneInputProps) {
         value={national}
         onChange={(event) => handleNationalChange(event.target.value)}
         placeholder={placeholder}
-        className={inputClass}
+        className={inputClassByVariant[variant]}
       />
     </div>
   );

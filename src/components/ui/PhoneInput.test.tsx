@@ -56,4 +56,28 @@ describe("PhoneInput", () => {
     );
     expect(screen.getByPlaceholderText("7XX XXX XX")).toBeInTheDocument();
   });
+
+  it("applies the panel design's compact padding and radius when variant is compact", () => {
+    render(<PhoneInput id="phone" onChange={vi.fn()} variant="compact" />);
+    expect(screen.getByLabelText("Código de país").className).toContain(
+      "rounded-[12px]",
+    );
+    expect(screen.getByLabelText("Código de país").className).toContain(
+      "py-[11px]",
+    );
+    expect(screen.getByRole("textbox").className).toContain("rounded-[12px]");
+    expect(screen.getByRole("textbox").className).toContain("py-[11px]");
+  });
+
+  it("defaults to the patient booking screen's padding and radius", () => {
+    render(<PhoneInput id="phone" onChange={vi.fn()} />);
+    expect(screen.getByLabelText("Código de país").className).toContain(
+      "rounded-[14px]",
+    );
+    expect(screen.getByLabelText("Código de país").className).toContain(
+      "py-[13px]",
+    );
+    expect(screen.getByRole("textbox").className).toContain("rounded-[14px]");
+    expect(screen.getByRole("textbox").className).toContain("py-[13px]");
+  });
 });
