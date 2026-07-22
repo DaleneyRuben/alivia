@@ -13,7 +13,7 @@ async function fillDoctorFields(user: ReturnType<typeof userEvent.setup>) {
   await user.type(screen.getByLabelText("Nombre"), "Dra. Carla Mendoza");
   await user.type(screen.getByLabelText("Especialidad"), "Cardiología");
   await user.type(screen.getByLabelText("Correo"), "carla@consulta.bo");
-  await user.type(screen.getByLabelText("Teléfono"), "+591 71234567");
+  await user.type(screen.getByLabelText("Teléfono"), "71234567");
 }
 
 describe("CreatePracticeForm", () => {
@@ -57,7 +57,7 @@ describe("CreatePracticeForm", () => {
         name: "Dra. Carla Mendoza",
         specialty: "Cardiología",
         email: "carla@consulta.bo",
-        phone: "+591 71234567",
+        phone: "+59171234567",
       },
       assistant: null,
     });
@@ -91,7 +91,7 @@ describe("CreatePracticeForm", () => {
       screen.getAllByLabelText("Correo")[1],
       "andrea@consulta.bo",
     );
-    await user.type(screen.getAllByLabelText("Teléfono")[1], "+591 76543210");
+    await user.type(screen.getAllByLabelText("Teléfono")[1], "76543210");
     await user.click(screen.getByRole("button", { name: "Crear cuentas" }));
 
     expect(createPractice).toHaveBeenCalledWith({
@@ -99,12 +99,12 @@ describe("CreatePracticeForm", () => {
         name: "Dra. Carla Mendoza",
         specialty: "Cardiología",
         email: "carla@consulta.bo",
-        phone: "+591 71234567",
+        phone: "+59171234567",
       },
       assistant: {
         name: "Andrea López",
         email: "andrea@consulta.bo",
-        phone: "+591 76543210",
+        phone: "+59176543210",
       },
     });
   });
