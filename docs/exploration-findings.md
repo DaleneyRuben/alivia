@@ -143,16 +143,24 @@ field, which is why this needed deciding rather than assuming.
 
 **For the eventual design-AI prompt:**
 
-- [ ] Update `design/Alivia Prototype.dc.html`'s booking screen: drop the reassurance line and both
+- [x] Update `design/Alivia Prototype.dc.html`'s booking screen: drop the reassurance line and both
       placeholders, add the country-flag + dial-code dropdown ahead of the phone input.
-- [ ] Apply the same country-flag dropdown to the equivalent fields in
+- [x] Apply the same country-flag dropdown to the equivalent fields in
       `design/Alivia Panel Prototype.dc.html` (the "+ Agregar cita" walk-in form) and the admin
       create-practice screen (doctor + assistant phone fields).
-- [ ] Add a backlog item in `docs/backlog.md` covering all four inputs as one piece of work.
-- [ ] Implement: a shared phone-input component (country dropdown + number field, E.164 output) used
+- [x] Add a backlog item in `docs/backlog.md` covering all four inputs as one piece of work.
+- [x] Implement: a shared phone-input component (country dropdown + number field, E.164 output) used
       by `BookingForm`, `ManualAppointmentForm`, and `CreatePracticeForm` — not four separate
       one-off implementations. Update `isValidGuestBookingInput`/equivalents and existing seed data
       /tests that assume bare `+591 …` strings.
+
+**Implementation note (2026-07-22):** built as `src/components/ui/PhoneInput.tsx`, backed by
+`src/lib/phone/countryDialCodes.ts` (the same 195-country, Bolivia-first list from the design source)
+and `src/lib/phone/toE164.ts`. `isValidGuestBookingInput`/`isValidManualAppointmentInput`/
+`isValidCreatePracticeInput` needed no changes — they only check string length, not format. No seed
+data stores phone numbers, so nothing there needed updating either; only the three component tests
+that typed a full `+591 …` string into a single field were updated to type just the national number
+and expect E.164 output.
 
 **Design-AI audit result (2026-07-22):** round 1 came back correct except the country list, which
 only had ~27 countries instead of the decided full global list. Sent back a follow-up prompt
