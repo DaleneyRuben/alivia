@@ -130,7 +130,7 @@ each needs enforcement and tests regardless of which screen drives it.
 - [x] Confirmation is a sub-state of Scheduled, never terminal ([§1](flows/domain-lifecycles.md))
 - [x] Capacity is a hard cap for patient self-booking only; staff may exceed it ([§2](flows/domain-lifecycles.md), [ADR-0009](adr/0009-slots-have-capacity.md))
 - [x] Cancelling an Appointment reopens its Slot when below capacity ([§2](flows/domain-lifecycles.md))
-- [ ] Marking Attended by the Doctor (opted in) triggers the Diagnosis Entry flow; first Attended visit also creates the Medical Profile ([§1, §4](flows/domain-lifecycles.md)) 🚧 fix/attended-gates-diagnosis-entry
+- [x] Marking Attended by the Doctor (opted in) triggers the Diagnosis Entry flow; first Attended visit also creates the Medical Profile ([§1, §4](flows/domain-lifecycles.md))
 - [x] Medical History siloing: invisible to other Doctors and to Assistants; only exception is Admin impersonation ([§4](flows/domain-lifecycles.md), [ADR-0011](adr/0011-medical-history-siloed-per-doctor.md), [ADR-0014](adr/0014-admin-impersonation-full-access.md))
 - [x] Diagnosis Entries: editable, never deletable ([§4](flows/domain-lifecycles.md))
 - [x] Assistant permission boundary enforced server-side (not just hidden nav): no Locations, Account/Subscription, or Medical History access (`CONTEXT.md`: Assistant)

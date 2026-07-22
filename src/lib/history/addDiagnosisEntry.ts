@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireDoctorOnlyId } from "@/lib/auth/requireDoctorOnlyId";
+import { hasAttendedAppointment } from "./hasAttendedAppointment";
 import {
   isValidDiagnosisEntryInput,
   type DiagnosisEntryInput,
@@ -27,6 +28,9 @@ export async function addDiagnosisEntry(input: AddDiagnosisEntryInput) {
   }
   if (!patient.medicalProfile) {
     throw new Error("Patient has no Medical History yet");
+  }
+  if (!(await hasAttendedAppointment(doctorId, patient.id))) {
+    throw new Error("Patient has no Attended appointment yet");
   }
 
   await prisma.diagnosisEntry.create({

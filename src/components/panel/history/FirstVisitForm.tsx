@@ -17,20 +17,26 @@ export function FirstVisitForm({ patientId }: FirstVisitFormProps) {
   const [diagnosis, setDiagnosis] = useState("");
   const [treatment, setTreatment] = useState("");
   const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState(false);
 
   const canSubmit = isValidDiagnosisEntryInput({ diagnosis, treatment });
 
   function handleSubmit() {
+    setError(false);
     startTransition(async () => {
-      await saveFirstVisit({
-        patientId,
-        dateOfBirth: dateOfBirth || null,
-        bloodType,
-        allergiesAndHistory,
-        diagnosis,
-        treatment,
-      });
-      router.refresh();
+      try {
+        await saveFirstVisit({
+          patientId,
+          dateOfBirth: dateOfBirth || null,
+          bloodType,
+          allergiesAndHistory,
+          diagnosis,
+          treatment,
+        });
+        router.refresh();
+      } catch {
+        setError(true);
+      }
     });
   }
 
@@ -44,6 +50,15 @@ export function FirstVisitForm({ patientId }: FirstVisitFormProps) {
         El perfil base y la primera nota se registran juntos en la primera
         visita atendida.
       </p>
+      {error && (
+        <div
+          role="alert"
+          className="mb-4 flex items-center gap-2 rounded-[13px] border border-error-border bg-error-bg px-3.5 py-[11px] text-[13px] font-semibold text-terracotta-dark"
+        >
+          ⚠ No se pudo guardar. Esta paciente todavía no tiene una cita
+          atendida.
+        </div>
+      )}
 
       <div className="mb-2.5 text-xs font-bold tracking-wide text-muted uppercase">
         Perfil base
