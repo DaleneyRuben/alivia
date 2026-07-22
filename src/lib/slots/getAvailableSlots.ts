@@ -4,6 +4,7 @@ import {
   type ScheduleBlockInput,
 } from "./generateSlotsForDate";
 import { isDateOnVacation, type VacationInput } from "./isDateOnVacation";
+import { laPazDateTimeToUtc } from "@/lib/time/laPazDateTimeToUtc";
 
 export interface AppointmentInput {
   locationId: string;
@@ -18,6 +19,9 @@ export interface AvailableSlot extends GeneratedSlot {
   // capacity is a hard cap for patient self-booking only (ADR-0009) —
   // full slots stay in the list so the UI can show them struck-through
   availableToPatients: boolean;
+  // starts inside minLeadMinutes of `now` — distinct from a full slot so the
+  // UI can style each reason differently (finding #4)
+  tooSoon: boolean;
 }
 
 interface GetAvailableSlotsParams {
@@ -26,6 +30,10 @@ interface GetAvailableSlotsParams {
   appointments: AppointmentInput[];
   from: string;
   to: string;
+  // when omitted, no lead-time cutoff is applied — used by staff's
+  // ManualAppointmentForm path, which must stay unaffected (finding #4)
+  minLeadMinutes?: number;
+  now?: Date;
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -48,8 +56,14 @@ export function getAvailableSlots({
   appointments,
   from,
   to,
+  minLeadMinutes,
+  now,
 }: GetAvailableSlotsParams): AvailableSlot[] {
   const slots: AvailableSlot[] = [];
+  const cutoffMs =
+    minLeadMinutes === undefined
+      ? null
+      : (now ?? new Date()).getTime() + minLeadMinutes * 60 * 1000;
 
   for (const date of eachDateInRange(from, to)) {
     for (const slot of generateSlotsForDate(blocks, date)) {
@@ -63,10 +77,15 @@ export function getAvailableSlots({
           appointment.startMinutes === slot.startMinutes,
       ).length;
 
+      const tooSoon =
+        cutoffMs !== null &&
+        laPazDateTimeToUtc(slot.date, slot.startMinutes).getTime() < cutoffMs;
+
       slots.push({
         ...slot,
         bookedCount,
-        availableToPatients: bookedCount < slot.capacity,
+        tooSoon,
+        availableToPatients: !tooSoon && bookedCount < slot.capacity,
       });
     }
   }

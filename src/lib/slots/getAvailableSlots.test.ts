@@ -67,6 +67,7 @@ describe("getAvailableSlots", () => {
       capacity: 2,
       bookedCount: 0,
       availableToPatients: true,
+      tooSoon: false,
     });
   });
 
@@ -156,5 +157,64 @@ describe("getAvailableSlots", () => {
     });
 
     expect(slots).toEqual([]);
+  });
+
+  it("leaves slots available to patients when no minLeadMinutes is given, regardless of how soon they start", () => {
+    // staff's ManualAppointmentForm path never passes minLeadMinutes/now
+    const [slot] = getAvailableSlots({
+      blocks: [block({ startMinutes: 540, endMinutes: 600 })],
+      vacations: [],
+      appointments: [],
+      from: "2026-07-20",
+      to: "2026-07-20",
+    });
+
+    expect(slot.tooSoon).toBe(false);
+    expect(slot.availableToPatients).toBe(true);
+  });
+
+  it("marks a slot starting inside the minimum lead time as too soon and unavailable to patients", () => {
+    const [slot] = getAvailableSlots({
+      blocks: [block({ startMinutes: 540, endMinutes: 600 })], // 09:00 La Paz
+      vacations: [],
+      appointments: [],
+      from: "2026-07-20",
+      to: "2026-07-20",
+      now: new Date("2026-07-20T11:30:00.000Z"), // 07:30 La Paz, 90 min before the slot
+      minLeadMinutes: 120,
+    });
+
+    expect(slot.tooSoon).toBe(true);
+    expect(slot.availableToPatients).toBe(false);
+  });
+
+  it("keeps a slot outside the minimum lead time available to patients", () => {
+    const [slot] = getAvailableSlots({
+      blocks: [block({ startMinutes: 540, endMinutes: 600 })], // 09:00 La Paz
+      vacations: [],
+      appointments: [],
+      from: "2026-07-20",
+      to: "2026-07-20",
+      now: new Date("2026-07-20T10:30:00.000Z"), // 06:30 La Paz, 150 min before the slot
+      minLeadMinutes: 120,
+    });
+
+    expect(slot.tooSoon).toBe(false);
+    expect(slot.availableToPatients).toBe(true);
+  });
+
+  it("keeps a too-soon slot distinct from a full slot", () => {
+    const [slot] = getAvailableSlots({
+      blocks: [block({ startMinutes: 540, endMinutes: 600 })],
+      vacations: [],
+      appointments: [appointment(), appointment()],
+      from: "2026-07-20",
+      to: "2026-07-20",
+      now: new Date("2026-07-20T10:30:00.000Z"),
+      minLeadMinutes: 120,
+    });
+
+    expect(slot.tooSoon).toBe(false);
+    expect(slot.availableToPatients).toBe(false);
   });
 });
