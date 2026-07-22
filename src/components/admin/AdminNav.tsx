@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { UserMenu } from "@/components/ui/UserMenu";
 
 const NAV_ITEMS = [
   { href: "/admin", label: "Roster" },
@@ -43,12 +44,16 @@ export function AdminNav() {
           );
         })}
       </div>
-      <div className="flex shrink-0 items-center gap-2.5">
-        <div className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-[#F5E0D8] text-xs font-bold text-terracotta-deep">
-          FN
-        </div>
-        <span className="text-[13px] font-semibold text-white">Fundador</span>
-      </div>
+      <UserMenu
+        avatar={
+          <div className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-[#F5E0D8] text-xs font-bold text-terracotta-deep">
+            FN
+          </div>
+        }
+        label={
+          <span className="text-[13px] font-semibold text-white">Fundador</span>
+        }
+      />
     </nav>
   );
 }

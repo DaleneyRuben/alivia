@@ -1,7 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { PanelNav } from "./PanelNav";
 
+const { signOut } = vi.hoisted(() => ({ signOut: vi.fn() }));
+vi.mock("next-auth/react", () => ({ signOut }));
 vi.mock("next/navigation", () => ({
   usePathname: () => "/panel/appointments",
 }));
@@ -83,5 +86,15 @@ describe("PanelNav", () => {
     expect(screen.getByRole("link", { name: "Horarios" })).not.toHaveAttribute(
       "aria-current",
     );
+  });
+
+  it("signs out and redirects to /login from the user menu", async () => {
+    const user = userEvent.setup();
+    render(<PanelNav role="DOCTOR" email="doctor@consulta.bo" />);
+
+    await user.click(screen.getByRole("button", { name: /Doctor/ }));
+    await user.click(screen.getByRole("button", { name: /Salir/ }));
+
+    expect(signOut).toHaveBeenCalledWith({ callbackUrl: "/login" });
   });
 });
