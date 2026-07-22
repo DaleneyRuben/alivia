@@ -90,7 +90,7 @@ export function BookingForm({ summary }: BookingFormProps) {
               type="text"
               value={name}
               onChange={(event) => setName(event.target.value)}
-              className="w-full rounded-[14px] border border-input-border px-4 py-3 text-sm outline-none focus:border-terracotta"
+              className="w-full rounded-[14px] border border-input-border bg-white px-4 py-[13px] text-sm outline-none focus:border-terracotta"
             />
           </div>
           <div>

@@ -11,9 +11,9 @@ export interface PhoneInputProps {
 }
 
 const selectClass =
-  "flex-none max-w-[132px] rounded-[14px] border border-input-border bg-white px-3 py-3 text-sm outline-none focus:border-terracotta";
+  "flex-none max-w-[132px] rounded-[14px] border border-input-border bg-white px-3 py-[13px] text-sm outline-none focus:border-terracotta";
 const inputClass =
-  "min-w-0 flex-1 rounded-[14px] border border-input-border px-4 py-3 text-sm outline-none focus:border-terracotta";
+  "min-w-0 flex-1 rounded-[14px] border border-input-border bg-white px-4 py-[13px] text-sm outline-none focus:border-terracotta";
 
 export function PhoneInput({ id, onChange, placeholder }: PhoneInputProps) {
   const [countryIndex, setCountryIndex] = useState(0);
