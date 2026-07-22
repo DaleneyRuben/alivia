@@ -42,7 +42,7 @@ stack per [ADR-0012](adr/0012-mvp-tech-stack.md).
 Source: [`flows/patient-site.md`](flows/patient-site.md).
 
 - [x] Home: search input + specialty chips ([§1](flows/patient-site.md))
-- [x] Home: top-3 doctors by availability, card → profile directly ([§1](flows/patient-site.md))
+- [x] Home: top-3 doctors by availability, "Reservar" → profile directly ([§1](flows/patient-site.md))
 - [x] Home: no "Ingresar" link — panel login reached via a separately shared direct link ([§1](flows/patient-site.md))
 - [x] Search: case-insensitive substring match on specialty or doctor name ([§2](flows/patient-site.md))
 - [x] Results: ranked ascending by soonest available Slot, "próxima cita" pill (green = today, sand = later) ([§2](flows/patient-site.md), [ADR-0008](adr/0008-availability-first-search-no-location-filter.md))
@@ -147,7 +147,7 @@ Design already updated in `design/`; not yet implemented. Source: decisions reco
 - [ ] Doctor profile page: remove the Ubicaciones list, add a per-slot location label, add a calendar date-picker over the existing 14-day availability window ([finding #4](exploration-findings.md#4-doctor-profile-page-patient-site--ubicaciones-date-range-and-a-lead-time-rule))
 - [ ] Doctor profile / booking: enforce a 2-hour minimum lead time on bookable slots, patient self-booking only — staff's "+ Agregar cita" stays unaffected ([finding #4](exploration-findings.md#4-doctor-profile-page-patient-site--ubicaciones-date-range-and-a-lead-time-rule))
 - [x] Horarios: reject a schedule block that overlaps another of the doctor's blocks in weekday + time range across locations, with a clear in-UI error ([finding #5](exploration-findings.md#5-horarios-schedule-editor--a-doctor-can-create-impossible-double-booked-availability))
-- [ ] Result card (Home + Results): remove the whole-card link — only "Reservar" navigates to the profile ([finding #6](exploration-findings.md#6-result-card-home--results--whole-card-is-clickable-only-reservar-should-be))
+- [x] Result card (Home + Results): remove the whole-card link — only "Reservar" navigates to the profile ([finding #6](exploration-findings.md#6-result-card-home--results--whole-card-is-clickable-only-reservar-should-be))
 
 ## 8. Ship
 

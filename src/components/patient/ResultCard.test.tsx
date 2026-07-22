@@ -85,7 +85,7 @@ describe("ResultCard", () => {
     expect(screen.getByText("Sin cupos por ahora")).toBeInTheDocument();
   });
 
-  it("links the whole card to the doctor's profile", () => {
+  it("links only Reservar to the doctor's profile", () => {
     render(
       <ResultCard
         doctor={baseDoctor}
@@ -93,6 +93,20 @@ describe("ResultCard", () => {
         tomorrow="2026-07-22"
       />,
     );
-    expect(screen.getByRole("link")).toHaveAttribute("href", "/doctors/doc-1");
+    const links = screen.getAllByRole("link");
+    expect(links).toHaveLength(1);
+    expect(links[0]).toHaveAttribute("href", "/doctors/doc-1");
+    expect(links[0]).toHaveTextContent("Reservar");
+  });
+
+  it("does not make the rest of the card clickable", () => {
+    render(
+      <ResultCard
+        doctor={baseDoctor}
+        today="2026-07-21"
+        tomorrow="2026-07-22"
+      />,
+    );
+    expect(screen.getByText("Dra. Carla Mendoza").closest("a")).toBeNull();
   });
 });

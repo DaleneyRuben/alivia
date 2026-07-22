@@ -24,10 +24,7 @@ export function ResultCard({ doctor, today, tomorrow }: ResultCardProps) {
   const hasSlot = doctor.soonestSlot !== null;
 
   return (
-    <Link
-      href={`/doctors/${doctor.id}`}
-      className="flex flex-wrap items-center gap-4 rounded-[20px] border border-card-border bg-white p-4.5 text-ink no-underline"
-    >
+    <div className="flex flex-wrap items-center gap-4 rounded-[20px] border border-card-border bg-white p-4.5 text-ink">
       <div
         className="flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-full text-[22px] font-bold"
         style={{ backgroundColor: tint.bg, color: tint.text }}
@@ -63,10 +60,13 @@ export function ResultCard({ doctor, today, tomorrow }: ResultCardProps) {
           )}
           {formatNextAvailableLabel(doctor.soonestSlot, today, tomorrow)}
         </span>
-        <span className="rounded-full bg-terracotta px-6 py-2.5 text-sm font-bold text-white">
+        <Link
+          href={`/doctors/${doctor.id}`}
+          className="rounded-full bg-terracotta px-6 py-2.5 text-sm font-bold text-white no-underline"
+        >
           Reservar
-        </span>
+        </Link>
       </div>
-    </Link>
+    </div>
   );
 }

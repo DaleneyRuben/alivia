@@ -20,8 +20,8 @@ flowchart TD
     Empty["Empty state: no especialistas"]
 
     Home -->|"submit search / specialty chip"| Results
-    Home -->|"click a featured doctor card / Reservar"| Profile
-    Results -->|"click card / Reservar"| Profile
+    Home -->|"Reservar"| Profile
+    Results -->|"Reservar"| Profile
     Results -.->|"no matches"| Empty
     Profile -->|"pick an available Slot"| Booking
     Booking -->|"name + phone valid → Confirmar reserva"| Confirm
@@ -38,8 +38,9 @@ flowchart TD
 
 **Notes**
 
-- The Home page lists the top-3 doctors by availability. Clicking a featured card (or
-  its **Reservar**) jumps straight to that Doctor's profile, skipping Results.
+- The Home page lists the top-3 doctors by availability. Clicking a featured card's
+  **Reservar** jumps straight to that Doctor's profile, skipping Results — the rest of
+  the card is non-interactive.
 - In production the **Cancel page is reached from the cancel link inside the Patient's
   WhatsApp confirmation message** — no login needed. The "Cancelar esta cita" button on
   the Confirmation screen is the prototype's shortcut to that same page.
