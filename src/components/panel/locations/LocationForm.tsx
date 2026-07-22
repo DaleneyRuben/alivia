@@ -46,7 +46,7 @@ export function LocationForm({
           type="text"
           value={name}
           onChange={(event) => setName(event.target.value)}
-          className="w-full rounded-[14px] border border-input-border px-3 py-2 text-sm outline-none focus:border-terracotta"
+          className="w-full rounded-[12px] border border-input-border bg-white px-3.5 py-[11px] text-sm outline-none focus:border-terracotta"
         />
       </div>
       <div>
@@ -61,7 +61,7 @@ export function LocationForm({
           type="text"
           value={address}
           onChange={(event) => setAddress(event.target.value)}
-          className="w-full rounded-[14px] border border-input-border px-3 py-2 text-sm outline-none focus:border-terracotta"
+          className="w-full rounded-[12px] border border-input-border bg-white px-3.5 py-[11px] text-sm outline-none focus:border-terracotta"
         />
       </div>
       <div className="flex items-center gap-2">
