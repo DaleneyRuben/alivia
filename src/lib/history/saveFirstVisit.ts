@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireDoctorOnlyId } from "@/lib/auth/requireDoctorOnlyId";
+import { hasAttendedAppointment } from "./hasAttendedAppointment";
 import { isValidDiagnosisEntryInput } from "./isValidDiagnosisEntryInput";
 
 export interface SaveFirstVisitInput {
@@ -29,6 +30,9 @@ export async function saveFirstVisit(input: SaveFirstVisitInput) {
   }
   if (patient.medicalProfile) {
     throw new Error("Medical profile already exists for this patient");
+  }
+  if (!(await hasAttendedAppointment(doctorId, patient.id))) {
+    throw new Error("Patient has no Attended appointment yet");
   }
 
   await prisma.$transaction([
