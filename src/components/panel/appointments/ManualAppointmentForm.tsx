@@ -64,13 +64,14 @@ export function ManualAppointmentForm({
             value={patientName}
             onChange={(event) => setPatientName(event.target.value)}
             placeholder="Nombre del paciente"
-            className="min-w-[150px] flex-1 rounded-[12px] border border-input-border px-3.5 py-2.5 text-sm outline-none focus:border-terracotta"
+            className="min-w-[150px] flex-1 rounded-[12px] border border-input-border bg-white px-3.5 py-[11px] text-sm outline-none focus:border-terracotta"
           />
           <div className="min-w-[150px] flex-1">
             <PhoneInput
               id="manual-patient-phone"
               onChange={setPatientPhone}
               placeholder="7XX XXX XX"
+              variant="compact"
             />
           </div>
         </div>
