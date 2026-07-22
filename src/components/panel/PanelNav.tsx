@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { UserMenu } from "@/components/ui/UserMenu";
 
 export interface PanelNavProps {
   role: "DOCTOR" | "ASSISTANT";
@@ -64,14 +65,18 @@ export function PanelNav({ role, email, pendingConfirmations }: PanelNavProps) {
           );
         })}
       </div>
-      <div className="flex shrink-0 items-center gap-2">
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-xs font-bold uppercase text-white">
-          {email.charAt(0)}
-        </div>
-        <span className="text-xs text-sand-dot">
-          {role === "DOCTOR" ? "Doctor" : "Asistente"}
-        </span>
-      </div>
+      <UserMenu
+        avatar={
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-xs font-bold uppercase text-white">
+            {email.charAt(0)}
+          </div>
+        }
+        label={
+          <span className="text-xs text-sand-dot">
+            {role === "DOCTOR" ? "Doctor" : "Asistente"}
+          </span>
+        }
+      />
     </nav>
   );
 }

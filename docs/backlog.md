@@ -141,7 +141,7 @@ each needs enforcement and tests regardless of which screen drives it.
 Design already updated in `design/`; not yet implemented. Source: decisions recorded in
 [`exploration-findings.md`](exploration-findings.md).
 
-- [ ] Panel & Admin nav: logout via avatar-click dropdown ("Salir"), wired to `signOut()` ([finding #1](exploration-findings.md#1-no-logout-control-in-the-paneladmin-nav))
+- [x] Panel & Admin nav: logout via avatar-click dropdown ("Salir"), wired to `signOut()` ([finding #1](exploration-findings.md#1-no-logout-control-in-the-paneladmin-nav))
 - [ ] Patient home: remove "Ingresar" button (`/login` stays live, just unlinked) ([finding #2](exploration-findings.md#2-remove-ingresar-from-the-patient-site--staff-will-get-a-separate-direct-link))
 - [ ] Shared phone-input component (country-flag dropdown, full country list, Bolivia preselected, E.164 storage) reused across Booking, the staff walk-in form, and Crear consultorio's doctor/assistant fields; remove Booking's reassurance line + placeholders ([finding #3](exploration-findings.md#3-booking-form-copyplaceholders-plus-a-country-code-dropdown-for-phone-numbers))
 - [ ] Doctor profile page: remove the Ubicaciones list, add a per-slot location label, add a calendar date-picker over the existing 14-day availability window ([finding #4](exploration-findings.md#4-doctor-profile-page-patient-site--ubicaciones-date-range-and-a-lead-time-rule))
