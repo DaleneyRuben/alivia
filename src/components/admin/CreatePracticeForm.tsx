@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import Link from "next/link";
 import { createPractice, type SetupLink } from "@/lib/admin/createPractice";
 import { isValidCreatePracticeInput } from "@/lib/admin/isValidCreatePracticeInput";
+import { PhoneInput } from "@/components/ui/PhoneInput";
 
 const inputClass =
   "w-full rounded-xl border border-input-border bg-white px-3.5 py-2.75 text-sm outline-none";
@@ -37,7 +38,7 @@ export function CreatePracticeForm() {
 
   if (setupLinks) {
     return (
-      <div className="mx-auto max-w-[600px] px-6 py-6 pb-12">
+      <div className="mx-auto w-full max-w-[600px] px-6 py-6 pb-12">
         <h1 className="mb-1 text-[26px] font-extrabold tracking-tight">
           Cuentas creadas
         </h1>
@@ -75,7 +76,7 @@ export function CreatePracticeForm() {
   }
 
   return (
-    <div className="mx-auto max-w-[600px] px-6 py-6 pb-12">
+    <div className="mx-auto w-full max-w-[600px] px-6 py-6 pb-12">
       <Link
         href="/admin"
         className="mb-3.5 inline-block text-sm font-semibold text-muted no-underline"
@@ -141,14 +142,10 @@ export function CreatePracticeForm() {
             <label htmlFor="doctor-phone" className={labelClass}>
               Teléfono
             </label>
-            <input
+            <PhoneInput
               id="doctor-phone"
-              value={doctor.phone}
-              onChange={(event) =>
-                setDoctor({ ...doctor, phone: event.target.value })
-              }
-              placeholder="+591 71234567"
-              className={inputClass}
+              onChange={(phone) => setDoctor({ ...doctor, phone })}
+              placeholder="7XX XXX XX"
             />
           </div>
         </div>
@@ -204,14 +201,10 @@ export function CreatePracticeForm() {
               <label htmlFor="assistant-phone" className={labelClass}>
                 Teléfono
               </label>
-              <input
+              <PhoneInput
                 id="assistant-phone"
-                value={assistant.phone}
-                onChange={(event) =>
-                  setAssistant({ ...assistant, phone: event.target.value })
-                }
-                placeholder="+591 71234567"
-                className={inputClass}
+                onChange={(phone) => setAssistant({ ...assistant, phone })}
+                placeholder="7XX XXX XX"
               />
             </div>
           </div>

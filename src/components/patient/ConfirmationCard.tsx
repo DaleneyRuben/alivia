@@ -25,7 +25,7 @@ export function ConfirmationCard({ appointment }: ConfirmationCardProps) {
   });
 
   return (
-    <div className="mx-auto max-w-[520px] px-6 py-8 pb-11 text-center">
+    <div className="mx-auto w-full max-w-[520px] px-6 py-8 pb-11 text-center">
       <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-success-bg text-3xl text-success">
         ✓
       </div>

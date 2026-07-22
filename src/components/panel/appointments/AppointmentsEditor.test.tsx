@@ -135,13 +135,13 @@ describe("AppointmentsEditor", () => {
       screen.getByPlaceholderText("Nombre del paciente"),
       "Pedro Gómez",
     );
-    await user.type(screen.getByPlaceholderText("+591 7XX XXX XX"), "71112222");
+    await user.type(screen.getByPlaceholderText("7XX XXX XX"), "71112222");
     await user.click(screen.getByRole("button", { name: "15:30" }));
     await user.click(screen.getByRole("button", { name: "Agregar a la cola" }));
 
     expect(createManualAppointment).toHaveBeenCalledWith({
       patientName: "Pedro Gómez",
-      patientPhone: "71112222",
+      patientPhone: "+59171112222",
       locationId: "loc-1",
       date: "2026-07-20",
       startMinutes: 930,

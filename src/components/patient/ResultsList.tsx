@@ -19,7 +19,7 @@ export function ResultsList({
   const countLabel = `${count} ${count === 1 ? "especialista disponible" : "especialistas disponibles"} en La Paz`;
 
   return (
-    <div className="mx-auto max-w-[760px] px-6 py-5 pb-11">
+    <div className="mx-auto w-full max-w-[760px] px-6 py-5 pb-11">
       <Link
         href="/"
         className="mb-3.5 inline-block text-sm font-semibold text-muted no-underline"

@@ -65,8 +65,23 @@ describe("BookingForm", () => {
       date: "2026-07-21",
       startMinutes: 930,
       name: "María Quispe",
-      phone: "71234567",
+      phone: "+59171234567",
     });
+  });
+
+  it("has no reassurance copy or placeholder text", () => {
+    render(<BookingForm summary={summary} />);
+    expect(
+      screen.queryByText(
+        "Sin cuenta ni contraseña. Podrás cancelar cuando quieras.",
+      ),
+    ).not.toBeInTheDocument();
+    expect(screen.getByLabelText("Nombre completo")).not.toHaveAttribute(
+      "placeholder",
+    );
+    expect(
+      screen.getByLabelText("Número de teléfono (WhatsApp)"),
+    ).not.toHaveAttribute("placeholder");
   });
 
   it("shows an unavailable message instead of the form when the slot is gone", () => {

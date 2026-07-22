@@ -15,7 +15,7 @@ export function FeaturedDoctorsSection({
 
   return (
     <div className="border-t border-black/5 bg-white px-6 py-9">
-      <div className="mx-auto max-w-[720px]">
+      <div className="mx-auto w-full max-w-[720px]">
         <div className="mb-4 flex items-center justify-between">
           <span className="text-base font-bold">Disponibles ahora</span>
           <span className="rounded-full bg-[#F3ECE1] px-3.5 py-1.5 text-[13px] font-medium text-body-soft">

@@ -24,7 +24,7 @@ const STATE_BADGE_CLASS: Record<string, string> = {
 
 export function SystemStatus({ status }: SystemStatusProps) {
   return (
-    <div className="mx-auto max-w-[680px] px-6 py-6 pb-12">
+    <div className="mx-auto w-full max-w-[680px] px-6 py-6 pb-12">
       <div className="mb-4">
         <div className="text-[13px] font-semibold text-muted">
           Salud técnica

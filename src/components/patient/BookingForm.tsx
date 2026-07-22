@@ -9,6 +9,7 @@ import { formatSpanishDate } from "@/lib/time/formatSpanishDate";
 import { isValidGuestBookingInput } from "@/lib/patients/isValidGuestBookingInput";
 import { createGuestAppointment } from "@/lib/patients/createGuestAppointment";
 import type { BookingSummary } from "@/lib/patients/getBookingSummary";
+import { PhoneInput } from "@/components/ui/PhoneInput";
 
 export interface BookingFormProps {
   summary: BookingSummary;
@@ -36,7 +37,7 @@ export function BookingForm({ summary }: BookingFormProps) {
   }
 
   return (
-    <div className="mx-auto max-w-[560px] px-6 py-5 pb-11">
+    <div className="mx-auto w-full max-w-[560px] px-6 py-5 pb-11">
       <Link
         href={`/doctors/${summary.doctorId}`}
         className="mb-4 inline-block text-sm font-semibold text-muted no-underline"
@@ -89,8 +90,7 @@ export function BookingForm({ summary }: BookingFormProps) {
               type="text"
               value={name}
               onChange={(event) => setName(event.target.value)}
-              placeholder="Ej. María Quispe"
-              className="w-full rounded-[14px] border border-input-border px-4 py-3 text-sm outline-none focus:border-terracotta"
+              className="w-full rounded-[14px] border border-input-border bg-white px-4 py-[13px] text-sm outline-none focus:border-terracotta"
             />
           </div>
           <div>
@@ -100,14 +100,7 @@ export function BookingForm({ summary }: BookingFormProps) {
             >
               Número de teléfono (WhatsApp)
             </label>
-            <input
-              id="guest-phone"
-              type="tel"
-              value={phone}
-              onChange={(event) => setPhone(event.target.value)}
-              placeholder="+591 7XX XXX XX"
-              className="w-full rounded-[14px] border border-input-border px-4 py-3 text-sm outline-none focus:border-terracotta"
-            />
+            <PhoneInput id="guest-phone" onChange={setPhone} />
             <div className="mt-1.5 text-xs text-muted">
               Te enviaremos la confirmación a este número.
             </div>
@@ -120,9 +113,6 @@ export function BookingForm({ summary }: BookingFormProps) {
           >
             Confirmar reserva
           </button>
-          <p className="text-center text-xs text-muted">
-            Sin cuenta ni contraseña. Podrás cancelar cuando quieras.
-          </p>
         </div>
       )}
     </div>

@@ -18,7 +18,7 @@ export function RosterList({ practices }: RosterListProps) {
   );
 
   return (
-    <div className="mx-auto max-w-[860px] px-6 py-6 pb-12">
+    <div className="mx-auto w-full max-w-[860px] px-6 py-6 pb-12">
       <div className="mb-4 flex flex-wrap items-end justify-between gap-2.5">
         <div>
           <div className="text-[13px] font-semibold text-muted">

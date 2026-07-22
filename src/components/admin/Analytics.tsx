@@ -8,7 +8,7 @@ export function Analytics({ analytics }: AnalyticsProps) {
   const maxValue = Math.max(1, ...analytics.chart.map((bar) => bar.value));
 
   return (
-    <div className="mx-auto max-w-[860px] px-6 py-6 pb-12">
+    <div className="mx-auto w-full max-w-[860px] px-6 py-6 pb-12">
       <div className="mb-4">
         <div className="text-[13px] font-semibold text-muted">
           Métricas del negocio

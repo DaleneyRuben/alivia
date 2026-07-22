@@ -50,7 +50,7 @@ export function PracticeDetail({ practice }: PracticeDetailProps) {
   const headerTint = avatarTint(practice.id);
 
   return (
-    <div className="mx-auto max-w-[680px] px-6 py-6 pb-12">
+    <div className="mx-auto w-full max-w-[680px] px-6 py-6 pb-12">
       <Link
         href="/admin"
         className="mb-3.5 inline-block text-sm font-semibold text-muted no-underline"
