@@ -123,4 +123,26 @@ describe("ScheduleEditor", () => {
     expect(deleteScheduleBlock).toHaveBeenCalledWith("block-1");
     expect(refresh).toHaveBeenCalled();
   });
+
+  it("shows the server's overlap error and keeps the form open", async () => {
+    createScheduleBlock.mockRejectedValueOnce(
+      new Error(
+        "Ya tienes un horario en Clínica Sur que se cruza con este bloque.",
+      ),
+    );
+    const user = userEvent.setup();
+    render(<ScheduleEditor locations={locations} />);
+
+    await user.click(screen.getByRole("button", { name: "+ Agregar bloque" }));
+    await fillForm(user);
+    await user.click(screen.getByRole("button", { name: "Agregar bloque" }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Ya tienes un horario en Clínica Sur que se cruza con este bloque.",
+    );
+    expect(refresh).not.toHaveBeenCalled();
+    expect(
+      screen.getByRole("button", { name: "Agregar bloque" }),
+    ).toBeInTheDocument();
+  });
 });

@@ -26,12 +26,14 @@ export interface ScheduleBlockFormProps {
   initialValue?: ScheduleBlockInput;
   onSubmit: (input: ScheduleBlockInput) => void;
   onCancel?: () => void;
+  error?: string | null;
 }
 
 export function ScheduleBlockForm({
   initialValue,
   onSubmit,
   onCancel,
+  error,
 }: ScheduleBlockFormProps) {
   const [weekdays, setWeekdays] = useState<number[]>(
     initialValue?.weekdays ?? [],
@@ -77,6 +79,14 @@ export function ScheduleBlockForm({
       onSubmit={handleSubmit}
       className="flex flex-col gap-3.5 rounded-[16px] border border-terracotta bg-white p-4"
     >
+      {error && (
+        <div
+          role="alert"
+          className="flex items-center gap-2 rounded-[13px] border border-error-border bg-error-bg px-3.5 py-[11px] text-[13px] font-semibold text-terracotta-dark"
+        >
+          ⚠ {error}
+        </div>
+      )}
       <div>
         <span className="mb-1.5 block text-[13px] font-semibold">Días</span>
         <div className="flex flex-wrap gap-1.5">

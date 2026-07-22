@@ -7,6 +7,7 @@ import {
   isValidScheduleBlockInput,
   type ScheduleBlockInput,
 } from "./isValidScheduleBlockInput";
+import { scheduleBlocksOverlap } from "./scheduleBlocksOverlap";
 
 export interface CreateScheduleBlockInput extends ScheduleBlockInput {
   locationId: string;
@@ -21,6 +22,19 @@ export async function createScheduleBlock(input: CreateScheduleBlockInput) {
   });
   if (!location || location.doctorId !== doctorId) {
     throw new Error("Not authorized");
+  }
+
+  const otherBlocks = await prisma.scheduleBlock.findMany({
+    where: { location: { doctorId } },
+    include: { location: true },
+  });
+  const conflict = otherBlocks.find((block) =>
+    scheduleBlocksOverlap(input, block),
+  );
+  if (conflict) {
+    throw new Error(
+      `Ya tienes un horario en ${conflict.location.name} que se cruza con este bloque.`,
+    );
   }
 
   await prisma.scheduleBlock.create({

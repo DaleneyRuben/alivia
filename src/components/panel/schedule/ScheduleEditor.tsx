@@ -29,19 +29,29 @@ export function ScheduleEditor({ locations }: ScheduleEditorProps) {
     locations[0]?.id ?? "",
   );
   const [formState, setFormState] = useState<FormState>({ mode: "closed" });
+  const [formError, setFormError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const activeLocation = locations.find((l) => l.id === activeLocationId);
 
   function handleSubmit(input: ScheduleBlockInput) {
     startTransition(async () => {
-      if (formState.mode === "edit") {
-        await updateScheduleBlock({ blockId: formState.block.id, ...input });
-      } else {
-        await createScheduleBlock({ locationId: activeLocationId, ...input });
+      try {
+        if (formState.mode === "edit") {
+          await updateScheduleBlock({ blockId: formState.block.id, ...input });
+        } else {
+          await createScheduleBlock({ locationId: activeLocationId, ...input });
+        }
+        setFormError(null);
+        setFormState({ mode: "closed" });
+        router.refresh();
+      } catch (error) {
+        setFormError(
+          error instanceof Error
+            ? error.message
+            : "No se pudo guardar el horario.",
+        );
       }
-      setFormState({ mode: "closed" });
-      router.refresh();
     });
   }
 
@@ -68,11 +78,15 @@ export function ScheduleEditor({ locations }: ScheduleEditorProps) {
         onSelect={(id) => {
           setActiveLocationId(id);
           setFormState({ mode: "closed" });
+          setFormError(null);
         }}
       />
       <ScheduleBlockList
         blocks={activeLocation.scheduleBlocks}
-        onEdit={(block) => setFormState({ mode: "edit", block })}
+        onEdit={(block) => {
+          setFormState({ mode: "edit", block });
+          setFormError(null);
+        }}
         onRemove={handleRemove}
       />
       {formState.mode === "closed" ? (
@@ -87,7 +101,11 @@ export function ScheduleEditor({ locations }: ScheduleEditorProps) {
         <ScheduleBlockForm
           initialValue={formState.mode === "edit" ? formState.block : undefined}
           onSubmit={handleSubmit}
-          onCancel={() => setFormState({ mode: "closed" })}
+          onCancel={() => {
+            setFormState({ mode: "closed" });
+            setFormError(null);
+          }}
+          error={formError}
         />
       )}
       {isPending && <p className="text-xs text-muted">Guardando…</p>}
