@@ -90,4 +90,23 @@ describe("ScheduleBlockForm", () => {
 
     expect(onCancel).toHaveBeenCalled();
   });
+
+  it("shows the error message when one is passed", () => {
+    render(
+      <ScheduleBlockForm
+        onSubmit={vi.fn()}
+        error="Ya tienes un horario en Consultorio San Miguel que se cruza con este bloque."
+      />,
+    );
+
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "Ya tienes un horario en Consultorio San Miguel que se cruza con este bloque.",
+    );
+  });
+
+  it("renders no error banner when error is absent", () => {
+    render(<ScheduleBlockForm onSubmit={vi.fn()} />);
+
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
 });
