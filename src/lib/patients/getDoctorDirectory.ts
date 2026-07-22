@@ -6,6 +6,8 @@ import { compareDoctorsByAvailability } from "./compareDoctorsByAvailability";
 
 // how far ahead to look for a doctor's soonest open Slot (docs/flows/patient-site.md §2)
 const SEARCH_WINDOW_DAYS = 14;
+// patient self-booking only — staff's ManualAppointmentForm stays unaffected (finding #4)
+const PATIENT_MIN_LEAD_MINUTES = 120;
 
 export interface DirectoryDoctor {
   id: string;
@@ -87,6 +89,7 @@ export async function getDoctorDirectory(): Promise<DirectoryDoctor[]> {
           appointments,
           from: today,
           to,
+          minLeadMinutes: PATIENT_MIN_LEAD_MINUTES,
         }).find((slot) => slot.availableToPatients) ?? null;
 
       return {
