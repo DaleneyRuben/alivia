@@ -28,7 +28,7 @@ describe("ManualAppointmentForm", () => {
       screen.getByPlaceholderText("Nombre del paciente"),
       "Juana Pérez",
     );
-    await user.type(screen.getByPlaceholderText("+591 7XX XXX XX"), "71234567");
+    await user.type(screen.getByPlaceholderText("7XX XXX XX"), "71234567");
     expect(submit).toBeDisabled();
 
     await user.click(screen.getByRole("button", { name: "15:30" }));
@@ -72,13 +72,13 @@ describe("ManualAppointmentForm", () => {
       screen.getByPlaceholderText("Nombre del paciente"),
       "Juana Pérez",
     );
-    await user.type(screen.getByPlaceholderText("+591 7XX XXX XX"), "71234567");
+    await user.type(screen.getByPlaceholderText("7XX XXX XX"), "71234567");
     await user.click(screen.getByRole("button", { name: "15:30" }));
     await user.click(screen.getByRole("button", { name: "Agregar a la cola" }));
 
     expect(onSubmit).toHaveBeenCalledWith({
       patientName: "Juana Pérez",
-      patientPhone: "71234567",
+      patientPhone: "+59171234567",
       locationId: "loc-1",
       date: "2026-07-20",
       startMinutes: 930,
