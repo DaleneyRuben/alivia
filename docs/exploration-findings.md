@@ -227,16 +227,21 @@ screenshotted mid-exploration (Dra. Carla Mendoza, a doctor with 2 locations).
 
 **For the eventual design-AI prompt:**
 
-- [ ] Update `design/Alivia Prototype.dc.html`'s doctor-profile screen: drop the Ubicaciones section,
+- [x] Update `design/Alivia Prototype.dc.html`'s doctor-profile screen: drop the Ubicaciones section,
       add a per-slot location label to the slot grid, add a calendar date-picker control, and reflect
       that slots inside the next 2 hours no longer appear.
-- [ ] Add a backlog item in `docs/backlog.md` for this (likely worth splitting into two: the
+- [x] Add a backlog item in `docs/backlog.md` for this (likely worth splitting into two: the
       profile-page UI changes, and the lead-time rule, since they touch different layers).
-- [ ] Implement: `getPublicDoctorProfile.ts` needs to accept a selected date (defaulting to today)
+- [x] Implement: `getPublicDoctorProfile.ts` needs to accept a selected date (defaulting to today)
       and return that date's slots instead of always the single earliest date; `getAvailableSlots.ts`
       needs a "now + 2 hours" filter applied only for the patient-facing path (staff's
       `ManualAppointmentForm` path must stay unaffected); `SlotPicker.tsx` needs the location label
       and the new date-picker control; `DoctorProfile.tsx` drops the Ubicaciones rendering.
+      Shipped: also applied the same lead-time filter to `getDoctorDirectory.ts`'s "próxima cita"
+      ranking (not explicitly called out above, but leaving it unfiltered would let search promise a
+      slot the profile page then refuses to book), and added month prev/next navigation to the
+      calendar since the 14-day window can span two calendar months and the design's static
+      "julio 2026" mockup didn't address that case.
 
 ---
 
