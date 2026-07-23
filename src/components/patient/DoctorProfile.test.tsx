@@ -12,7 +12,9 @@ const doctor = {
   locations: [
     { id: "loc-1", name: "Centro Médico Miraflores", address: "Av. Busch" },
   ],
-  slotsDate: "2026-07-21",
+  windowStart: "2026-07-21",
+  windowEnd: "2026-08-04",
+  selectedDate: "2026-07-21",
   slots: [
     {
       locationId: "loc-1",
@@ -21,6 +23,7 @@ const doctor = {
       startMinutes: 930,
       endMinutes: 960,
       availableToPatients: true,
+      tooSoon: false,
     },
   ],
   soonestSlot: { date: "2026-07-21", startMinutes: 930 },
@@ -59,7 +62,7 @@ describe("DoctorProfile", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders every location", () => {
+  it("does not render a standalone locations list — location is only surfaced per-slot (finding #4)", () => {
     render(
       <DoctorProfile
         doctor={doctor}
@@ -67,8 +70,37 @@ describe("DoctorProfile", () => {
         tomorrow="2026-07-22"
       />,
     );
+    expect(screen.queryByText("Ubicaciones")).not.toBeInTheDocument();
+    expect(screen.queryByText("Av. Busch")).not.toBeInTheDocument();
+  });
+
+  it("shows a per-slot location label once the doctor has more than one location", () => {
+    const multiLocationDoctor = {
+      ...doctor,
+      locations: [
+        ...doctor.locations,
+        { id: "loc-2", name: "Clínica Los Andes", address: "Av. 6 de Agosto" },
+      ],
+    };
+    render(
+      <DoctorProfile
+        doctor={multiLocationDoctor}
+        today="2026-07-21"
+        tomorrow="2026-07-22"
+      />,
+    );
     expect(screen.getByText("Centro Médico Miraflores")).toBeInTheDocument();
-    expect(screen.getByText("Av. Busch")).toBeInTheDocument();
+  });
+
+  it("renders the date-picker calendar", () => {
+    render(
+      <DoctorProfile
+        doctor={doctor}
+        today="2026-07-21"
+        tomorrow="2026-07-22"
+      />,
+    );
+    expect(screen.getByText("Próximos 14 días")).toBeInTheDocument();
   });
 
   it("shows the hero next-available pill", () => {
