@@ -5,6 +5,7 @@ import { formatNextAvailableLabel } from "@/lib/patients/formatNextAvailableLabe
 import { formatSpanishDate } from "@/lib/time/formatSpanishDate";
 import type { PublicDoctorProfile } from "@/lib/patients/getPublicDoctorProfile";
 import { SlotPicker } from "./SlotPicker";
+import { DoctorProfileCalendar } from "./DoctorProfileCalendar";
 
 export interface DoctorProfileProps {
   doctor: PublicDoctorProfile;
@@ -12,15 +13,14 @@ export interface DoctorProfileProps {
   tomorrow: string;
 }
 
-function slotsDateLabel(
-  slotsDate: string | null,
+function selectedDateLabel(
+  selectedDate: string,
   today: string,
   tomorrow: string,
 ): string {
-  if (!slotsDate) return "";
-  if (slotsDate === today) return "Hoy";
-  if (slotsDate === tomorrow) return "Mañana";
-  return formatSpanishDate(slotsDate);
+  if (selectedDate === today) return "Hoy";
+  if (selectedDate === tomorrow) return "Mañana";
+  return formatSpanishDate(selectedDate);
 }
 
 export function DoctorProfile({ doctor, today, tomorrow }: DoctorProfileProps) {
@@ -88,32 +88,24 @@ export function DoctorProfile({ doctor, today, tomorrow }: DoctorProfileProps) {
               </p>
             </>
           )}
-          <div className="mb-2.5 text-[15px] font-bold">Ubicaciones</div>
-          <div className="flex flex-col gap-2.5">
-            {doctor.locations.map((location) => (
-              <div
-                key={location.id}
-                className="flex items-center gap-3 rounded-2xl border border-card-border p-3.5"
-              >
-                <span className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[11px] bg-[#F7F2EA] text-terracotta-deep">
-                  ⌂
-                </span>
-                <div>
-                  <div className="text-sm font-semibold">{location.name}</div>
-                  <div className="text-[12.5px] text-muted">
-                    {location.address}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
         <div>
+          <DoctorProfileCalendar
+            doctorId={doctor.id}
+            windowStart={doctor.windowStart}
+            windowEnd={doctor.windowEnd}
+            selectedDate={doctor.selectedDate}
+          />
           <div className="mb-3 text-[15px] font-bold">
             Elige un horario ·{" "}
-            {slotsDateLabel(doctor.slotsDate, today, tomorrow)}
+            {selectedDateLabel(doctor.selectedDate, today, tomorrow)}
           </div>
-          <SlotPicker doctorId={doctor.id} slots={doctor.slots} />
+          <SlotPicker
+            doctorId={doctor.id}
+            slots={doctor.slots}
+            soonestSlot={doctor.soonestSlot}
+            multiLocation={doctor.locations.length > 1}
+          />
         </div>
       </div>
     </div>
