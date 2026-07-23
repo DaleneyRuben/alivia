@@ -152,4 +152,4 @@ Design already updated in `design/`; not yet implemented. Source: decisions reco
 ## 8. Ship
 
 - [x] CI: lint, typecheck, frontend tests, backend tests ([project-standards](../.claude/skills/project-standards/SKILL.md))
-- [ ] Production deployment + environment config ([ADR-0012](adr/0012-mvp-tech-stack.md))
+- [x] Production deployment + environment config ([ADR-0012](adr/0012-mvp-tech-stack.md))
