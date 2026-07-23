@@ -40,8 +40,7 @@ password **`alivia123`**.
 | `doctor.nutricion@alivia.bo`     | Doctor (Nutrición)        | One cancelled appointment                                                                                                                                        |
 | `doctor.oftalmologia@alivia.bo`  | Doctor (Oftalmología)     | Onboarded today — good for "brand new practice" scenarios                                                                                                        |
 
-There's no logout button anywhere in the panel currently — see the note in [Login](#login).
-Switching between test accounts means clearing cookies or using a private window.
+To switch between test accounts, log out (see [Login](#login)) or use a private window.
 
 ---
 
@@ -64,7 +63,9 @@ Results.
 
 A filtered list of doctors matching the query (specialty or name, partial match). Each result
 card shows the doctor's name, specialty, and their soonest available slot label ("Hoy 10:00",
-"Mañana 09:30", etc.). Clicking a card opens that doctor's profile.
+"Mañana 09:30", etc.). Only the **"Reservar"** button is clickable — the rest of the card (avatar,
+name, chips, next-available pill) is plain content, not a link. Clicking "Reservar" opens that
+doctor's profile.
 
 ### Doctor profile — `/doctors/[doctorId]`
 
@@ -72,16 +73,29 @@ Shows:
 
 - Name, specialty, years of experience, university, a short bio, and a "Colegio Médico
   verificado" badge (cosmetic trust signal).
-- All of the doctor's **Locations** (name + address).
-- A slot picker for the next available day with open slots — grouped by time, greyed out if full.
+- A **calendar date-picker** covering the 14-day booking window, so you can browse any day ahead
+  instead of only the soonest one — prev/next month arrows appear when the window spans two
+  calendar months. There's no standalone "Ubicaciones" list anymore — per `CONTEXT.md`'s
+  definition of Location ("surfaced at the moment a patient picks a time slot"), which location a
+  slot belongs to is shown per-slot instead (see below) and again at the booking-confirm step.
+- A slot picker for the selected day's open slots, grouped by time. Each slot button shows a
+  small **location label** underneath it if the doctor has more than one Location, so you know
+  where a given time is without waiting for the booking step. A slot is styled one of three ways:
+  available (clickable, terracotta-highlighted if it's the doctor's soonest overall), full/taken
+  (greyed out, line-through), or **too soon to book** (dashed border) — patients can't self-book a
+  slot starting less than **2 hours** from now. This lead-time rule is patient-only: staff can
+  still add a walk-in into a near-term slot from Citas (see [Citas](#citas--panelappointments)).
 
-Picking a slot takes you to Booking.
+Picking a bookable slot takes you to Booking.
 
 ### Booking — `/booking?doctorId=...&locationId=...&date=...&start=...`
 
 A confirmation card showing doctor, location, date, and time, plus two fields: full name and
-WhatsApp phone number. No account or password is created — this is a guest booking. Submitting
-creates the Appointment (source `PATIENT`) and redirects to the booking's Confirmation page.
+WhatsApp phone number. The phone field has a country-flag dropdown (full global list, Bolivia
+preselected) ahead of the number input, and the number is stored as strict E.164 — the same
+shared phone input used on the staff walk-in form and the admin create-practice form. No account
+or password is created — this is a guest booking. Submitting creates the Appointment (source
+`PATIENT`) and redirects to the booking's Confirmation page.
 
 If the slot filled up between picking it and submitting, the form shows "Este horario ya no está
 disponible" instead of the name/phone fields.
@@ -108,8 +122,10 @@ Email + password. A **Doctor** and their **Assistant** log in with separate acco
 the same panel shell, just with a different set of nav items (see below). A deactivated account
 (`doctor.traumatologia@alivia.bo` in the seed data) is blocked at login.
 
-> **There is no logout button anywhere in the panel.** To switch test accounts, clear cookies or
-> open a private/incognito window and log in again.
+Clicking the signed-in avatar/role block at the right of the nav (in both the panel and the admin
+shell) opens a small dropdown with a single **"Salir"** item, which signs out and redirects to
+`/login`. This is a click-to-reveal menu — nothing else in Alivia works this way, so don't expect
+a persistent, always-visible logout button next to it.
 
 ### First login → Onboarding wizard (Doctor only)
 
@@ -191,6 +207,11 @@ slot). A location can have several blocks — e.g. a tighter-capacity morning bl
 looser-capacity afternoon block. Add, edit, or remove blocks freely; changes apply to future slot
 generation immediately.
 
+A new or edited block is rejected if it overlaps — same weekday(s) and an overlapping time
+range — with a block at any of the doctor's **other** locations too, not just the current one
+(a doctor can't physically be in two places at once). The form shows an inline error naming the
+conflicting location: _"Ya tienes un horario en [location] que se cruza con este bloque."_
+
 ### Vacaciones — [`/panel/vacation`](http://localhost:3000/panel/vacation)
 
 Marks a date range as unavailable, either for one specific Location or for the whole practice
@@ -261,8 +282,9 @@ box filters by doctor name or practice name. Clicking a row opens that practice'
 ### Crear consulta — [`/admin/create`](http://localhost:3000/admin/create)
 
 The concierge account-creation form (ADR-0005): fill in the doctor's name, specialty, email, and
-phone; optionally expand "+ Agregar" under "Cuenta de asistente" to create an assistant account at
-the same time. Submitting creates bare, name-only accounts — **the doctor completes their own
+phone (same country-flag phone input as Booking, E.164-stored); optionally expand "+ Agregar"
+under "Cuenta de asistente" to create an assistant account (with its own phone field) at the same
+time. Submitting creates bare, name-only accounts — **the doctor completes their own
 setup** via the onboarding wizard the first time they log in. After creation, you get a
 "Cuentas creadas" screen with a WhatsApp-shareable setup link per account, so the founder can send
 each person a link to set their own password.
