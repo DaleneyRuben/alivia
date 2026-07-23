@@ -6,11 +6,11 @@ first time. It assumes the app is running locally at `http://localhost:3000` (st
 
 Alivia has **three separate experiences** that don't share a login:
 
-| Experience                                                 | Who uses it                                           | Login required? |
-| ---------------------------------------------------------- | ----------------------------------------------------- | --------------- |
-| [Patient site](#part-a--patient-site-no-login)             | Anyone searching for a doctor and booking a visit     | No              |
-| [Doctor / Assistant panel](#part-b--doctorassistant-panel) | The doctor and their assistant, managing one practice | Yes             |
-| [Admin](#part-c--admin-founder-view)                       | The founder, managing every practice on the platform  | Yes             |
+| Experience                                              | Who uses it                                           | Login required? |
+| ------------------------------------------------------- | ----------------------------------------------------- | --------------- |
+| [Patient site](http://localhost:3000/)                  | Anyone searching for a doctor and booking a visit     | No              |
+| [Doctor / Assistant panel](http://localhost:3000/login) | The doctor and their assistant, managing one practice | Yes             |
+| [Admin](http://localhost:3000/admin)                    | The founder, managing every practice on the platform  | Yes             |
 
 For vocabulary (what "Slot", "Location", "Confirmation" etc. mean precisely), see
 [`CONTEXT.md`](../CONTEXT.md) — this guide assumes you've skimmed it and focuses on _where to
@@ -30,7 +30,7 @@ password **`alivia123`**.
 | `admin@alivia.bo`                | Admin                     | Founder view — [`/admin`](http://localhost:3000/admin)                                                                                                           |
 | `doctor@alivia.bo`               | Doctor (Pediatría)        | Fully onboarded, has an assistant, medical history enabled, 10 patients covering every appointment status, an over-capacity walk-in, and a cancelled appointment |
 | `asistente@alivia.bo`            | Assistant                 | Linked to `doctor@alivia.bo`                                                                                                                                     |
-| `doctor.nuevo@alivia.bo`         | Doctor (Medicina General) | **Not onboarded yet** — logging in drops you straight into the [onboarding wizard](#first-login--onboarding-wizard-doctor-only)                                  |
+| `doctor.nuevo@alivia.bo`         | Doctor (Medicina General) | **Not onboarded yet** — logging in drops you straight into the [onboarding wizard](http://localhost:3000/panel/onboarding)                                       |
 | `doctor.dermatologia@alivia.bo`  | Doctor (Dermatología)     | Simple case, one location, three patients                                                                                                                        |
 | `doctor.cardiologia@alivia.bo`   | Doctor (Cardiología)      | Has an assistant and **two locations** — good for testing the location switcher                                                                                  |
 | `doctor.ginecologia@alivia.bo`   | Doctor (Ginecología)      | Subscription is **inactive** — check how the "Cuenta" page renders this                                                                                          |
@@ -40,7 +40,7 @@ password **`alivia123`**.
 | `doctor.nutricion@alivia.bo`     | Doctor (Nutrición)        | One cancelled appointment                                                                                                                                        |
 | `doctor.oftalmologia@alivia.bo`  | Doctor (Oftalmología)     | Onboarded today — good for "brand new practice" scenarios                                                                                                        |
 
-To switch between test accounts, log out (see [Login](#login)) or use a private window.
+To switch between test accounts, log out (see [Login](http://localhost:3000/login)) or use a private window.
 
 ---
 
@@ -84,7 +84,7 @@ Shows:
   available (clickable, terracotta-highlighted if it's the doctor's soonest overall), full/taken
   (greyed out, line-through), or **too soon to book** (dashed border) — patients can't self-book a
   slot starting less than **2 hours** from now. This lead-time rule is patient-only: staff can
-  still add a walk-in into a near-term slot from Citas (see [Citas](#citas--panelappointments)).
+  still add a walk-in into a near-term slot from Citas (see [Citas](http://localhost:3000/panel/appointments)).
 
 Picking a bookable slot takes you to Booking.
 
@@ -136,7 +136,7 @@ panel. It's a 4-step wizard and you can't skip ahead until each step is valid:
 1. **Perfil** — name, specialty, phone, and the optional fields (practice name, years of
    experience, university, bio).
 2. **Ubicaciones** — add at least one Location (name + address). You can't advance with zero.
-3. **Horarios** — add Schedule blocks to those locations (see [Horarios](#horarios) below for what
+3. **Horarios** — add Schedule blocks to those locations (see [Horarios](http://localhost:3000/panel/schedule) below for what
    a block is).
 4. **Revisar** — a read-only summary of everything entered; "Entrar al panel" finishes onboarding
    and drops you into Citas.
@@ -261,7 +261,7 @@ Three stacked cards:
    in-app billing, matching the "Subscription" definition in `CONTEXT.md`.
 3. **Asistentes** — a read-only list of the doctor's assistant(s). The subtitle says
    _"Gestionadas por tu administrador"_ — a Doctor can see their assistants here but can't add,
-   remove, or edit them; that's Admin-only (see [Crear consulta](#crear-consulta--admincreate)).
+   remove, or edit them; that's Admin-only (see [Crear consulta](http://localhost:3000/admin/create)).
 
 ---
 
