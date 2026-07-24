@@ -26,7 +26,14 @@ describe("PasswordInput", () => {
   it("calls onChange with the typed value", async () => {
     const onChange = vi.fn();
     const user = userEvent.setup();
-    render(<PasswordInput id="password" value="" onChange={onChange} />);
+    render(
+      <PasswordInput
+        id="password"
+        value=""
+        onChange={onChange}
+        placeholder="••••••••"
+      />,
+    );
 
     await user.type(screen.getByPlaceholderText("••••••••"), "a");
 
