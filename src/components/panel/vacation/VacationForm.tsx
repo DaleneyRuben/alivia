@@ -8,19 +8,30 @@ import {
 
 export interface VacationFormProps {
   locations: { id: string; name: string }[];
+  initialValue?: VacationInput;
   onSubmit: (input: VacationInput) => void;
+  onCancel?: () => void;
+  error?: string | null;
 }
 
 const ALL_LOCATIONS = "";
 
-export function VacationForm({ locations, onSubmit }: VacationFormProps) {
+export function VacationForm({
+  locations,
+  initialValue,
+  onSubmit,
+  onCancel,
+  error,
+}: VacationFormProps) {
   const locationFieldId = useId();
   const startFieldId = useId();
   const endFieldId = useId();
 
-  const [locationId, setLocationId] = useState(ALL_LOCATIONS);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [locationId, setLocationId] = useState(
+    initialValue?.locationId ?? ALL_LOCATIONS,
+  );
+  const [startDate, setStartDate] = useState(initialValue?.startDate ?? "");
+  const [endDate, setEndDate] = useState(initialValue?.endDate ?? "");
 
   const input: VacationInput = {
     locationId: locationId || null,
@@ -33,8 +44,10 @@ export function VacationForm({ locations, onSubmit }: VacationFormProps) {
     event.preventDefault();
     if (!valid) return;
     onSubmit(input);
-    setStartDate("");
-    setEndDate("");
+    if (!initialValue) {
+      setStartDate("");
+      setEndDate("");
+    }
   }
 
   return (
@@ -43,8 +56,18 @@ export function VacationForm({ locations, onSubmit }: VacationFormProps) {
       className="rounded-[18px] border border-card-border bg-white p-4.5"
     >
       <div className="mb-3 text-[15px] font-bold">
-        Marcar periodo no disponible
+        {initialValue
+          ? "Editar periodo no disponible"
+          : "Marcar periodo no disponible"}
       </div>
+      {error && (
+        <div
+          role="alert"
+          className="mb-3 flex items-center gap-2 rounded-[12px] border border-error-border bg-error-bg px-3.5 py-[11px] text-[12.5px] font-semibold text-terracotta-dark"
+        >
+          ⚠ {error}
+        </div>
+      )}
       <div className="flex flex-wrap items-end gap-3">
         <div className="min-w-[130px] flex-1">
           <label
@@ -102,9 +125,18 @@ export function VacationForm({ locations, onSubmit }: VacationFormProps) {
           disabled={!valid}
           className="cursor-pointer rounded-full bg-terracotta px-5 py-3 text-[13.5px] font-bold text-white disabled:cursor-not-allowed disabled:bg-terracotta-disabled"
         >
-          Agregar
+          {initialValue ? "Guardar cambios" : "Agregar"}
         </button>
       </div>
+      {onCancel && (
+        <button
+          type="button"
+          onClick={onCancel}
+          className="mt-3 cursor-pointer border-none bg-transparent p-0 text-[13px] font-semibold text-muted"
+        >
+          Cancelar edición
+        </button>
+      )}
     </form>
   );
 }
