@@ -77,4 +77,68 @@ describe("VacationForm", () => {
     expect(screen.getByLabelText("Desde")).toHaveValue("");
     expect(screen.getByLabelText("Hasta")).toHaveValue("");
   });
+
+  it("pre-fills fields and shows a save label when editing", () => {
+    render(
+      <VacationForm
+        locations={locations}
+        onSubmit={vi.fn()}
+        initialValue={{
+          locationId: "loc-2",
+          startDate: "2026-07-15",
+          endDate: "2026-07-22",
+        }}
+      />,
+    );
+
+    expect(screen.getByLabelText("Ubicación")).toHaveValue("loc-2");
+    expect(screen.getByLabelText("Desde")).toHaveValue("2026-07-15");
+    expect(screen.getByLabelText("Hasta")).toHaveValue("2026-07-22");
+    expect(
+      screen.getByRole("button", { name: "Guardar cambios" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Editar periodo no disponible"),
+    ).toBeInTheDocument();
+  });
+
+  it("calls onCancel when Cancelar edición is clicked", async () => {
+    const user = userEvent.setup();
+    const onCancel = vi.fn();
+    render(
+      <VacationForm
+        locations={locations}
+        onSubmit={vi.fn()}
+        onCancel={onCancel}
+        initialValue={{
+          locationId: null,
+          startDate: "2026-07-15",
+          endDate: "2026-07-22",
+        }}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Cancelar edición" }));
+    expect(onCancel).toHaveBeenCalled();
+  });
+
+  it("shows the error message when one is passed", () => {
+    render(
+      <VacationForm
+        locations={locations}
+        onSubmit={vi.fn()}
+        error="Ya tienes vacaciones registradas en Clínica Sur que se cruzan con este periodo."
+      />,
+    );
+
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "Ya tienes vacaciones registradas en Clínica Sur que se cruzan con este periodo.",
+    );
+  });
+
+  it("renders no error banner when error is absent", () => {
+    render(<VacationForm locations={locations} onSubmit={vi.fn()} />);
+
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
 });
