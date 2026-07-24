@@ -1,9 +1,11 @@
 import type { ReactNode } from "react";
 import { formatMinutes } from "@/lib/schedule/formatTimeRange";
 import { initials } from "@/lib/text/initials";
+import { laPazDateTimeToUtc } from "@/lib/time/laPazDateTimeToUtc";
 
 export interface Appointment {
   id: string;
+  date: string;
   startMinutes: number;
   patientName: string;
   patientPhone: string;
@@ -17,11 +19,12 @@ export interface AppointmentListProps {
   onNoShow: (id: string) => void;
   onCancel: (id: string) => void;
   header?: ReactNode;
+  now?: Date;
 }
 
 function statusPill(status: Appointment["status"]) {
   if (status === "ATTENDED") {
-    return { text: "Atendido", className: "bg-success-bg text-success" };
+    return { text: "Asistió", className: "bg-success-bg text-success" };
   }
   if (status === "NO_SHOW") {
     return {
@@ -41,7 +44,9 @@ export function AppointmentList({
   onNoShow,
   onCancel,
   header,
+  now,
 }: AppointmentListProps) {
+  const effectiveNow = now ?? new Date();
   const nextId = appointments.find((a) => a.status === "SCHEDULED")?.id;
 
   return (
@@ -54,6 +59,11 @@ export function AppointmentList({
       )}
       {appointments.map((appointment) => {
         const pending = appointment.status === "SCHEDULED";
+        const hasPassed =
+          laPazDateTimeToUtc(
+            appointment.date,
+            appointment.startMinutes,
+          ).getTime() <= effectiveNow.getTime();
         const isNext = appointment.id === nextId;
         const tag = isNext
           ? "Siguiente"
@@ -90,20 +100,24 @@ export function AppointmentList({
             </div>
             {pending ? (
               <div className="flex flex-wrap gap-1.5">
-                <button
-                  type="button"
-                  onClick={() => onAttend(appointment.id)}
-                  className="cursor-pointer rounded-full bg-success px-3.5 py-2 text-xs font-bold text-white"
-                >
-                  Atendió
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onNoShow(appointment.id)}
-                  className="cursor-pointer rounded-full border border-input-border px-3.5 py-2 text-xs font-semibold text-muted"
-                >
-                  No asistió
-                </button>
+                {hasPassed && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => onAttend(appointment.id)}
+                      className="cursor-pointer rounded-full bg-success px-3.5 py-2 text-xs font-bold text-white"
+                    >
+                      Asistió
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onNoShow(appointment.id)}
+                      className="cursor-pointer rounded-full border border-input-border px-3.5 py-2 text-xs font-semibold text-muted"
+                    >
+                      No asistió
+                    </button>
+                  </>
+                )}
                 <button
                   type="button"
                   onClick={() => onCancel(appointment.id)}
