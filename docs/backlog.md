@@ -165,8 +165,8 @@ Design already updated in `design/`; not yet implemented. Source: decisions reco
 - [ ] Shared `ConfirmDialog` component, wired into all 9 destructive actions app-wide (Cancelar, Canceló, Desactivar/Reactivar, Restablecer contraseña, Vacation Quitar, Location Quitar, Schedule block Quitar, plus migrating the existing impersonation modal and Location-with-blocks banner onto it) ([finding #7](exploration-findings-2.md#7-most-destructive-actions-fire-immediately-no-confirmation-step--caused-a-real-accidental-cancellation))
 - [ ] Confirmaciones queue: exclude cancelled appointments from `getConfirmationsQueue` entirely instead of rendering a "Canceló" pill ([finding #8](exploration-findings-2.md#8-confirmaciones-queue--cancelled-appointments-should-drop-off-the-list-not-stay-visible))
 - [ ] Horarios: replace the native `type="time"` inputs with a custom hour/minute dropdown control for Hora de inicio/Hora de fin ([finding #9](exploration-findings-2.md#9-horarios--native-typetime-inputs-look-bad-and-deviate-from-the-design))
-- [ ] Vacaciones: add an "Editar" action per period (pre-fills the form, gated by the same before-start rule as Quitar) ([finding #10](exploration-findings-2.md#10-vacaciones--no-edit-affordance-and-no-overlap-validation-between-periods))
-- [ ] Vacaciones: add cross-period overlap validation on create/edit (`vacationsOverlap`, null-locationId as wildcard on both sides) ([finding #10](exploration-findings-2.md#10-vacaciones--no-edit-affordance-and-no-overlap-validation-between-periods))
+- [x] Vacaciones: add an "Editar" action per period (pre-fills the form, gated by the same before-start rule as Quitar) ([finding #10](exploration-findings-2.md#10-vacaciones--no-edit-affordance-and-no-overlap-validation-between-periods))
+- [x] Vacaciones: add cross-period overlap validation on create/edit (`vacationsOverlap`, null-locationId as wildcard on both sides) ([finding #10](exploration-findings-2.md#10-vacaciones--no-edit-affordance-and-no-overlap-validation-between-periods))
 
 ## 9. Ship
 
