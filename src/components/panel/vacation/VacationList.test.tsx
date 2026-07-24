@@ -23,7 +23,12 @@ const vacations = [
 describe("VacationList", () => {
   it("shows an empty state when there are no vacations", () => {
     render(
-      <VacationList vacations={[]} today="2026-07-20" onRemove={vi.fn()} />,
+      <VacationList
+        vacations={[]}
+        today="2026-07-20"
+        onEdit={vi.fn()}
+        onRemove={vi.fn()}
+      />,
     );
 
     expect(screen.getByText("No hay vacaciones próximas.")).toBeInTheDocument();
@@ -34,6 +39,7 @@ describe("VacationList", () => {
       <VacationList
         vacations={vacations}
         today="2026-07-20"
+        onEdit={vi.fn()}
         onRemove={vi.fn()}
       />,
     );
@@ -47,6 +53,7 @@ describe("VacationList", () => {
       <VacationList
         vacations={vacations}
         today="2026-07-20"
+        onEdit={vi.fn()}
         onRemove={vi.fn()}
       />,
     );
@@ -61,6 +68,7 @@ describe("VacationList", () => {
       <VacationList
         vacations={vacations}
         today="2026-07-20"
+        onEdit={vi.fn()}
         onRemove={onRemove}
       />,
     );
@@ -74,10 +82,40 @@ describe("VacationList", () => {
       <VacationList
         vacations={vacations}
         today="2026-07-20"
+        onEdit={vi.fn()}
         onRemove={vi.fn()}
       />,
     );
 
     expect(screen.getAllByRole("button", { name: "Quitar" })).toHaveLength(1);
+  });
+
+  it("allows editing an upcoming period", async () => {
+    const user = userEvent.setup();
+    const onEdit = vi.fn();
+    render(
+      <VacationList
+        vacations={vacations}
+        today="2026-07-20"
+        onEdit={onEdit}
+        onRemove={vi.fn()}
+      />,
+    );
+
+    await user.click(screen.getAllByRole("button", { name: "Editar" })[0]);
+    expect(onEdit).toHaveBeenCalledWith(vacations[0]);
+  });
+
+  it("hides the edit action once a period has already started", () => {
+    render(
+      <VacationList
+        vacations={vacations}
+        today="2026-07-20"
+        onEdit={vi.fn()}
+        onRemove={vi.fn()}
+      />,
+    );
+
+    expect(screen.getAllByRole("button", { name: "Editar" })).toHaveLength(1);
   });
 });
