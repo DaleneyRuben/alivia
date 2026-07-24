@@ -12,12 +12,14 @@ export interface Vacation {
 export interface VacationListProps {
   vacations: Vacation[];
   today: string;
+  onEdit: (vacation: Vacation) => void;
   onRemove: (id: string) => void;
 }
 
 export function VacationList({
   vacations,
   today,
+  onEdit,
   onRemove,
 }: VacationListProps) {
   if (vacations.length === 0) {
@@ -46,13 +48,22 @@ export function VacationList({
               </div>
             </div>
             {removable && (
-              <button
-                type="button"
-                onClick={() => onRemove(vacation.id)}
-                className="cursor-pointer rounded-full border border-error-border px-3.5 py-2 text-xs font-semibold text-terracotta-deep"
-              >
-                Quitar
-              </button>
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => onEdit(vacation)}
+                  className="cursor-pointer rounded-full border border-input-border px-3.5 py-2 text-xs font-semibold text-body-soft"
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onRemove(vacation.id)}
+                  className="cursor-pointer rounded-full border border-error-border px-3.5 py-2 text-xs font-semibold text-terracotta-deep"
+                >
+                  Quitar
+                </button>
+              </div>
             )}
           </div>
         );
