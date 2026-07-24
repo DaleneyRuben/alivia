@@ -99,7 +99,7 @@ describe("AppointmentList", () => {
       />,
     );
 
-    const attendButtons = screen.getAllByRole("button", { name: "Atendió" });
+    const attendButtons = screen.getAllByRole("button", { name: "Asistió" });
     expect(attendButtons).toHaveLength(2);
 
     await user.click(attendButtons[0]);
@@ -116,6 +116,8 @@ describe("AppointmentList", () => {
       />,
     );
 
-    expect(screen.getByText("Atendido")).toBeInTheDocument();
+    expect(
+      screen.getByText("Asistió", { selector: "span" }),
+    ).toBeInTheDocument();
   });
 });

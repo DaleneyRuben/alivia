@@ -120,7 +120,7 @@ describe("AppointmentsEditor", () => {
     const user = userEvent.setup();
     renderEditor();
 
-    await user.click(screen.getByRole("button", { name: "Atendió" }));
+    await user.click(screen.getByRole("button", { name: "Asistió" }));
 
     expect(updateAppointmentStatus).toHaveBeenCalledWith("a1", "ATTENDED");
     expect(refresh).toHaveBeenCalled();
