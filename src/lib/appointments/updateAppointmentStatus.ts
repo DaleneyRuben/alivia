@@ -6,7 +6,7 @@ import { requireDoctorId } from "@/lib/schedule/requireDoctorId";
 
 type TerminalStatus = "ATTENDED" | "NO_SHOW" | "CANCELLED";
 
-// Atendió / No asistió / Cancelar — only valid while the Appointment is still
+// Asistió / No asistió / Cancelar — only valid while the Appointment is still
 // SCHEDULED (docs/flows/domain-lifecycles.md §1: these are final states).
 export async function updateAppointmentStatus(
   appointmentId: string,

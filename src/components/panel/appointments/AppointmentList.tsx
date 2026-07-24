@@ -21,7 +21,7 @@ export interface AppointmentListProps {
 
 function statusPill(status: Appointment["status"]) {
   if (status === "ATTENDED") {
-    return { text: "Atendido", className: "bg-success-bg text-success" };
+    return { text: "Asistió", className: "bg-success-bg text-success" };
   }
   if (status === "NO_SHOW") {
     return {
@@ -95,7 +95,7 @@ export function AppointmentList({
                   onClick={() => onAttend(appointment.id)}
                   className="cursor-pointer rounded-full bg-success px-3.5 py-2 text-xs font-bold text-white"
                 >
-                  Atendió
+                  Asistió
                 </button>
                 <button
                   type="button"
