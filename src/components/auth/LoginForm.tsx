@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSession, signIn } from "next-auth/react";
 import { postLoginPath } from "@/lib/auth/postLoginPath";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 
 export function LoginForm() {
   const router = useRouter();
@@ -71,13 +72,11 @@ export function LoginForm() {
           >
             Contraseña
           </label>
-          <input
+          <PasswordInput
             id="password"
-            type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             placeholder="••••••••"
-            className="w-full border border-input-border bg-white rounded-[14px] px-4 py-[13px] text-sm outline-none focus:border-terracotta"
           />
         </div>
         <button
