@@ -149,7 +149,26 @@ Design already updated in `design/`; not yet implemented. Source: decisions reco
 - [x] Horarios: reject a schedule block that overlaps another of the doctor's blocks in weekday + time range across locations, with a clear in-UI error ([finding #5](exploration-findings.md#5-horarios-schedule-editor--a-doctor-can-create-impossible-double-booked-availability))
 - [x] Result card (Home + Results): remove the whole-card link — only "Reservar" navigates to the profile ([finding #6](exploration-findings.md#6-result-card-home--results--whole-card-is-clickable-only-reservar-should-be))
 
-## 8. Ship
+## 8. Post-exploration UX fixes, round 2
+
+Design already updated in `design/`; not yet implemented. Source: decisions recorded in
+[`exploration-findings-2.md`](exploration-findings-2.md).
+
+- [ ] Home + Results: merge into a single page — chip/search updates the doctor list in place and syncs the active specialty/search term into the URL, replacing the separate `/results` route ([finding #1](exploration-findings-2.md#1-home-searchspecialty-chips-navigate-to-a-separate-page-instead-of-filtering-in-place))
+- [ ] Doctor profile page: drop the two-column split — "Sobre el doctor" full-width on top, compact left-aligned calendar + 3-column slot grid stacked below, at every screen width ([finding #2](exploration-findings-2.md#2-doctor-profile-page--two-column-layout-leaves-the-left-column-mostly-empty))
+- [ ] App-wide: a fade transition on every route change (all 21 routes) via Next.js View Transitions, no new dependency ([finding #3](exploration-findings-2.md#3-no-page-transition-animation-and-no-loading-skeletons-anywhere))
+- [ ] App-wide: a `loading.tsx` per route (all 21 routes), each skeleton shaped to that page's own content rather than one generic spinner ([finding #3](exploration-findings-2.md#3-no-page-transition-animation-and-no-loading-skeletons-anywhere))
+- [ ] Login: reusable `PasswordInput` component with a show/hide eye-glyph toggle, swapped into `LoginForm` (and assumed for the future `/set-password` screen) ([finding #4](exploration-findings-2.md#4-login-page--password-field-has-no-showhide-toggle))
+- [ ] Phone input: replace the bare native `<select>` arrow with a styled `▾` chevron (matching `UserMenu`'s pattern) across all four country-code dropdown instances ([finding #5](exploration-findings-2.md#5-phone-input-country-code-dropdown--bare-native-arrow-cramped-against-the-dial-code))
+- [ ] Citas queue: rename "Atendió"/"Atendido" → "Asistió" everywhere, so the button and status pill share the same verb family as "No asistió" ([finding #6](exploration-findings-2.md#6-citas-queue--atendió-copy-mismatch-and-no-future-time-guard-on-attendedno-show))
+- [ ] Citas queue: hide Asistió/No asistió until the appointment's scheduled time has passed, enforced both client-side and server-side in `updateAppointmentStatus` ([finding #6](exploration-findings-2.md#6-citas-queue--atendió-copy-mismatch-and-no-future-time-guard-on-attendedno-show))
+- [ ] Shared `ConfirmDialog` component, wired into all 9 destructive actions app-wide (Cancelar, Canceló, Desactivar/Reactivar, Restablecer contraseña, Vacation Quitar, Location Quitar, Schedule block Quitar, plus migrating the existing impersonation modal and Location-with-blocks banner onto it) ([finding #7](exploration-findings-2.md#7-most-destructive-actions-fire-immediately-no-confirmation-step--caused-a-real-accidental-cancellation))
+- [ ] Confirmaciones queue: exclude cancelled appointments from `getConfirmationsQueue` entirely instead of rendering a "Canceló" pill ([finding #8](exploration-findings-2.md#8-confirmaciones-queue--cancelled-appointments-should-drop-off-the-list-not-stay-visible))
+- [ ] Horarios: replace the native `type="time"` inputs with a custom hour/minute dropdown control for Hora de inicio/Hora de fin ([finding #9](exploration-findings-2.md#9-horarios--native-typetime-inputs-look-bad-and-deviate-from-the-design))
+- [ ] Vacaciones: add an "Editar" action per period (pre-fills the form, gated by the same before-start rule as Quitar) ([finding #10](exploration-findings-2.md#10-vacaciones--no-edit-affordance-and-no-overlap-validation-between-periods))
+- [ ] Vacaciones: add cross-period overlap validation on create/edit (`vacationsOverlap`, null-locationId as wildcard on both sides) ([finding #10](exploration-findings-2.md#10-vacaciones--no-edit-affordance-and-no-overlap-validation-between-periods))
+
+## 9. Ship
 
 - [x] CI: lint, typecheck, frontend tests, backend tests ([project-standards](../.claude/skills/project-standards/SKILL.md))
 - [x] Production deployment + environment config ([ADR-0012](adr/0012-mvp-tech-stack.md))
