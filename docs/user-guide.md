@@ -171,8 +171,8 @@ The daily queue — this is the screen a doctor/assistant lives in most of the d
 - A **location switcher** (only relevant if the doctor has more than one Location, e.g.
   `doctor.cardiologia@alivia.bo`) filters the queue to one location's appointments.
 - Each row shows the time, patient name + phone, and a status action:
-  - Pending appointments (status `SCHEDULED`) get three buttons: **Asistió**, **No asistió**,
-    **Cancelar**.
+  - Pending appointments (status `SCHEDULED`) always get a **Cancelar** button; **Asistió** and
+    **No asistió** join it once the appointment's scheduled time has actually passed.
   - Already-resolved appointments show a pill instead: "Asistió", "No asistió", or "Cancelada".
   - The very next pending appointment in the queue is tagged **"Siguiente"** — this is purely the
     first `SCHEDULED` row in time order, not a separate flag.

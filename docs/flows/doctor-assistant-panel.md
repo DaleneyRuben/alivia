@@ -97,9 +97,10 @@ flowchart TD
     Ok --> Save
     Save --> List
     List --> Row{"Per-row action while pending"}
-    Row -->|"Asistió"| Att["status → Attended"]
-    Row -->|"No asistió"| Ns["status → No-show"]
-    Row -->|"Cancelar"| Can["status → Cancelled (frees the Slot)"]
+    Row -->|"Cancelar (always available)"| Can["status → Cancelled (frees the Slot)"]
+    Row -->|"once scheduled time has passed"| Passed{"Asistió / No asistió"}
+    Passed -->|"Asistió"| Att["status → Attended"]
+    Passed -->|"No asistió"| Ns["status → No-show"]
     Att --> Nxt["'Siguiente' marker advances to next pending row (same day)"]
     Ns --> Nxt
 ```
