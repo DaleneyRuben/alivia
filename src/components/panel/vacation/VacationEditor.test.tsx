@@ -3,16 +3,20 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { VacationEditor } from "./VacationEditor";
 
-const { refresh, createVacation, deleteVacation } = vi.hoisted(() => ({
-  refresh: vi.fn(),
-  createVacation: vi.fn().mockResolvedValue(undefined),
-  deleteVacation: vi.fn().mockResolvedValue(undefined),
-}));
+const { refresh, createVacation, updateVacation, deleteVacation } = vi.hoisted(
+  () => ({
+    refresh: vi.fn(),
+    createVacation: vi.fn().mockResolvedValue(undefined),
+    updateVacation: vi.fn().mockResolvedValue(undefined),
+    deleteVacation: vi.fn().mockResolvedValue(undefined),
+  }),
+);
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ refresh }),
 }));
 vi.mock("@/lib/vacation/createVacation", () => ({ createVacation }));
+vi.mock("@/lib/vacation/updateVacation", () => ({ updateVacation }));
 vi.mock("@/lib/vacation/deleteVacation", () => ({ deleteVacation }));
 
 const locations = [{ id: "loc-1", name: "Consultorio Zabala" }];
@@ -75,5 +79,60 @@ describe("VacationEditor", () => {
 
     expect(deleteVacation).toHaveBeenCalledWith("v1");
     expect(refresh).toHaveBeenCalled();
+  });
+
+  it("pre-fills the form and updates the vacation when edited", async () => {
+    const user = userEvent.setup();
+    renderEditor();
+
+    await user.click(screen.getByRole("button", { name: "Editar" }));
+
+    expect(screen.getByLabelText("Desde")).toHaveValue("2026-07-25");
+    expect(
+      screen.getByText("Editar periodo no disponible"),
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Guardar cambios" }));
+
+    expect(updateVacation).toHaveBeenCalledWith({
+      vacationId: "v1",
+      locationId: null,
+      startDate: "2026-07-25",
+      endDate: "2026-07-28",
+    });
+    expect(refresh).toHaveBeenCalled();
+  });
+
+  it("closes the edit form when Cancelar edición is clicked", async () => {
+    const user = userEvent.setup();
+    renderEditor();
+
+    await user.click(screen.getByRole("button", { name: "Editar" }));
+    await user.click(screen.getByRole("button", { name: "Cancelar edición" }));
+
+    expect(
+      screen.getByText("Marcar periodo no disponible"),
+    ).toBeInTheDocument();
+  });
+
+  it("shows the server's overlap error and keeps the edit open", async () => {
+    updateVacation.mockRejectedValueOnce(
+      new Error(
+        "Ya tienes vacaciones registradas en Consultorio Zabala que se cruzan con este periodo.",
+      ),
+    );
+    const user = userEvent.setup();
+    renderEditor();
+
+    await user.click(screen.getByRole("button", { name: "Editar" }));
+    await user.click(screen.getByRole("button", { name: "Guardar cambios" }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Ya tienes vacaciones registradas en Consultorio Zabala que se cruzan con este periodo.",
+    );
+    expect(refresh).not.toHaveBeenCalled();
+    expect(
+      screen.getByRole("button", { name: "Guardar cambios" }),
+    ).toBeInTheDocument();
   });
 });
