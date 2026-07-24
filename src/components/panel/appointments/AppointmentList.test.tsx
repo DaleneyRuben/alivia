@@ -3,9 +3,13 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { AppointmentList } from "./AppointmentList";
 
+// 16:00 La Paz on 2026-07-20 — after every SCHEDULED fixture's startMinutes below
+const NOW = new Date("2026-07-20T20:00:00.000Z");
+
 const appointments = [
   {
     id: "a1",
+    date: "2026-07-20",
     startMinutes: 540,
     patientName: "Juana Pérez",
     patientPhone: "+591 71234567",
@@ -14,6 +18,7 @@ const appointments = [
   },
   {
     id: "a2",
+    date: "2026-07-20",
     startMinutes: 600,
     patientName: "Mario Soto",
     patientPhone: "+591 76543210",
@@ -22,6 +27,7 @@ const appointments = [
   },
   {
     id: "a3",
+    date: "2026-07-20",
     startMinutes: 660,
     patientName: "Ana Vargas",
     patientPhone: "+591 79988776",
@@ -38,6 +44,7 @@ describe("AppointmentList", () => {
         onAttend={vi.fn()}
         onNoShow={vi.fn()}
         onCancel={vi.fn()}
+        now={NOW}
       />,
     );
 
@@ -53,6 +60,7 @@ describe("AppointmentList", () => {
         onAttend={vi.fn()}
         onNoShow={vi.fn()}
         onCancel={vi.fn()}
+        now={NOW}
       />,
     );
 
@@ -68,6 +76,7 @@ describe("AppointmentList", () => {
         onAttend={vi.fn()}
         onNoShow={vi.fn()}
         onCancel={vi.fn()}
+        now={NOW}
       />,
     );
 
@@ -81,6 +90,7 @@ describe("AppointmentList", () => {
         onAttend={vi.fn()}
         onNoShow={vi.fn()}
         onCancel={vi.fn()}
+        now={NOW}
       />,
     );
 
@@ -96,6 +106,7 @@ describe("AppointmentList", () => {
         onAttend={onAttend}
         onNoShow={vi.fn()}
         onCancel={vi.fn()}
+        now={NOW}
       />,
     );
 
@@ -113,11 +124,71 @@ describe("AppointmentList", () => {
         onAttend={vi.fn()}
         onNoShow={vi.fn()}
         onCancel={vi.fn()}
+        now={NOW}
       />,
     );
 
     expect(
       screen.getByText("Asistió", { selector: "span" }),
+    ).toBeInTheDocument();
+  });
+
+  it("hides Asistió/No asistió for an appointment whose time hasn't passed yet", () => {
+    render(
+      <AppointmentList
+        appointments={[
+          {
+            id: "future",
+            date: "2026-07-21",
+            startMinutes: 540,
+            patientName: "Pedro Gómez",
+            patientPhone: "+591 70011223",
+            status: "SCHEDULED" as const,
+            source: "PATIENT" as const,
+          },
+        ]}
+        onAttend={vi.fn()}
+        onNoShow={vi.fn()}
+        onCancel={vi.fn()}
+        now={NOW}
+      />,
+    );
+
+    expect(
+      screen.queryByRole("button", { name: "Asistió" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "No asistió" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Cancelar" }),
+    ).toBeInTheDocument();
+  });
+
+  it("shows Asistió/No asistió once the appointment's time has passed", () => {
+    render(
+      <AppointmentList
+        appointments={[
+          {
+            id: "past",
+            date: "2026-07-20",
+            startMinutes: 540,
+            patientName: "Pedro Gómez",
+            patientPhone: "+591 70011223",
+            status: "SCHEDULED" as const,
+            source: "PATIENT" as const,
+          },
+        ]}
+        onAttend={vi.fn()}
+        onNoShow={vi.fn()}
+        onCancel={vi.fn()}
+        now={NOW}
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Asistió" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "No asistió" }),
     ).toBeInTheDocument();
   });
 });
